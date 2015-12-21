@@ -4,6 +4,7 @@ title: 'MPC IT Shark Tank - Cycle 1 Results'
 teaser: 'The results of our first-ever MPC IT Shark Tank round are in, and a winner has been crowned!'
 author: fran
 categories: team
+date: 2015-12-21 09:00:00
 ---
 
 If you've been following our blog, you might remember that we launched [MPC IT Shark Tank](http://tech.popdata.org/mpc-it-shark-tank/) back in August.  Four months later, the results are in, and the experiment has been a big success!
