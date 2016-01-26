@@ -12,9 +12,7 @@ permalink: /working-mpc/career-opportunities/
 ---
 <a href="/images/u-of-m-fense-flowers.jpg"><img class="size-medium wp-image-292 alignright" src="/images/u-of-m-fense-flowers-300x201.jpg" alt="u-of-m-fence-flowers" width="300" height="201" /></a>
 
-**Linux System Administrator (MPC IT Operations Team)** - We are currently seeking a sysadmin for the MPC IT Operations team.   The ideal candidate will have strong foundational Linux sysadmin  skills along with a particular interest in clustered/distributed computing. In this wide-ranging role, you will have the potential to work on challenges as diverse as automated scale-up/scale-down of infrastructure, caching layers, build-out of continuous integration / continuous deployment environments, improvement of API call performance, and management of our data processing pipelines using technologies such as Apache Spark.  
-
-For more details, see the [official job posting]({{ site.url }}/assets/docs/LinuxSysadminNov2015.pdf).
+There are no job openings with MPC IT at this time. Thanks for your interest!
 
 ---
 
