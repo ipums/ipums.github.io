@@ -132,15 +132,14 @@ There are two basic workflow approaches for authoring blog posts, each with its 
 
 _Note: If you don't have Jekyll installed, please see [Instructions for Installing and Running Jekyll Locally](#install) first._
 
-1. Fork this repository on github.com.
-2. Clone it locally.
-3. (Optional) Create a branch.  Probably only necessary if you want to work on multiple posts at once.
+1. Clone the repo locally.
+1. Create / checkout a new branch for this post.
 1. Navigate into the _posts directory.
 1. Create a new file in the _posts directory. Use the naming scheme "YYYY-MM-DD-title-of-my-post.markdown" for your new file.
 1. Create your post. Follow the directions for [Creating Blog Post Content](#content_reqs) below.
 1. Start your Jekyll server if you haven't already, and preview your work.
-1. When done, add your new file, commit your changes, and push to your forked repo to Github.
-1. Go to the Github web interface for the forked repository, and [create a pull request](https://help.github.com/articles/creating-a-pull-request/) back to the master branch of the main repo. 
+1. When done, add your new file, commit your changes, and push your branch to Github.
+1. Go to the Github web interface for the repository, and [create a pull request](https://help.github.com/articles/creating-a-pull-request/) back to the master branch. 
 
 #### Method 2: Online via the Github Web Interface
 
@@ -148,28 +147,21 @@ _Note: If you don't have Jekyll installed, please see [Instructions for Installi
 * Cons: No way to preview the post.
 * Best for: Very simple posts. Posts written externally that you just want to cut and paste. Fixes to existing posts. 
 
-1. If you don't already have a fork of the repository:
-  1. Open a browser to the repository: <http://github.com/mnpopcenter/mnpopcenter.github.io>.
-  1. Fork the repository.
-1. If you already have a fork of the repository (and want to keep it instead of just tossing it out and doing the step above instead):
-  1. Navigate to your fork.
-  1. Update your fork from the upstream source (see [here](http://stackoverflow.com/questions/22318145/update-github-fork-from-web-only-in-other-words-without-git) for a way to do this right from the web or [here](http://stackoverflow.com/questions/7244321/how-to-update-github-forked-repository))
-1. Navigate into the _posts directory of your fork.
+1. Go to the repo on GitHub and create a new branch.
+1. Navigate into the _posts directory of your branch.
 1. Click the + icon to create a new file in the _posts directory. Use the naming scheme "YYYY-MM-DD-title-of-my-post.markdown" for your new file.
 1. Create your post. Follow the directions for [Creating Blog Post Content](#content_reqs).
-1. When done, submit a pull request back to the main repo.
+1. When done, submit a pull request back to the master branch.
 
 ## <a name="install">Instructions for Installing and Running Jekyll Locally</a>
 
-1. Clone your forked repository to your local machine.
+1. Clone the repository to your local machine.
 1. (Optional) Create a new gemset in your Ruby environment.
 1. From the root of the repository, run `bundle install`.
 
 Now you have Jekyll and its dependencies installed.  To start the Jekyll server:
 
 1. Run the command `jekyll serve --config _config.yml,_config_dev.yml`
-1. The site should be viewable at http://localhost:4000
-
-Note that Jekyll will report that it started on http://0.0.0.0:4000/, but at least on my system the server is not reachable at this address, you have to use http://localhost:4000/.  
+1. The site should be viewable at http://127.0.0.1:4000
 
 You can keep the server running, and it will automatically detect changes to files in the repository and rebuild the site accordingly.  At this point you can iterate over your blog post authoring using Method 2 above, and preview the site locally as you go.
