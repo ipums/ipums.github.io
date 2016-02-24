@@ -78,18 +78,16 @@ After the end of the front matter, the rest of the file contains your blog post 
 
 Jekyll on GitHub Pages uses Rogue to provide syntax-highlighted code blocks in posts.  To use Rogue, wrap your code block by starting it with \`\`\` langname (e.g. \`\`\` ruby) and ending it with \`\`\`.  For example:
 
-``
-``` ruby
-flr_file.each_record do |record|
-  customer = Customer.new
-  customer.name = record.name
-  customer.street = record.street
-  customer.zip = record.zip
-  customer.save
-end
-```
-``
-
+    ``` ruby
+    flr_file.each_record do |record|
+      customer = Customer.new
+      customer.name = record.name
+      customer.street = record.street
+      customer.zip = record.zip
+      customer.save
+    end
+    ```
+ 
 produces
 
 ``` ruby
