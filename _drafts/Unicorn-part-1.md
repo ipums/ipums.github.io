@@ -6,6 +6,7 @@ author: jdomingo
 categories:
 ---
 
+
 Last year, the IT Core tackled a lot of [technical debt]({{site.url}}/mpc-it-new-years-resolutions-technical-debt-edition/) here at the MPC.  A sizeable chunk of that debt is VBA legacy code.  This VBA code is a collection of 62 macros for Excel and Word that researchers use to work with metadata on [IPUMS projects](https://www.ipums.org/).  Over 80% of these macros are used in Excel.  As part of the [inaugural Shark Tank cycle]({{site.url}}/Shark-Tank-Cycle-1-Results/), our team, Unicorn Rainbows, tackled the Excel side of this code base.
 
 The team's main strategy for debt reduction is replacing VBA code with Python.  For this, we leveraged [xlwings](http://xlwings.org/) and [Miniconda](http://conda.pydata.org/miniconda.html).  We'll cover that work in future posts.  To facilitate this strategy, we had to refactor the VBA code.  The initial phase of that refactoring focused on menu creation.
