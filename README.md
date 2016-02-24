@@ -78,7 +78,6 @@ After the end of the front matter, the rest of the file contains your blog post 
 
 Jekyll on GitHub Pages uses Rogue to provide syntax-highlighted code blocks in posts.  To use Rogue, use the tags `{% highlight _lang_ %}` and `{% endhighlight %}` to surround your code.  For example:
 
-~~~
 ``` ruby
 flr_file.each_record do |record|
   customer = Customer.new
@@ -88,7 +87,6 @@ flr_file.each_record do |record|
   customer.save
 end
 ```
-~~~
 
 (I can't show you what this would produce on the blog because Github doesn't apply Jekyll to the page you're currently reading, so it doesn't recognize Liquid tags).
 
