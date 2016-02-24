@@ -4,14 +4,14 @@ This is the MPC IT Blog repository.  This blog is managed using the Jekyll blogg
 
 The advantage to this approach over other blogging platforms (e.g. Wordpress) is that the resulting site is purely static - there is no PHP or database to worry about.  And since it's hosted at Github, there is no web hosting service to worry about, either.  It also allows the publishing pathway to be based on git, which is already familiar to MPC IT staff.
 
-The blog is managed like any other git/Github repository.  Blog editors manage the master repository.  Blog authors create new content on forks and then submit pull requests to the editors.  The author and editor will collaborate on the pull request, and once the post is ready the editor will merge it into the master branch of the main repo, triggering a site rebuild to publish the new content.
+The blog is managed like any other git/Github repository.  Blog editors manage the master branch (this is by convention; git/github won't prevent others from committing to master, but please do not).  Blog authors create new content on branches and then submit pull requests to master.  The author and editor will collaborate on the pull request, and once the post is ready the editor will merge it into the master branch, triggering a site rebuild to publish the new content.
 
 ## Instructions for Blog Authors
 
 ### TL;DR
 
-1. Fork this repo.
-2. Clone your fork locally.
+1. Create a new branch.
+2. Check out your new branch locally.
 3. Create a file in the _posts directory called YYYY-MM-DD-this-is-my-title.markdown
 4. Start the file with this block of yaml delimited by "---", called "Jekyll front matter":
 
@@ -30,14 +30,14 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
     ```
     Categories and tags are optional and can be omitted.
 5. Add your markdown-formatted blog content below the front matter.
-6. (First time only) Run `bundle install`
+6a. (First time only) Run `bundle install`
+ OR
+6b. (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages.
 7. Run `jekyll serve --config _config.yml,_config_dev.yml`
 8. Open http://localhost:4000/ (or whatever URL Jekyll reported that it used in the last step) and check your work.
 9. Iterate.  The local server will reflect changes automatically by detecting when files change.
 10. When done, do `git add . && git commit -a && git push`
-11. Submit a pull request back to this repo.  If you want someone else to do an editing pass on it before merging, you need to add their github.com account as a read/write collaborator on _your fork_ of the repo.
-
-You can reuse the same git clone to do future blog posts, too.  You might want to merge upstream first, but it's actually not necessary.
+11. Submit a pull request back to the master branch.
 
 You really ought to read the rest of these instructions, though.
 
@@ -45,9 +45,9 @@ You really ought to read the rest of these instructions, though.
 
 Jekyll posts are mostly just text files.  You can write your content in the editor of your choice.
 
-By incorporating special syntax into your posts, you have access to a good deal of Jekyll functionality.  Each blog post file should start with front matter (described in the next section).  That signals Jekyll to run this file gets run through the Jekyll engine, which means that at site generation time, the file gets processed by an input converter (e.g. Markdown -> HTML or Textile -> HTML) and also by the template engine, which is called Liquid.  Liquid tags allow you to do things like invoke the syntax highlighting code block feature or retrieve the site URL value.
+By incorporating special syntax into your posts, you have access to a good deal of Jekyll functionality.  Each blog post file should start with front matter (described in the next section).  That signals Jekyll to run this file through the Jekyll engine, which means that at site generation time, the file gets processed by a Markdown -> HTML converter and also by the template engine, which is called Liquid.  Liquid tags allow you to do things like invoke the syntax highlighting code block feature or retrieve the site URL value.
 
-For this site we have standardized on markdown as our input format.  Specifically, [Kramdown markdown](http://kramdown.gettalong.org/syntax.html).
+For your markdown syntax, we specifically use [Kramdown markdown](http://kramdown.gettalong.org/syntax.html).
 
 #### Blog Post Metadata - Jekyll front-matter
 
@@ -76,10 +76,10 @@ After the end of the front matter, the rest of the file contains your blog post 
 
 #### Including Code in Your Posts
 
-Jekyll on GitHub Pages uses Pygments to provide syntax-highlighted code blocks in posts.  To use Pygments, use the tags `{% highlight _lang_ %}` and `{% endhighlight %}` to surround your code.  For example:
+Jekyll on GitHub Pages uses Rogue to provide syntax-highlighted code blocks in posts.  To use Rogue, use the tags `{% highlight _lang_ %}` and `{% endhighlight %}` to surround your code.  For example:
 
 ~~~
-{% highlight ruby %}
+``` ruby
 flr_file.each_record do |record|
   customer = Customer.new
   customer.name = record.name
@@ -87,14 +87,14 @@ flr_file.each_record do |record|
   customer.zip = record.zip
   customer.save
 end
-{% endhighlight %}
+```
 ~~~
 
 (I can't show you what this would produce on the blog because Github doesn't apply Jekyll to the page you're currently reading, so it doesn't recognize Liquid tags).
 
-Pygments offers hundreds of languages.  Some useful ones for us are ruby, python, python3, perl, sql, bash, java, css, yaml, c, c++, js, json, html and text.
+Rogue offers support for over 75 languages.  Some useful ones for us are ruby, python, python3, perl, sql, bash, java, css, yaml, c, c++, js, json, html and text.
 
-_Warning: Do not try to use other flavors of markdown fenced code blocks (e.g. "~~~" or "```").  They will not work in the Jekyll/GitHub Pages ecosystem._
+_Warning: Do not try to use other flavors of markdown fenced code blocks (e.g. "~~~").  They will not work in the Jekyll/GitHub Pages ecosystem._
 
 To create inline code snippets, use markdown code spans with the single backticks.  These _do_ work on GitHub Pages sites.  For example:
 
