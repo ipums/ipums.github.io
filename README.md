@@ -76,7 +76,21 @@ After the end of the front matter, the rest of the file contains your blog post 
 
 #### Including Code in Your Posts
 
-Jekyll on GitHub Pages uses Rogue to provide syntax-highlighted code blocks in posts.  To use Rogue, use the tags `{% highlight _lang_ %}` and `{% endhighlight %}` to surround your code.  For example:
+Jekyll on GitHub Pages uses Rogue to provide syntax-highlighted code blocks in posts.  To use Rogue, wrap your code block by starting it with \`\`\` langname (e.g. \`\`\` ruby) and ending it with \`\`\`.  For example:
+
+``
+``` ruby
+flr_file.each_record do |record|
+  customer = Customer.new
+  customer.name = record.name
+  customer.street = record.street
+  customer.zip = record.zip
+  customer.save
+end
+```
+``
+
+produces
 
 ``` ruby
 flr_file.each_record do |record|
@@ -87,8 +101,6 @@ flr_file.each_record do |record|
   customer.save
 end
 ```
-
-(I can't show you what this would produce on the blog because Github doesn't apply Jekyll to the page you're currently reading, so it doesn't recognize Liquid tags).
 
 Rogue offers support for over 75 languages.  Some useful ones for us are ruby, python, python3, perl, sql, bash, java, css, yaml, c, c++, js, json, html and text.
 
