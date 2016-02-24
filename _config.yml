@@ -51,8 +51,8 @@ markdown: kramdown
 kramdown:
     input: GFM
 permalink: /:title/
-highlight: pygments
-highlighter: pygments  #flf added
+highlight: rogue
+highlighter: rogue  #flf added
 excerpt_separator: "\n\n"
 exclude: []
 include: ['.htaccess']
