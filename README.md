@@ -30,9 +30,7 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
     ```
     Categories and tags are optional and can be omitted.
 5. Add your markdown-formatted blog content below the front matter.
-6a. (First time only) Run `bundle install`
- OR
-6b. (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages.
+6 (First time only) Run `bundle install` _OR_ (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages.
 7. Run `jekyll serve --config _config.yml,_config_dev.yml`
 8. Open http://localhost:4000/ (or whatever URL Jekyll reported that it used in the last step) and check your work.
 9. Iterate.  The local server will reflect changes automatically by detecting when files change.
