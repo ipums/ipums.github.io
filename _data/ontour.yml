@@ -1,3 +1,8 @@
+- date: 2016-05-28
+  title: PyCon
+  location: Portland, OR
+  who: Multiple
+  text: Attending
 
 - date: 2016-04-25
   title: MinneWebCon
@@ -5,10 +10,16 @@
   who: TBD
   text: Attending
   
+- date: 2014-02-17
+  title: Elastic{on}
+  location: San Francisco, CA
+  who: Fran Fabrizio
+  text: Attending
+
 - date: 2016-01-24
   title: CodeFreeze
   location: Minneapolis, MN
-  who: TBD
+  who: Fran Fabrizio, Alex Jokela, Kevin Horne
   text: Attending
  
 - date: 2015-11-08
