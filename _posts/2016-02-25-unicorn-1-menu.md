@@ -17,7 +17,7 @@ Our Excel add-in provides 51 metadata tools (i.e., macros) in a menu with severa
 
 The add-in's menu is defined in a complex 2-dimensional array.  Here's the snippet of VBA code that defines the submenu above:
 
-{% highlight vb.net %}
+``` vb
 'Menu commands. The mac() sub-arrays have the following structure:
 '    macro name (0 for submenus)
 '    caption
@@ -66,7 +66,7 @@ mac(22) = Array("IpDdMasterPropagate", "&Propagate edits from a master data dict
 mac(23) = Array("IpDdAdjustColLocations", "Adjust &column locations", True, msoControlButton, 1)
 mac(24) = Array("IpDdMakeLeftSideBClean", "Make metadata for &leftside-B cleaning", False, msoControlButton, 1)
 mac(25) = Array("IpDdGetFrequencies", "Get &frequencies", False, msoControlButton, 1)
-{% endhighlight %}
+```
 
 Even with comments, it's hard to visualize what all the array elements do without studying the code that creates the menu from the array.  It's not visually obvious whether an item is in the top-level menu or one of the submenus.  Or that `True` for the third element in an item's subarray -- "Begin a group" -- puts a line separator between that menu item and the preceeding item.
 
@@ -74,7 +74,7 @@ Furthermore, maintaining the menu definition in the master array is challenging.
 
 To address these issues, we explored how to simplify the menu's definition.  Since we're integrating Python into this project, we took inspiration from its use of indentation to indicate code structure.  We developed a simple text format to define a menu that's independent of any programming language.  This new definition format visibly reflects the menu's multi-level structure; here's the snippet of the new definition for the submenu above:
 
-{% highlight text %}
+``` plaintext
 &Data dictionaries  ==>
     &Show all rows or just variables  |  IpDdShowAllOrJustVars
     
@@ -120,7 +120,7 @@ To address these issues, we explored how to simplify the menu's definition.  Sin
     Adjust &column locations                |  IpDdAdjustColLocations
     Make metadata for &leftside-B cleaning  |  IpDdMakeLeftSideBClean
     Get &frequencies                        |  IpDdGetFrequencies
-{% endhighlight %}
+```
 
 The basic elements in the menu definition are:
 
@@ -134,7 +134,7 @@ The [VBA module][] to create a custom Excel menu from an array of strings with a
 
 [VBA module]:  https://github.com/mnpopcenter/vba-libs/blob/master/menu_lib.bas
 
-{% highlight vb.net %}
+``` vb
 Const MENU_DEFINITION = _
     "Foo | FooMacro"                              & vbLf & _
     "Bar | BarMacro"                              & vbLf & _
@@ -152,6 +152,11 @@ Sub MakeMenu()
     menu_defn = Split(MENU_DEFINITION, vbLf)
     menu_library.AddCustomMenu("My Menu", menu_defn)
 End Sub
-{% endhighlight %}
+```
 
-This approach works fine with menu definitions of modest length.  Given that our complete menu definition is over a hundred lines with comments, we chose to read the definition from a text file.  This alternative approach provides several benefits; for example, we no longer need to escape double quotes in menu actions.  The most significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code.
+This approach works fine with menu definitions of modest length.  Given that our complete menu definition is over a hundred lines with comments, we chose to read the definition from a text file.  This alternative approach provides several benefits; for example, we no longer need to escape double quotes in menu actions.  
+
+Another significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code. Because the menu data is now contained in a defined, formatted text file instead of embedded in VBA code, it's also much (much!) easier to visually parse. 
+
+Finally, and perhaps most importanly, by using the "_caption_ \| _action_" syntax for defining menu items, we've architected a model in which the action of the menu item is abstracted from the code that's executed, **_including whether that action calls VBA or Python code_**. This is a critical piece of building an infrastructure that allows for incremental replacement of VBA with Python, one macro at a time.  There is no need to re-engineer a massive VBA codebase all at once in Python. In other words, that technical debt hole we talked about being dug into at the start of the article? We just built the ladder. Stay tuned for future posts, where we will talk about climbing out.
+
