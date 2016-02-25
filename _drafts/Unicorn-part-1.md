@@ -154,4 +154,9 @@ Sub MakeMenu()
 End Sub
 ```
 
-This approach works fine with menu definitions of modest length.  Given that our complete menu definition is over a hundred lines with comments, we chose to read the definition from a text file.  This alternative approach provides several benefits; for example, we no longer need to escape double quotes in menu actions.  The most significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code.
+This approach works fine with menu definitions of modest length.  Given that our complete menu definition is over a hundred lines with comments, we chose to read the definition from a text file.  This alternative approach provides several benefits; for example, we no longer need to escape double quotes in menu actions.  
+
+Another significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code. Because the menu data is now contained in a defined, formatted text field instead of embedded in VBA code, it's also much (much!) easier to visually parse. 
+
+Finally, and perhaps most importanly, buy using the "caption \| action" syntax for defining menu items, we've architected a model in which the action of the menu item is abstracted from the code that's executed, **_including whether that action ends up calling VBA or Python code_**. This is a critical piece building an infrastructure that allows for one-macro-at-a-time Python replacement of VBA. There is no need to re-engineer a massive VBA codebase all at once in Python. In other words, that technical debt hole we talked about being dug into at the start of the article? We just built the ladder. Stay tuned for future posts, where we will talk about climbing out.
+
