@@ -60,18 +60,20 @@ format: blog-index
         <a href="{% if page.widget-2.url contains 'http' %}{{ page.widget-2.url }}{% else %}{{ site.baseurl }}/{{ page.widget-2.url }}{% endif %}">{% if page.widget-2.image %}<img src="{{ site.urlimg }}/{{ page.widget-2.image }}" alt="">{% endif %}{% if page.widget-2.video %}{{ page.widget-2.video }}{% endif %}</a>
         <h2 class="font-size-h3 t10">{{ page.widget-2.title }}</h2>
         <p>{{ page.widget-2.text }}</p>
-        <p>
         <div class="ontourlist">
         {% for event in site.data.ontour limit:5 %}
               <div class="ontouritem">
               <h5 class="font-size-small">{{ event.date }}</h5>
-              {{ event.title }} ({{ event.location }})<br />
+              {% if event.link %}
+                <a class="ontourlink" href="{{ event.link }}">{{ event.title }}</a> ({{ event.location }})<br />
+              {% else %}
+                {{ event.title }} ({{ event.location }})<br />
+              {% endif %}
               {{ event.who }}<br />
               <em>{{ event.text }}</em><br />
               </div>
         {% endfor %}
         </div>
-        </p>
         <p><a class="button tiny radius" href="{% if page.widget-2.url contains 'http' %}{{ page.widget-2.url }}{% else %}{{ site.baseurl }}/{{ page.widget-2.url }}{% endif %}">{{ site.data.language.more }}</a></p>
     </div><!-- /.medium-4.columns -->
     {% endif %}
