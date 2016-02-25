@@ -1,36 +1,49 @@
+- date: 2016-07-20
+  title: DevOpsDays
+  location: Minneapolis, MN
+  link: http://www.devopsdays.org/events/2016-minneapolis/
+  who: Multiple Staff
+  text: Attending
+
 - date: 2016-05-28
   title: PyCon
   location: Portland, OR
-  who: Multiple
+  link: https://us.pycon.org/2016/
+  who: Multiple Staff
   text: Attending
 
 - date: 2016-04-25
   title: MinneWebCon
   location: Minneapolis, MN
+  link: http://minnewebcon.org/
   who: TBD
   text: Attending
   
 - date: 2016-02-17
   title: Elastic{on}
   location: San Francisco, CA
+  link: https://www.elastic.co/elasticon/conf/2016/sf
   who: Fran Fabrizio
   text: Attending
 
 - date: 2016-01-24
   title: CodeFreeze
   location: Minneapolis, MN
+  link: https://www.umsec.umn.edu/events/Code-Freeze-2016-Disruptive-Innovation
   who: Fran Fabrizio, Alex Jokela, Kevin Horne
   text: Attending
  
 - date: 2015-11-08
   title: USENIX LISA
   location: Washington, DC
+  link: https://www.usenix.org/conference/lisa15
   who: Willy Lee
   text: Attending
 
 - date: 2015-10-29
   title: IEEE Big Data 2015
   location: Santa Clara, CA
+  link: http://geo-bigdata.github.io/2015/presentations/01_David_Haynes.pdf
   who: Ankit Soni
   text: Presenting at workshop
 
