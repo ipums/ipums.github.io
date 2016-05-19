@@ -10,7 +10,7 @@ In our [first post][] in this series, we described our motivation and strategy t
 
 [first post]: {{site.url}}/unicorn-1-menu/
 
-Before the Unicorns team addressed this workflow, developers had to manually export VBA code from Excel's Visual Basic Editor into *.bas text files.  To make and record a code change, a developer directly edited the Excel add-in, manually copied the revised VBA code to a *.bas file, and then committed both the binary add-in and the source code text file.  The downsides of this workflow are obvious:
+Before the Unicorns team addressed this workflow, developers had to manually export VBA code from Excel's Visual Basic Editor into `*.bas` text files.  To make and record a code change, a developer directly edited the Excel add-in, manually copied the revised VBA code to a `*.bas` file, and then committed both the binary add-in and the source code text file.  The downsides of this workflow are obvious:
 
 *  Because exporting each VBA module is a separate manual step, there's strong incentive to minimize the number of modules.  That does not lead to the best design architecturally.
 *  It's clearly prone to human error.  When a developer inevitably forgets to export a modified module, the add-in and the source code become out of sync in the repository.
