@@ -10,12 +10,12 @@ In our [first post][] in this series, we described our motivation and strategy t
 
 [first post]: {{site.url}}/unicorn-1-menu/
 
-In order to do this in our previous workflow _(prior to the Unicorns arriving on the scene),_ developers had to manually export VBA code from Excel's Visual Basic Editor into text files (i.e., `*.bas` source files).  Therefore, to make and record a code change, a developer edited the Excel add-in, exported the revised VBA code, and then committed both the add-in and the VBA source code.  The downsides of this workflow are obvious:
+Before the Unicorns team addressed this workflow, developers had to manually export VBA code from Excel's Visual Basic Editor into *.bas text files.  To make and record a code change, a developer directly edited the Excel add-in, manually copied the revised VBA code to a *.bas file, and then committed both the binary add-in and the source code text file.  The downsides of this workflow are obvious:
 
 *  Because exporting each VBA module is a separate manual step, there's strong incentive to minimize the number of modules.  That does not lead to the best design architecturally.
-*  It's clearly prone to human error.  When (not "if") a developer forgets to export a modified module, the add-in and the source code become out of sync in the repository.
+*  It's clearly prone to human error.  When a developer inevitably forgets to export a modified module, the add-in and the source code become out of sync in the repository.
 
-We're certainly not the first development team to face this challenge.  A [search on StackOverflow][] finds various approaches to address it.  Many of them leverage the ability of an add-in to programmatically import and export VBA modules.  Our solution also leverages this functionality, by combining it with different modes of execution that we've introduced into our add-in.
+We're certainly not the first development team to face this challenge.  A [search on StackOverflow][] finds various approaches to address it.  Many of them leverage the ability of an add-in to programmatically import and export VBA modules.  Our solution also leverages this functionality, but combined with different modes of execution that we've introduced into our add-in.
 
 [search on StackOverflow]: http://stackoverflow.com/search?q=version+control+excel+vba
 
@@ -44,9 +44,9 @@ This sample toolkit is fully functional -- each menu item simply displays a mess
 
 A toolkit's editions have different filenames because Excel cannot open 2 files with the same name even if they are in different directories.  The different file names allow us to open multiple editions simultaneously for comparative testing.  Therefore, we can have the latest production edition of an add-in installed on our systems while we work with the development edition to create the next release.  The editions also have different menu titles to help us identify which edition we're interacting with.
 
-The naming convention distinguishs between the production edition of a toolkit that a developer has _built_ in her workspace and the production edition once it's been _installed_ in the user's add-ins folder [^1].  The different file names of these 2 copies control what their respective menu titles are.
+The naming convention distinguishes between the production edition of a toolkit that a developer has _built_ in her workspace and the production edition once it's been _installed_ in the user's add-ins folder [^1].  The different file names of these 2 copies control what their respective menu titles are.
 
-Because the production edition is built (we'll cover the build process in a moment), the repository only contains the development edition, i.e., `*_DEV.xlam`.  This is the file that developers work with. 
+Because the production edition is built by the development edition (we'll cover the build process in a moment), the repository only contains the development edition, i.e., `*_DEV.xlam`.  This is the file that developers work with. 
 
 
 ### Bootstrapping in Development Mode
@@ -55,7 +55,7 @@ The development edition of a toolkit contains only one VBA module -- this is wha
 
 ![Development edition in VBE with macros disabled]({{site.urlimg}}/Simple-Toolkit_bootstrap.png)
 
-The source code for that [bootstrap module][] is in our [vba-libs project][].  The module has just one short procedure `InitializeAddIn` that's called by the add-in's `Workbook_Open` event handler.  So when any edition of the toolkit's add-in is opened with macros enabled, that subroutine initializes the add-in as follows:
+The source code for that [bootstrap module][] is in our [vba-libs project][].  The module has just one short procedure `InitializeAddIn` that's called by the add-in's `Workbook_Open` event handler.  When any edition of the toolkit's add-in is opened with macros enabled, that subroutine initializes the add-in as follows:
 
 1.  Determine the mode from the add-in’s file name (if `DEV` in the name, then mode = Development; else mode = Production).
 2.  If mode = Development, then dynamically load the toolkit's other modules.  (_If mode = Production, then the modules are already in the production edition._).
@@ -72,7 +72,7 @@ The bootstrapping of the development edition in step 2 is where the bootstrap mo
 [configuration module]: https://github.com/mnpopcenter/vba-libs/blob/master/Simple Toolkit_conf.bas
 [loader module]: https://github.com/mnpopcenter/vba-libs/blob/master/loader.bas
 
-The configuraton module defines the constants for the toolkit's configuration settings (i.e., its title, menu title, version #, etc.).  One of those constants is a string with a list of VBA source files separated by vertical bars (a.k.a. pipes):
+The configuraton module defines the constants for the toolkit's configuration settings (i.e., its title, menu title, version #, etc.).  One of those constants is a string with a list of VBA source files separated by vertical bars:
 
 ``` vb
 Public Const MODULE_FILENAMES = _
@@ -90,7 +90,7 @@ The bootstrap module uses the loader module to import all the files in that list
 
 ![Development edition in VBE with modules loaded]({{site.urlimg}}/Simple-Toolkit_modules.png)
 
-So in our improved development process, we've been able to reduce the VBA code stored in our Excel add-in to the bare minimum needed to bootstrap its development edition and to call the toolkit’s initialization procedure.  That's just 45 lines of code with comments included.  All the rest of our VBA code base in now stored in VBA source files (`*.bas`) which are easily managed with version control software.
+In our improved development process, we've been able to reduce the VBA code stored in our Excel add-in to the bare minimum needed to bootstrap its development edition and to call the toolkit’s initialization procedure.  That's just 45 lines of code with comments included.  All the rest of our VBA code base in now stored in VBA source files (`*.bas`) which are easily managed with version control software. This is a big win.
 
 But what about the bootstrap module?  Don't we still need to manually export its source code from the VB Editor?  Yes, but the module is very mature, so it rarely needs edited.  And much more importantly, our toolkit now includes a convenient developer’s tool for exporting VBA modules.
 
@@ -129,18 +129,18 @@ Const MENU_DEFINITION_STR = _
 
 In Development mode, we scan the definition's lines and remove the special prefix `#dev>` from each line.  Stripping the prefix uncomments the lines, so the [menu library module][] processes them to enable the submenu.
 
-The first developer tool exports all of the toolkit's VBA source code in a single operation.  Thus, with this tool, a developer can edit code in various modules in the VB Editor, and then export the modules, so the changed code will be loaded the next time that the development edition is opened.
+The first developer tool, Export VBA Code, exports all of the toolkit's VBA source code in a single operation.  Thus, with this tool, a developer can edit code in various modules directly in the VB Editor, and then export the modules, so the changed code will be loaded the next time that the development edition is opened.
 
 ![Screenshot of exported VBA modules]({{site.urlimg}}/Simple-Toolkit_export.png)
 
-Note: the source code for all of the add-in's VBA _components_ is exported.  So not only are all the standard VBA modules exported, but so are the add-in's event handlers (the latter are exported into the class module `ThisWorkbook.cls`).  Therefore, we can view the revision history for _all_ of our add-in's VBA code base in version control.
+Note: the source code files for all of the add-in's VBA _components_ are exported.  So, not only are all the standard VBA modules exported, but so are the add-in's event handlers (the latter are exported into the class module `ThisWorkbook.cls`).  Therefore, we can view the revision history for _all_ of our add-in's VBA code base in version control.
 
-Another huge gain with this dynamic bootstrapping is that a developer is no longer restricted to the VB Editor for editing code.  She can use her favorite text editor to modify the `*.bas` files (Notepad++, vim [^2], etc.), and then open the development edition to load and test the changes.
+Another huge gain with this dynamic bootstrapping is that a developer is no longer restricted to the VB Editor for editing code.  She can use her favorite text editor to modify the `*.bas` files (Notepad++, SublimeText, vim [^2], etc.), and then open the development edition to load and test the changes.
 
 
 ### Build Process
 
-Once a developer is satisfied with her changes to a toolkit's code base, she builds the production edition of the toolkit using the Developer Tools:
+Once a developer is satisfied with her code changes, she builds the production edition of the toolkit using the Developer Tools:
 
 ![Screenshot of building production]({{site.urlimg}}/Simple-Toolkit_build.png)
 
@@ -176,13 +176,16 @@ So our build process ensures that regardless of where a toolkit's add-in is copi
 [instructions]: http://www.cpearson.com/excel/createaddin.aspx
 
 
-### Up Next (or some better title)
+### If You Build It, Python Will Come
 
-_(Need Ben to work his magic again :-)  Need an eloquent ending paragraph to set the stage for next posts in the series.  Something like -- now that we have re-engineered the project's architecture and development process, we can now describe how we integrated (added) Python to the project.)_
+Wow, quite a lot to digest here! Over the course of this article, we've described how we've tranformed a monolithic VBA codebase into a nicely modular set of files. We've setup a version control-friendly bootstrapping process in which only a small piece of mature code needs to be included in the add-in, with the rest loaded in dynamically. We described tools for exporting code from the VBA editor directly to source files, eliminating ham-handed copy-paste workflows. Finally, we've produced a robust build process that handles both Developer and Production editions, automatically taking care of proper file naming and timestamping, and providing a huge improvement in development cycle time.
 
+But what about Python? Wasn't the whole purpose of this journey to get from VBA-powered Excel macros to Python-powered Excel macros? YES! All of these steps were necessary in getting an antiquated system out of the 1990s and poised for a smart and maintainable environment suitable for Python macros. Our next post will cover the final hoops in linking our framework up to Python using [xlwings][] and [Miniconda][].
 
-_Acknowledgements:  Ben Klass contributed to this article._
+[xlwings]: http://xlwings.org/
+[Miniconda]: http://conda.pydata.org/miniconda.html
 
+_Acknowledgements:  Ben Klaas contributed to this article._
 
 [^1]:  On Windows: `%APPDATA%\Microsoft\Add-Ins\`  On OS X: `~/Documents/Microsoft User Data/Excel/`
 
