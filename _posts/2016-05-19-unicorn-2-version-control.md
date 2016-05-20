@@ -51,7 +51,7 @@ Because the production edition is built by the development edition (we'll cover 
 
 ### Bootstrapping in Development Mode
 
-The development edition of a toolkit contains only one VBA module -- this is what a developer sees in the VB Editor when she open that edition with macros _disabled_:
+The development edition of a toolkit contains only one VBA module -- this is what a developer sees in the VB Editor when she opens that edition with macros _disabled_:
 
 ![Development edition in VBE with macros disabled]({{site.urlimg}}/Simple-Toolkit_bootstrap.png)
 
