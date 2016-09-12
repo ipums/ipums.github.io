@@ -58,9 +58,11 @@ code|label|pct_max|pct_min|pct_diff|max_pct_diff
 
 Back to the problem of summarizing all of those variables.  In this case, it would be handy to have a plot of the maximum difference on an individual code for each variable to see what the scope of the changes are. It would be even better if we could have nice tooltip to give us more information about individual points. 
 
-That's where [Bokeh](http://bokeh.pydata.org/en/latest/) comes in. In the plot below you can see the variables arranged from greatest to least difference.  Citizen is the fifth variable from the left.  Try the wheel zoom tool and see how it allows you to get a clearer picture.  The plot can also be moved and resized which allows a better view of the data.  The tooltips provide the details needed to investigate further. 
+That's where [Bokeh](http://bokeh.pydata.org/en/latest/) comes in. In the plot below you can see the variables arranged from greatest to least difference.  Citizen is the fifth variable from the left.  Try the wheel zoom tool on the toolbar and see how it allows you to get a clearer picture.  The plot can also be dragged around and resized which allows a better view of the data.  The tooltips provide the details needed to investigate further. 
 
 <iframe width="575" height="425" src="{{site.url}}/assets/dcp_analytics/variable_frequency_variation.html"></iframe>
+
+Visualizations like this allow researchers to quickly compare two samples and see which variables have changed the most between samples.  This allows them to confirm a change which they know took place between the two samples (e.g. the census authority changed the possible answers for a census question), to quickly learn that an error in their data preparation process has garbled a variable's values, or even to have a serendipitous research discovery that they didn't realize was hiding in the data!
 
 The entirety of the code used to convert the Pandas DataFrame used above to the plot is as follows:
 
