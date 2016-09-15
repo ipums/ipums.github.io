@@ -1,6 +1,6 @@
 ---
 author: jerdmann
-title: 'Pandas, Bokeh, Jupyter and Conda in Templated Reporting'
+title: 'Pandas, Bokeh, Jupyter and Conda in Templated Reporting - Part 1'
 teaser: ''
 ---
 
@@ -8,7 +8,7 @@ At the MPC we have several microdata projects, each with varied characteristics.
 
 Luckily, these diverse projects are fed through a common tool, the [Data Conversion Program (DCP)]({{site.url}}/harmonizing-data-at-the-mpc/), and this gives us a single point to hook into to try to add automated data quality checks. One byproduct of a run through the DCP is a set of frequency tables for every value of every variable of every sample for every project. Thes frequency tables are stored as CSV files by variable and sample.  So, if one sample has 1,000 variables and another sample has 800 variables, between them there are 1,800 CSV files regardless of how many variables are in common between the two.  
 
-That's not great for humans trying to sort through output looking for problems, but it is a great data source for tools to leverage to help identify what are the biggest differences between two samples and highlight potential problems for human review.  In this post, we'll discuss how we leverage these frequency tables to automatically generate what we call DCP Analytics, which researchers can utilize to quickly verify that they're getting expected results, and if they aren't, to see where a data preparation run may have gotten into trouble.
+That's not great for humans trying to sort through output looking for problems, but it is a great data source for tools to leverage to help identify what are the biggest differences between two samples and highlight potential problems for human review.  In this this two part series of articles, we'll discuss how we leverage these frequency tables to automatically generate what we call DCP Analytics, which researchers can utilize to quickly verify that they're getting expected results, and if they aren't, to see where a data preparation run may have gotten into trouble.  In part one, we'll discuss reading the frequency tables and doing some manipulations using Pandas as well as how Bokeh can be used to visualize parts of the data to quickly highlight how the data is changing from sample to sample.
 
 [Pandas](http://pandas.pydata.org/)
 -----------------------------------
@@ -107,41 +107,12 @@ html_out.write(file_html(sample_plot, CDN, 'Variable Frequency Variation'))
 html_out.close()
 ```
 
-Similarly, we can render a more detailed view of any individual variable.  
+Similarly, we can render a more detailed view of any individual variable. You'll notice a few quirks about this plot.  First, there is no key.  Some variables have hundreds of codes to plot so a key will not always fit and could hide some data.  We could do things to calculate whether a key would be useful and where to place it, but for expediency we opted to have tooltips for every plotted point that show the details when a user hovers over the point.  
+
+The second quirk is that small differences in values, especially with the small rendering size shown below, will be difficult to see. The user tools provided by Bokeh to manipulate the plot make this much more manageable for the user.  In this case, the 1991 dataset has a frequency of 0.02% of cases with the code 5, "Without citizenship, stateless".  In the default view this is practically invisible.  While we do provide a table of data backing the plot in full report the use can still get this information visually.  Use the scroll zoom tool to zoom in on points of interest like the 1ipumsi_es1991a sample near the zero line.  Eventually you will see the separation between code 5 and the rest.  You can use the reset tool to go back to the default view of the plot. Generally for the purpose of our analysis small differences aren't of interest, but in other use cases those small differences can mean a lot. 
+
+The final quirk is related to the fact that it would be difficult to pick enough colors to represent hundreds of codes.  We haven't generated an upfront set of colors optimized for visual distance, rather we generate random colors and use the luminecence function to determine whether a color will show up on a white background well enough or not.  Sometimes that results in similar colors for different codes.  Future work could be done to better assign colors and ensure less color overlap.
 
 <iframe width="575" height="425" src="{{site.url}}/assets/dcp_analytics/citizen_line_plot.html"></iframe>
 
-[Jupyter](http://jupyter.org/)
-------------------------------
-
-Generating each of these plots and all of the other information we would like to present to the user would be cumbersome to say the least.  Plus we have all this other great tooling that users could take advantage of to really dig into identified issues, it would be great if they could start digging right in the same window as they identify them in.  Luckily for us, there's the Jupyter Notebook and Hub that we have deployed on our computing resources.
-
-![Sample Jupyter]({{$site.urlimg}}/dcp_analytics_jupyter.png)
-
-The bulk of the code is in a Python module to do the analysis and generate the plots.  We import this in a template notebook that breaks the analysis into sections with a table of contents.  Then, there is a wrapper script that takes input from the user to configure the report per user requierments.  This configuration is also stored as an .ini file the users can edit as they choose.  This configuration file is injected that into an in memory version of the notebook that is executed using the nbconvert library. Finally emitting a static HTML report as well as a configured .ipynb that can be opened in Jupyter Hub and modified as the user desires.
-
-``` python
-file_writer = FilesWriter()
-with open(nb_file) as f:
-     nb = nbformat.read(f, as_version=4)
-nb.cells[1]['source'] = '\n'.join([nb.cells[1]['source'], 'config_file=\'{}\''.format(config_file)])
-(output, resources) = nb_exporter.from_notebook_node(nb)
-ep.preprocess(nb, {'metadata': {'path': exe_path}})
-cssp = CSSHTMLHeaderPreprocessor()
-(nb, resources) = cssp.preprocess(nb, {'metadata': {'path': reports_dir}, 'config_dir': reports_dir})
-html_exporter = HTMLExporter()
-html_exporter.template_file = 'full'
-(output, resources) = html_exporter.from_notebook_node(nb)
-file_writer.write(output, resources, os.path.join(reports_dir, nb_name))
-```
-
-While this templating works well for us in the short term, we do have our eyes on [Jupyter Dashboards](https://github.com/jupyter-incubator/dashboards) and [JupyterLab](https://github.com/jupyter/jupyterlab) as ways we could better deliver these reports in the future. In the meantime, the configuration files allow researchers to define related sets of samples or variables to use on a regular basis.  They can also run test versions of updates on a sample and compare the two versions of the same sample to see the total effect of the changes.
-
-[Conda](http://conda.pydata.org/docs/)
---------------------------------------
-
-The final consideration we have is deployment.  How do we get the tool in front of users without them having to think about setting up a Python environment and ensuring dependencies are satisfied.  There are many options available, but we're fond of Conda.  We package the script, the module and dependecies using `conda build`.  We can then install that package to our own custom channel.  Then we install the package in a new environment of its own that has only its dependencies installed.  
-
-This process wraps our script in another script that will only run in the enviroment where the tool was installed.  By ensuring that wrapper is in the users PATH weknow the tool will always be run in a clean environment with the correct libraries available.  It doesn't matter which or even if Python is in the user's path.  
-
-This tool chain made it fairly easy to get a functional prototype in front of users quickly and push out updates as requests for new features come in.  Jupyter is especially helpful as we hope the combination programming, documentation and visualization environment give both research staff and IT staff a common environment to collaborate in. We are excited to see where this set of tools let us go in the future.
+In part 2 we will discuss the role of Jupyter in creating a comprehensive report that is both portable and has the ability to be interactive as well as Conda in deploying the tool to ensure a consistent environment for all users that will not conflict with other tools.
