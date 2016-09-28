@@ -163,7 +163,7 @@ Previously, developers had to set the build date manually during the release pro
 
 #### Version Number in File Properties
 
-Using the [instructions][] [^3] provided by Chip Pearson, we can set various file properties of the development edition.  In particular, we put special markers in the Title and Comment properties:
+Using [instructions][change-file-props] based on the ones provided by Chip Pearson, we can set various file properties of the development edition.  In particular, we put special markers in the Title and Comment properties:
 
 ![Development edition - file info]({{site.urlimg}}/Simple-Toolkit_props-dev.png)
 
@@ -173,6 +173,7 @@ When the production edition is built, the `(dev)` marker is removed from its Tit
 
 So our build process ensures that regardless of where a toolkit's add-in is copied or how it's renamed, we can always determine the edition and version of each copy.
 
+[change-file-props]: https://github.com/mnpopcenter/vba-libs/wiki/Changing-File-Properties
 [instructions]: http://www.cpearson.com/excel/createaddin.aspx
 
 
@@ -187,8 +188,8 @@ But what about Python? Wasn't the whole purpose of this journey to get from VBA-
 
 _Acknowledgements:  Ben Klaas contributed to this article._
 
+_Update on 2016 Sep 28 -- Replaced the link to Chip Pearson's [instructions][] with a link to [extended instructions][change-file-props] in the vba-libs wiki._
+
 [^1]:  On Windows: `%APPDATA%\Microsoft\Add-Ins\`  On OS X: `~/Documents/Microsoft User Data/Excel/`
 
 [^2]:  Yes, vim.  We use it on OS X because our developer tools and build process are cross-platform -- they work with Excel for Windows and Excel for Mac.
-
-[^3]:  See the section titled "Properties of the Add-In".
