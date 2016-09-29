@@ -33,7 +33,7 @@ format: blog-index
             </p>
             <p>
                 {% if post.meta_description %}{{ post.meta_description | strip_html | escape }}{% else post.teaser %}{{ post.teaser | strip_html | escape }}{% endif %}<br />
-                <a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}" title="Read {{ post.title escape_once }}"><strong>{{ site.data.language.read_more }}</strong></a>
+                <a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}" title="Read {{ post.title | escape_once }}"><strong>{{ site.data.language.read_more }}</strong></a>
             </p>
             {% endfor %}
             
@@ -45,7 +45,7 @@ format: blog-index
 <!-- this is a brittle way to manage the front page...
             {% if page.widget-1.title %}
         <div class="medium-4 columns">
-                <a href="{% if page.widget-1.url contains 'http' %}{{ page.widget-1.url }}{% else %}{{ site.baseurl }}/{{ page.widget-1.url }}{% endif %}">{% if page.widget-1.image %}<img src="{{ site.urlimg }}/{{ page.widget-1.image }}" width="302" height="182" alt="">{% endif %}{% if page.widget-1.video %}{{ page.widget-1.video }}{% endif %}</a>
+                <a href="{% if page.widget-1.url contains 'http' %}{{ page.widget-1.url }}{% else %}{{ site.baseurl }}/{{ page.widget-1.url }}{% endif %}">{% if page.widget-1.image %}<img src="{{ site.urlimg }}/{{ page.widget-1.image }}" width="302" height="182" alt="">{% endif %}{% if page.widget-1.video %}{{ page.widget-1.video }}{% endif %}</a>
                 <h2 class="font-size-h3 t5">{{ page.widget-1.title }}</h2>
                 <p>{{ page.widget-1.text }}</p>
                 <p><a class="button tiny radius" href="{% if page.widget-1.url contains 'http' %}{{ page.widget-1.url }}{% else %}{{ site.url }}{{ site.baseurl }}/{{ page.widget-1.url }}{% endif %}">{{ site.data.language.more }}</a></p>
@@ -57,7 +57,7 @@ format: blog-index
        
     {% if page.widget-2.title %}
     <div class="medium-4 columns">
-        <a href="{% if page.widget-2.url contains 'http' %}{{ page.widget-2.url }}{% else %}{{ site.baseurl }}/{{ page.widget-2.url }}{% endif %}">{% if page.widget-2.image %}<img src="{{ site.urlimg }}/{{ page.widget-2.image }}" alt="">{% endif %}{% if page.widget-2.video %}{{ page.widget-2.video }}{% endif %}</a>
+        <a href="{% if page.widget-2.url contains 'http' %}{{ page.widget-2.url }}{% else %}{{ site.baseurl }}/{{ page.widget-2.url }}{% endif %}">{% if page.widget-2.image %}<img src="{{ site.urlimg }}/{{ page.widget-2.image }}" alt="">{% endif %}{% if page.widget-2.video %}{{ page.widget-2.video }}{% endif %}</a>
         <h2 class="font-size-h3 t10">{{ page.widget-2.title }}</h2>
         <p>{{ page.widget-2.text }}</p>
         <div class="ontourlist">
@@ -80,8 +80,8 @@ format: blog-index
     
     {% if page.widget-3.title %}
     <div class="medium-4 columns">
-        <a href="{% if page.widget-3.url contains 'http' %}{{ page.widget-3.url }}{% else %}{{ site.baseurl }}/{{ page.widget-3.url }}{% endif %}">{% if page.widget-3.image %}<img src="{{ site.urlimg }}/{{ page.widget-3.image }}" alt="">{% endif %}{% if page.widget-3.video %}{{ page.widget-3.video }}{% endif %}</a>
-        <a href="{{ page.widget-3.url }}">{% if page.widget-3.image %}<img class="lazy" data-src="{{ site.urlimg }}/{{ page.widget-3.image }}" width="302" height="182" alt="">{% endif %}{% if page.widget-3.video %}{{ page.widget-3.video }}{% endif %}</a>
+        <a href="{% if page.widget-3.url contains 'http' %}{{ page.widget-3.url }}{% else %}{{ site.baseurl }}/{{ page.widget-3.url }}{% endif %}">{% if page.widget-3.image %}<img src="{{ site.urlimg }}/{{ page.widget-3.image }}" alt="">{% endif %}{% if page.widget-3.video %}{{ page.widget-3.video }}{% endif %}</a>
+        <a href="{{ page.widget-3.url }}">{% if page.widget-3.image %}<img class="lazy" data-src="{{ site.urlimg }}/{{ page.widget-3.image }}" width="302" height="182" alt="">{% endif %}{% if page.widget-3.video %}{{ page.widget-3.video }}{% endif %}</a>
         <h2 class="font-size-h3 t10">{{ page.widget-3.title }}</h2>
         <p>{{ page.widget-3.text }}</p>
         <p><a class="button tiny radius" href="{% if page.widget-3.url contains 'http' %}{{ page.widget-3.url }}{% else %}{{ site.baseurl }}/{{ page.widget-3.url }}{% endif %}">{{ site.data.language.more }}</a></p>
@@ -101,7 +101,7 @@ format: blog-index
     
     {% if page.widget-4.title %}
     <div class="medium-4 columns">
-        <a href="{% if page.widget-4.url contains 'http' %}{{ page.widget-4.url }}{% else %}{{ site.baseurl }}/{{ page.widget-4.url }}{% endif %}">{% if page.widget-4.image %}<img src="{{ site.urlimg }}/{{ page.widget-4.image }}" width="302" height="182" alt="">{% endif %}{% if page.widget-4.video %}{{ page.widget-4.video }}{% endif %}</a>
+        <a href="{% if page.widget-4.url contains 'http' %}{{ page.widget-4.url }}{% else %}{{ site.baseurl }}/{{ page.widget-4.url }}{% endif %}">{% if page.widget-4.image %}<img src="{{ site.urlimg }}/{{ page.widget-4.image }}" width="302" height="182" alt="">{% endif %}{% if page.widget-4.video %}{{ page.widget-4.video }}{% endif %}</a>
         <h2 class="font-size-h3 t10">{{ page.widget-4.title }}</h2>
         <p>{{ page.widget-4.text }}</p>
         <p><a class="button tiny radius" href="{% if page.widget-4.url contains 'http' %}{{ page.widget-4.url }}{% else %}{{ site.baseurl }}/{{ page.widget-4.url }}{% endif %}">{{ site.data.language.more }}</a></p>
