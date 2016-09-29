@@ -1,6 +1,6 @@
 The source code for the Jekyll theme was adapted from 
  http://phlow.github.io/feeling-responsive/
-That project uses an MIT license, so the MIT license carrys through
+That project uses an MIT license, so the MIT license carries through
 to the local source code for the theme.
 
 The blog content is covered under a Creative Commons 
@@ -9,8 +9,6 @@ Attribution-ShareAlike 4.0 International License.
 -----------------------------------------------------------------------------
 
 The MIT License (MIT)
-
-Copyright (c) 2014 Moritz »mo.« Sauer // Phlow.de
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -29,3 +27,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+------------------------------------------------------------------------------
+
+The Creative Commons Attribution-ShareAlike 4.0 International License
+
+This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
