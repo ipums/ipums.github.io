@@ -123,4 +123,8 @@ The final quirk is related to the fact that it would be difficult to pick enough
 
 <iframe width="575" height="425" src="{{site.url}}/assets/dcp_analytics/citizen_line_plot.html"></iframe>
 
+<<<<<<< HEAD:_posts/2016-08-24-Jupyter-and-Bokeh-reports-part1.md
 In part 2 we will discuss the role of Jupyter in creating a comprehensive report that is both portable and has the ability to be interactive as well as Conda in deploying the tool to ensure a consistent environment for all users that will not conflict with other tools.
+=======
+In part 2 we will discuss the role of Jupyter in creating a comprehensive report that is both portable and has the ability to be interactive as well as Conda in deploying the tool to ensure a consistent environment for all users that will not conflict with other tools.
+>>>>>>> master:_posts/2016-08-24-Jupyter-and-Bokeh-reports-part1.md
