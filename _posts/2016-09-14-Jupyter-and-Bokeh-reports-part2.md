@@ -16,7 +16,7 @@ The generated report includes a lot of useful information about variables in the
 * A full plot on the maximal frequency change for a code for each variable
 * A user-configurable number of detailed plots for the variables showing the greatest change across samples. 
 
-![Sample Jupyter]({{$site.urlimg}}/dcp_analytics_jupyter.png)
+![Sample Jupyter]({{site.urlimg}}/dcp_analytics_jupyter.png)
 
 The bulk of the code is in a Python module to do the analysis and generate the plots.  We import this in a template notebook that breaks the analysis into sections and provides a table of contents.  Our researchers execute a wrapper script that uses command-line configuration options to configure the report to be generated.  This configuration is also stored as an .ini file which the users can edit to refine subsequent generations of the report, so the wrapper script can also take in this .ini file in lieu of command-line configuration options.  
 

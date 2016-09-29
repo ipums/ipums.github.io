@@ -118,16 +118,17 @@ Before I can run a container, though, I'll have to create and seed a MySQL volum
 Here's the script:
 
 {% highlight bash %}
+{% raw %}
 #! /bin/bash
 
-if ! docker inspect ipums_db_data &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; then
+if ! docker inspect ipums_db_data > /dev/null 2>&1 then
 echo "Creating DB data container..."
-docker create -v /var/lib/mysql --name ipums_db_data mysql:latest &amp;gt;/dev/null 2&amp;gt;&amp;amp;1
+docker create -v /var/lib/mysql --name ipums_db_data mysql:latest >/dev/null 2>&1
 fi
 
-if ! docker inspect ipums_extract_data &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; then
+if ! docker inspect ipums_extract_data >/dev/null 2>&1 then
 echo "Creating extract data container..."
-docker create -v /web --name ipums_extract_data mysql:latest &amp;gt;/dev/null 2&amp;gt;&amp;amp;1
+docker create -v /web --name ipums_extract_data mysql:latest >/dev/null 2>&1
 fi
 
 echo "Starging MySQL container..."
@@ -144,7 +145,7 @@ docker exec $MYSQL_ID mysql -psecret -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'
 
 cd util/initial_dev_setup
 
-if which boot2docker &amp;gt;/dev/null 2&amp;gt;&amp;amp;1; then
+if which boot2docker >/dev/null 2>&1; then
 MYSQL_IP=`boot2docker ip`
 fi
 
@@ -152,8 +153,9 @@ echo "Running DB script..."
 env MYSQL_PORT_3306_TCP_ADDR=$MYSQL_IP MYSQL_PORT_3306_TCP_PORT=$MYSQL_PORT ruby 1.initialize_dbs.rb -uroot -psecret -t docker atus cps ipumsi usa napp
 
 echo "Shutting MySQL container down..."
-docker stop $MYSQL_ID &amp;gt;/dev/null 2&amp;gt;&amp;amp;1
-docker rm $MYSQL_ID &amp;gt;/dev/null 2&amp;gt;&amp;amp;1
+docker stop $MYSQL_ID >/dev/null 2>&1
+docker rm $MYSQL_ID >/dev/null 2>&1
+{% endraw %}
 {% endhighlight %}
 
 At this point, I can actually test my IPUMS container with these three commands from the project root:
