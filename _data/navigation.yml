@@ -2,14 +2,18 @@
   url: "/"
   side: left
 
-- title: Blog
-  url: "/blog/"
+#- title: Blog
+#  url: "/blog/archive/"
+#  side: left
+#  dropdown:
+#  - title: "About This Blog"
+#    url: "/info/"
+#  - title: "Blog Archive"
+#    url: "/blog/archive/"
+
+- title: Archive
+  url: /blog/archive/
   side: left
-  dropdown:
-  - title: "About This Blog"
-    url: "/info/"
-  - title: "Blog Archive"
-    url: "/blog/archive/"
 
 - title: "About Us"
   url: "/about/about-mpc-it/"
@@ -23,7 +27,7 @@
     url: "/about/about-the-mpc/"
   - title: "Our Data Products"
     url: "/about/data-products/"
- 
+
 - title: "Working @ MPC"
   url: "/working-mpc/career-opportunities/"
   side: left
