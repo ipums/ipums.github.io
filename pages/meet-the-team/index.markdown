@@ -152,24 +152,6 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 
 ***
 
-### Ankit Soni
-<a href="{{ site.urlimg }}/Photo-on-4-30-15-at-9.51-AM.jpg"><img class=" size-thumbnail wp-image-754 alignright" src="{{ site.urlimg }}/Photo-on-4-30-15-at-9.51-AM-150x150.jpg" alt="Photo on 4-30-15 at 9.51 AM" width="150" height="150" /></a>
-
-I originally wanted to pursue medicine and follow in the footsteps of my father to become a surgeon. However, interests changed as I grew closer to mathematics and physics to pursue engineering. I pursued a masters degree in Computer Science to strengthen my foothold on the subject. After graduation, I spent a little over a year at a startup before joining the MPC in April 2015 as an HPC Developer on the TerraPop project. Maybe in the future I will pursue a higher degree so I can add "Dr" to my name like my father.
-
-My primary interests include hacking and scripting/automating small things. Recently I have developed interests in playing with different sensors and ARM chip boards. Other than that, I enjoy cooking and traveling. I hope to get into biking and explore more of the Twin Cities on bike.
-
-***
-
-### Fabio Trabucchi
-<a href="{{ site.urlimg }}/fabio.jpg"><img class=" size-thumbnail wp-image-441 alignright" src="{{ site.urlimg }}/fabio-150x150.jpg" alt="fabio" width="150" height="150" /></a>Computer scientist from Parma (Italy), also known as "bafio", A.K.A. "not the 80s model", A.K.A. "grill master". Fabio has been a programmer since the early 90s. He moved into web development when language options beyond Perl/PHP emerged. Currently, he likes to play around and develop web applications using modern frameworks such as Django, Rails, and jQuery.
-
-Besides coding he loves cooking, beer tasting, and hiking along US National Parks.
-
-<a title="Twitter" href="https://twitter.com/fabio_trabucchi" target="_blank"><img class="alignnone wp-image-361" src="{{ site.urlimg }}/twitter30x30.png" alt="twitter" width="30" height="30" /></a>   <a title="LinkedIn" href="www.linkedin.com/in/fabiotrabucchi" target="_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>
-
-***
-
 ### Vladimir Vladykin
 
 <a href="{{ site.urlimg }}/vlad_blog_web-e1420575286524.jpg"><img class=" wp-image-420 size-thumbnail alignright" src="{{ site.urlimg }}/vlad_blog_web-e1420575286524-150x150.jpg" alt="vlad_blog_web" width="150" height="150" /></a>A native of St. Petersburg, Russia, Vlad was trained in both Computer Science and Applied Economics at the University of Minnesota. During his time with the MPC, Vlad has held a wide variety of positions from Web Programmer to Project Coordinator. Currently, among other things, Vlad develops software for the IPUMS-International project, and is responsible for original data reformatting. He likes spending his spare time with his wife and three kids, occasionally escaping to local antique shows to replenish his collection of old clocks, scales and automata.
@@ -195,4 +177,3 @@ Known Hangouts: Como Park Zoo, Howard Conn Fine Arts Center, The Green Spoon
 Jim Young began programming with a class in high school in 1966.  He continued, earning a BS degree in Sociology and Computer Science from  the U of MN in 1973 and had a full time career as a software developer that ended with his retirement in 2014.  Looking for something fun to do in retirement, he joined MPC in 2015.
 
 When he isn't programming, he enjoys various outdoor activities (biking, x-c skiing, canoeing, hiking etc.), bread baking and traveling.  He also is a volunteer Luminarian for the City of Lakes Luminary Loppet.
-
