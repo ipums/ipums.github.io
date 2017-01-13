@@ -15,7 +15,8 @@ A partial list of industry events at which MPC IT staff have attended or present
 <div class="ontouritem">
 <h5 class="font-size-small">{{ event.date }}</h5>
 {{ event.title }} ({{ event.location }})<br />
-{{ event.who }}<br />
+HELLO
+{% if event.who != '' %}NEW{{ event.who }}<br />{% endif %}
 <em>{{ event.text }}</em><br />
 </div>
 {% endfor %}
