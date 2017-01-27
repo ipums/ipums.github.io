@@ -2,6 +2,13 @@
 author: benklaas
 title: 'Towards a Sustainable Excel: Building Macros With Python'
 teaser: 'Excel macro development can cause shudders amongst developers. While VBA is an antiquated language not even Microsoft recommends using, there is an option outside of a bulky .NET solution: Python.'
+categories:
+tags:
+- IPUMS
+- Excel
+- VBA
+- Python
+- UnicornRainbows
 ---
 
 intro
