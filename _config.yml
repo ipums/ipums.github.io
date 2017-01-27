@@ -53,7 +53,7 @@ kramdown:
 permalink: /:title/
 highlighter: rouge  #flf added
 excerpt_separator: "\n\n"
-exclude: [vendor/bundle]
+exclude: []
 include: ['.htaccess']
 
 # The language setting is used in /includes/header.html for html-settings

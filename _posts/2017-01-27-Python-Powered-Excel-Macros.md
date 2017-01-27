@@ -95,6 +95,17 @@ class HelloWorldTool(tool_base.PythonTool):
             self.add_in.msg_box(HelloWorldTool.GREETING.format(name))
 ```
 
+And here it is in action...
+
+The menu:<br />
+![screenshot of hello world menu]({{site.urlimg}}/hello-world-menu.png)
+
+The input_text add_in:<br />
+![screenshot of hello world input]({{site.urlimg}}/hello-world-input.png)
+
+And finally the msg_box. Hello World!:<br />
+![screenshot of hello world msgbox]({{site.urlimg}}/hello-world-msgbox.png)
+
 Every PythonTool has some general tools we've engineered via the add_in object. This allows for reusable Excel-side widgets like message boxes for both text input and information (as seen in the hello world tool code above), creating new workbooks, even spinning the cursor while a process is running.
 
 [Excel menu creation]: {{site.url}}/unicorn-1-menu/
@@ -111,7 +122,7 @@ I can't emphasize this enough, this is SUCH an improvement over writing VBA. Fas
 # But wait! There's more!
 -------------------
 
-We've described a lot here, but there are more topics to cover in future posts. Here's a teaser:
+I've described a lot here, but there are more topics to cover in future posts. Here's some teasers:
 
 * Python environment support with conda and conda-build
 
