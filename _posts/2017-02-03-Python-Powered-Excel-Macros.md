@@ -1,7 +1,7 @@
 ---
 author: benklaas
-title: 'Towards a Sustainable Excel: Building Macros With Python'
-teaser: 'Excel macro development will cause shudders amongst developers. While VBA is an antiquated language not even Microsoft recommends using, there is an option outside of a bulky .NET solution: Python.'
+title: 'Towards a Sustainable Excel'
+teaser: 'Bulding Macros With Python'
 categories:
 tags:
 - IPUMS
@@ -16,9 +16,11 @@ This is the third post in our Unicorn Rainbow series. In previous posts, we exam
 [Excel menu creation]: {{site.url}}/unicorn-1-menu/
 [handling version control]: {{site.url}}/unicorn-2-version-control/
 
-# Up with Python, Down with VBA
+# Up With Python, Down With VBA
 ------------------------------
-Excel macros. Yuck. Historically, Visual Basic for Applications (VBA) was the only option for writing macros in Excel. Microsoft now recommends using .NET for Applictions; however, for software teams that are otherwise focused on open-source languages, like Python, this is a solution that carries a lot of overhead. Using Felix Zumenstein's excellent Python-to-Excel library and bridge technology [xlwings][], it is now possible to develop Excel macros in Python.
+Excel macro development will cause shudders amongst developers. While VBA is an antiquated language not even Microsoft recommends using, there is an option outside of a bulky .NET solution: Python.
+
+Historically, Visual Basic for Applications (VBA) was the only option for writing macros in Excel. Microsoft now recommends using .NET for Applictions; however, for software teams that are otherwise focused on open-source languages, like Python, this is a solution that carries a lot of overhead. Using Felix Zumenstein's excellent Python-to-Excel library and bridge technology [xlwings][], it is now possible to develop Excel macros in Python.
 
 [xlwings]: https://xlwings.org
 
@@ -51,7 +53,7 @@ In order to call Python in Excel, a bridge technology is needed. There are a few
 
 Getting xlwings running inside Excel at a superficial level involves adding a xlwings.bas file that xlwings provides. In our implementation, there's a little more to it than that, but beyond the scope of this article. Suffice it to say, xlwings has the link covered.
 
-# Xlwings into action via our PythonTool Architecture
+# Putting xlwings Into Action Via Our PythonTool Architecture
 --------------------------------------
 One of the things engineered into the [Excel menu creation][] technique described in our previous post was the ability to fork any menu item action off to either VBA or Python. The way we do this is by specifying any particular item with the *PythonTool* macro. PythonTool is a VBA procedure that calls xlwings' RunPython macro with a Python code snippet that includes the string name of the tool we want to run. For example:
 
@@ -119,7 +121,7 @@ That's the HelloWorld example, but obviously we want to do much more than this, 
 
 I can't emphasize this enough, this is SUCH an improvement over writing VBA. Faster to write. Faster to execute. Easier to maintain.
 
-# But wait! There's more!
+# But Wait! There's More!
 -------------------
 
 I've described a lot here, but there are more topics to cover in future posts. Here are some teasers:
@@ -131,3 +133,5 @@ We have an in-house Python library that is specifically designed for harvesting 
 * Remote process execution
 
 Though Excel macros are now much more efficient by using Python, at MPC we often have processes that require extra computing power. Our next generation PythonTools will farm jobs off to a linux compute cluster and report back results rather than doing the processing locally on Windows machines.
+
+_Acknowledgements: Jimm Domingo contributed to this article._ 
