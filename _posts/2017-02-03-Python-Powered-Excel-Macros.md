@@ -1,7 +1,7 @@
 ---
 author: benklaas
 title: 'Towards a Sustainable Excel'
-teaser: 'Bulding Macros With Python'
+teaser: 'Building Excel Macros With Python, part 3 of a series on reinventing our metadata management environment.'
 categories:
 tags:
 - IPUMS
