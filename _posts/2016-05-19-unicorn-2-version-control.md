@@ -4,6 +4,11 @@ title: Excel VBA and Version Control
 teaser: The second post in the series about Team Unicorn Rainbows' work in the first round of MPC IT Shark Tank.
 author: jdomingo
 categories:
+tags:
+- IPUMS
+- Excel
+- VBA
+- UnicornRainbows
 ---
 
 In our [first post][] in this series, we described our motivation and strategy to address the technical debt in our Excel toolkit.  Sometimes debt doesn’t reside just in a project's code base, but also in its development process.  A major challenge with writing VBA for an Excel add-in is version control.  How do we track the changes to our VBA code and view the history of these changes when the add-in's binary format does not play well with version control software?
