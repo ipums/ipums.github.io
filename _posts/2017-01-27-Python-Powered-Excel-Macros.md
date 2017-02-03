@@ -11,14 +11,14 @@ tags:
 - UnicornRainbows
 ---
 
-This is the third post in our Unicorn Rainbow series. In previous posts we examined [Excel menu creation][] and [handling version control][] in VBA and Excel. In this article I will describe how we incorporated Python into our Excel toolkit.
+This is the third post in our Unicorn Rainbow series. In previous posts, we examined [Excel menu creation][] and [handling version control][] in VBA and Excel. In this article, I will describe how we incorporated Python into our Excel toolkit.
 
 [Excel menu creation]: {{site.url}}/unicorn-1-menu/
 [handling version control]: {{site.url}}/unicorn-2-version-control/
 
 # Up with Python, Down with VBA
 ------------------------------
-Excel macros. Yuck. Historically, Visual Basic for Applications (VBA) was the only option for writing macros in Excel. Microsoft now recommends using .NET for Applictions, however for software teams that are otherwise focused on open-source languages, like Python, this is a solution that carries a lot of overhead. Using Felix Zumenstein's excellent Python-to-Excel library and bridge technology [xlwings][], it is now possible to develop Excel macros in Python.
+Excel macros. Yuck. Historically, Visual Basic for Applications (VBA) was the only option for writing macros in Excel. Microsoft now recommends using .NET for Applictions; however, for software teams that are otherwise focused on open-source languages, like Python, this is a solution that carries a lot of overhead. Using Felix Zumenstein's excellent Python-to-Excel library and bridge technology [xlwings][], it is now possible to develop Excel macros in Python.
 
 [xlwings]: https://xlwings.org
 
@@ -27,11 +27,11 @@ Excel macros. Yuck. Historically, Visual Basic for Applications (VBA) was the on
 
 Any "why this language" discussion can be contentious for a variety of valid and not-so-valid reasons. In our case, Python is a great choice because:
 
-* The Excel-to-Python link is already possible, implemented, and readily available.
+* The Excel-to-Python link is already implemented, and readily available.
 * We have in-house Python expertise.
 * Iterating and debugging Python is much quicker than VBA. Much. Quicker. You can attach a dollar figure on that but it has the added benefit of leaving work with a smile and an unclenched jaw.
-* Dispensing with needing to use the archaic VBA editor to debug things. I now develop in my [editor of choice][] and see changes to my dev code simply by re-running the Python-based macro. No Excel restarts. No [VBA version control conundrums].
-* Our behind-the-scenes data processing code runs on Linux and heavily leverages Python. Further, we use in-house metadata Python libraries to efficiently harvest information by reading spreadsheets into [Pandas][] dataframes. Having those libraries also usable from Windows via Python-based Excel macros is HUGE for us.
+* It eliminates the need to use the archaic VBA editor to debug things. I now develop in my [editor of choice][] and see changes to my dev code simply by re-running the Python-based macro. No Excel restarts. No [VBA version control conundrums].
+* Our behind-the-scenes data processing code runs on Linux and heavily leverages Python. Furthermore, we use in-house metadata Python libraries to efficiently harvest information by reading spreadsheets into [Pandas][] dataframes. Having those libraries also usable on Windows via Python-based Excel macros is HUGE for us.
 
 [Pandas]: https://pandas.pydata.org
 [editor of choice]: https://atom.io
@@ -49,19 +49,19 @@ In order to call Python in Excel, a bridge technology is needed. There are a few
 [DataNitro]: https://datanitro.com
 [Jupyter Notebooks]: https://jupyter.org/
 
-Getting xlwings running inside Excel at a superficial level involves adding a xlwings.bas file that xlwings provides. In our implementation there's a little more to it than that, but beyond the scope of this article. Suffice it to say, xlwings has the link covered.
+Getting xlwings running inside Excel at a superficial level involves adding a xlwings.bas file that xlwings provides. In our implementation, there's a little more to it than that, but beyond the scope of this article. Suffice it to say, xlwings has the link covered.
 
 # Xlwings into action via our PythonTool Architecture
 --------------------------------------
-One of the things engineered into the [Excel menu creation][] technique described in our previous post was the ability to fork any menu item action off to either VBA or Python. The way we do this is by specifying any particular item with the directive *PythonTool*. PythonTool is a VBA wrapper method that calls the xlwings VBA RunPython method, as well as passing the string name of the tool we want to run. For example:
+One of the things engineered into the [Excel menu creation][] technique described in our previous post was the ability to fork any menu item action off to either VBA or Python. The way we do this is by specifying any particular item with the *PythonTool* macro. PythonTool is a VBA procedure that calls xlwings' RunPython macro with a Python code snippet that includes the string name of the tool we want to run. For example:
 
     Hello World  |  PythonTool "hello world"
 
-will call RunPython for the tool we're specifying in Python as "hello world".
+will call RunPython for the tool we've implemented in Python as "hello world".
 
-In our python codebase we have a dictionary that translates these strings into specific tool classes.
+In our Python codebase, we have a dictionary that translates these strings into specific tool classes.
 
-``` vb
+``` python
 TOOL_CLASSES = {
     "batch": batch.FileBatchTool,
     "batch - new list": batch.NewListTool,
@@ -78,7 +78,7 @@ TOOL_CLASSES = {
     }
 ```
 
-So, when a user in Excel calls the menu item that appears to them as "Hello World", the code specifies that it call PythonTool with the name "hello world", which resolves to calling the HelloWorldTool. Here is the code for that class:
+So, when a user in Excel selects the menu item labelled "Hello World", the PythonTool macro is called with the name "hello world", which in turn, runs the HelloWorldTool in Python. Here is the code for that class:
 
 ``` python
 class HelloWorldTool(tool_base.PythonTool):
@@ -106,23 +106,23 @@ The input_text add_in:<br />
 And finally the msg_box. Hello World!:<br />
 ![screenshot of hello world msgbox]({{site.urlimg}}/hello-world-msgbox.png)
 
-Every PythonTool has some general tools we've engineered via the add_in object. This allows for reusable Excel-side widgets like message boxes for both text input and information (as seen in the hello world tool code above), creating new workbooks, even spinning the cursor while a process is running.
+Every PythonTool has access to some common functionality that we've engineered via the add_in object. This allows for reusable Excel-side widgets like message boxes for both text input and information (as seen in the hello world tool code above), creating new workbooks, even spinning the cursor while a process is running.
 
 [Excel menu creation]: {{site.url}}/unicorn-1-menu/
 
 That's the HelloWorld example, but obviously we want to do much more than this, and we already have. For example, we have a need to export some specific structured data from a large set of workbooks. The exports are done periodically and only need to be done if the workbook itself has been updated since the last export. I wrote a PythonTool that systematically:
 
-* Goes through the workbook list, determines which workbooks need export (through file mtime comparison)
-* Those workbooks that need export are read into Python using the Pandas library
-* Once the workbook is in a Pandas data frame, the necessary data are gathered and exported
-* Meanwhile, the PythonTool opens a report workbook that shows the progress of each workbook export
+* Goes through the workbook list, determines which workbooks need export (through file mtime comparison).
+* Those workbooks that need export are then read into Python using the Pandas library.
+* Once the workbook is in a Pandas data frame, the necessary data are gathered and exported.
+* Meanwhile, the PythonTool opens a report workbook that shows the real-time progress of each workbook export.
 
 I can't emphasize this enough, this is SUCH an improvement over writing VBA. Faster to write. Faster to execute. Easier to maintain.
 
 # But wait! There's more!
 -------------------
 
-I've described a lot here, but there are more topics to cover in future posts. Here's some teasers:
+I've described a lot here, but there are more topics to cover in future posts. Here are some teasers:
 
 * Python environment support with conda and conda-build
 
