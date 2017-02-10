@@ -4,6 +4,11 @@ title: Improving Menu Creation in Excel with VBA
 teaser: In this series, we present some highlights from Team Unicorn Rainbows' work in the first round of MPC IT Shark Tank.  This first post describes how we improved menu creation in Excel.
 author: jdomingo
 categories:
+tags:
+- IPUMS
+- Excel
+- VBA
+- UnicornRainbows
 ---
 
 

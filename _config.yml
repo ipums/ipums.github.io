@@ -61,11 +61,11 @@ language: "en"
 
 # Exclude these files from your production _site
 exclude:
+    - vendor/bundle
     - Gemfile
     - Gemfile.lock
     - LICENSE
     - README.md
-
 
 #
 #       ____       ____            ____ 
