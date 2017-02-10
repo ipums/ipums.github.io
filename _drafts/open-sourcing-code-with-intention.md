@@ -9,10 +9,9 @@ tags: []
 
 ## Introduction
 
-So you have a project that you think you'd like to open source? Great! While you may be tempted to simply throw it up on Github and see what happens, with a bit of forethought and preparation you can better position your open source project
-for success.
+So you have a project that you think you'd like to open source? Great! While you may be tempted to simply throw it up on GitHub and see what happens, you can better position your open source project for success with a bit of forethought and preparation.
 
-Recently at the MPC we've been paying more attention to open sourcing our code, as we would like to be doing more of this, and we've also got some projects wrapping up that are obligated to release their code. We've learned a lot as we've studied the best way to release our code back to the community. This post will walk you through a checklist of considerations that
+Recently at the MPC, we've been paying more attention to open sourcing our code, as we would like to be doing more of this, and we've also got some projects wrapping up that are obligated to release their code. We've learned a lot as we've studied the best way to release our code back to the community. This post will walk you through a checklist of considerations that
 one should make before open sourcing a project.
 
 ### Step 1. Answer "Why?"
@@ -21,9 +20,9 @@ Ask yourself why you want to open source your code. There are lots of valid reas
 
 * You've made something that you think others would like to use.
 * You would like to recruit others to help develop this project.
-* You have a project you no longer have time to work on, but want to put it out there so it can live on.
+* You have a project that you no longer have time to work on, but want to put it out there so it can live on.
 * You used or modified code in your project that has a license which requires you to release your modifications, or you have some other formal agreement to do so.
-* You simply want to work on your project in the open to honor your personal principles and beliefs
+* You simply want to work on your project in the open to honor your personal principles and beliefs.
 
 The answer to "Why?" informs a lot of the rest of the decisions I'm going to discuss in this article. Being crystal clear about why you are open sourcing the code will make these decisions easier.
 
