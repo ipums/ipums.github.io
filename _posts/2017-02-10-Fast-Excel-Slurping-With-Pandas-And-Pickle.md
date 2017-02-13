@@ -66,11 +66,14 @@ So, this class defines a Python object that reads an Excel worksheet into Pandas
 
 Benchmark of reading in 1 very large Excel file:
 
-XXX to do
+```shell
+    %%timeit
+    v  = MpcSpreadsheet('metadata/variables.xlsx', '/my/work/dir')
 
-Benchmark of reading in 1000 not so large Excel files:
+    1 loops, best of 3: 50.3 s per loop
+```
 
-XXX to do
+Ouch.
 
 Judging from those benchmarks, even with the power and speed Pandas promises once our tables are in data frame format, we still haven't solved the Excel bottleneck. Parsing in the data from the xlsx format is slow. This is where Pickle, from Python's standard library, can help.
 
@@ -213,15 +216,16 @@ class MpcSpreadsheet(object):
         self.ws.columns = map(str.rstrip, self.ws.columns)
 ```
 
-Before and after pickling--
-Benchmark of reading in 1 very large Excel file:
+After pickling, here's the same benchmark of that very large Excel file.
 
-XXX to do
+```shell
+    %%timeit
+    v  = MpcSpreadsheet('metadata/variables.xlsx', '/my/work/dir')
 
-Benchmark of reading in 1000 not so large Excel files:
+    1 loops, best of 3: 1.58 s per loop
+```
 
-XXX to do
-
+Alright, that's quite an improvement!
 
 You'll notice in the MpcSpreadsheet docstring above discussion of child classes to MpcSpreadsheet. It's beyond the scope of the article here, but suffice it to say that we build _a lot_ of object intelligence into the child classes. Each child class provides class-specific methods for efficiently accessing information directly from the data frame. Since the `read_excel()` and pickling logic are all here in the parent class, every child class benefits from this architecture. The only expectation of the child class is that there is a data frame initialized that is the exact representation of the spreadsheet. The object doesn't care whether it originates from a pickled data frame or from the Excel file itself.
 
