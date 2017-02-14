@@ -64,7 +64,7 @@ A couple of things to note here. The object is initialized with a path to the Ex
 
 So, this class defines a Python object that reads an Excel worksheet into Pandas. Once in Pandas, we can access information really quickly, but how much overhead is there in getting the data from Excel to Pandas?
 
-Benchmark of reading in 1 very large Excel file:
+Benchmark[^2] of reading in 1 very large Excel file:
 
 ```shell
     %%timeit
@@ -74,6 +74,16 @@ Benchmark of reading in 1 very large Excel file:
 ```
 
 Ouch.
+
+How about 1,000 not so very large files?
+
+```shell
+    %%timeit
+    for v in all_vars[0:1000]:
+        sheet = MpcSpreadsheet('variables/' + v + '.xls', '/my/work/dir')
+
+    1 loop, best of 3: 1min 49s per loop
+```
 
 Judging from those benchmarks, even with the power and speed Pandas promises once our tables are in data frame format, we still haven't solved the Excel bottleneck. Parsing in the data from the xlsx format is slow. This is where Pickle, from Python's standard library, can help.
 
@@ -117,8 +127,8 @@ Alright, that's a plan! Now all that's left is implementing it!
 To build this structure we add several methods to our `MpcSpreadsheet` class:
 
 1. `get_pickle_path()` evaluates the object's xlpath to determine where the path to the pickle needs to be. This is where knowing the base directory for the project's work, stored in `self.projdir` is essential, as the .pickle/ subdirectory builds from that directory.
-2. `fresh_pickle()` compares the file mtime of the pickle (if it exists) to the spreadsheet file. If it's present and newer, the pickle is "fresh" and the cache is validated[^2].
-3.  `pickle_dataframe()` takes the data frame at `self.ws` and pickles it to self.pklpath for future use.
+2. `fresh_pickle()` compares the file mtime of the pickle (if it exists) to the spreadsheet file. If it's present and newer, the pickle is "fresh" and the cache is validated[^3].
+3.  `pickle_dataframe()` takes the data frame at `self.ws` and pickles it to self.pklpath (along with creating whatever directories are necessary using `os.makedirs`) for future use.
 
 ``` python
 def get_pickle_path(self):
@@ -149,7 +159,7 @@ def fresh_pickle(self):
     A pickled spreadsheet is only valid if it:
         1. exists
         2. is newer than the last updated time for the spreadsheet.
-        This method is to identify whether the pickled file should be used.
+    fresh_pickle() identifies whether the pickled file should be used.
     """
     if os.path.isfile(self.pklpath):
         if os.path.getmtime(self.pklpath) > os.path.getmtime(self.xlpath):
@@ -216,19 +226,29 @@ class MpcSpreadsheet(object):
         self.ws.columns = map(str.rstrip, self.ws.columns)
 ```
 
-After pickling, here's the same benchmark of that very large Excel file.
+Here's the same benchmark tests after those files have been pickled, first for reading a very large Excel file, then reading 1,000 smaller Excel files.
 
 ```shell
     %%timeit
     v  = MpcSpreadsheet('metadata/variables.xlsx', '/my/work/dir')
 
     1 loops, best of 3: 1.58 s per loop
+
+    %%timeit
+    for v in all_vars[0:1000]:
+        sheet = MpcSpreadsheet('variables/' + v + '.xls', '/my/work/dir')
+
+    1 loop, best of 3: 29.6 s per loop
 ```
 
-Alright, that's quite an improvement!
+Alright, that's quite an improvement! The biggest gain is in the large file read, where the 50s read is reduced to about 1.5 seconds, a 33x improvement. However, even reading 1,000 smaller files reduces the time required by 3x, from 1.5 minutes to 30 seconds.
 
-You'll notice in the MpcSpreadsheet docstring above discussion of child classes to MpcSpreadsheet. It's beyond the scope of the article here, but suffice it to say that we build _a lot_ of object intelligence into the child classes. Each child class provides class-specific methods for efficiently accessing information directly from the data frame. Since the `read_excel()` and pickling logic are all here in the parent class, every child class benefits from this architecture. The only expectation of the child class is that there is a data frame initialized that is the exact representation of the spreadsheet. The object doesn't care whether it originates from a pickled data frame or from the Excel file itself.
+In the MpcSpreadsheet docstring above, you'll notice discussion of child classes to MpcSpreadsheet. It's beyond the scope of the article here, but suffice it to say that we build _a lot_ of object intelligence into the child classes. Each child class provides class-specific methods for efficiently accessing information directly from the data frame. However, since the `read_excel()` and pickling logic are all here in the parent class, every child class benefits from this architecture. The only expectation of the child class is that there is a data frame initialized that is the exact representation of the spreadsheet. The object doesn't care whether it originates from a pickled data frame or from the Excel file itself. After all, if the pickle is fresh, they are going to be identical.
 
-[^1]: For simplification in the article I am treating all Excel workbooks as single worksheet workbooks. Pandas.read_excel() has the tools to read all worksheets in a workbook, either individually by name or as an ordered list. That extra layer of complexity wasn't going to add much, which is why I'm making the 1-worksheet per workbook assumption here.
+Summing it all up: without doing anything particularly groundbreaking, great utility can be had using the standard libraries Python provides. Especially when coupled with the processing power of Pandas, we're really making spreadsheet data analysis fly with Pickle.
 
-[^2]: The two hardest things in programming: Naming things, cache validation, and off-by-one errors.
+[^1]: For simplification in the article I am treating all Excel workbooks as single worksheet workbooks. Pandas.read_excel() has the tools to read all worksheets in a workbook, either individually by name or as an ordered list. That extra layer of complexity wasn't going to add much to the topic at hand, which is why I'm making the 1-worksheet per workbook assumption here.
+
+[^2]: Benchmarks were performed using iPython's `%%timeit` cell magic, which is not the most scientific measurement possible, but does the job in providing rough insight into the improvement gains we accomplish in this article.
+
+[^3]: The two hardest things in programming: Naming things, cache validation, and off-by-one errors.
