@@ -53,12 +53,14 @@ If you contribute code to an existing open source project, the authors still hol
 [Apache Software Foundation]: https://www.apache.org/
 [Software Freedom Conservancy]: https://sfconservancy.org/
 
-Once copyright has been clarified, add that information to your project.  A top-level file called NOTICE or COPYRIGHT is one common way to do this. See the resources in the Further Reading below for more information.  Although this file isn't required to hold copyright -- the law automatically grants copyright at the moment the code is created -- it informs others using the code who holds the copyright.
+Once copyright has been clarified, add that information to your project.  A top-level file called NOTICE or COPYRIGHT is one common way to do this. See the resources in the [Further Reading][] below for more information.  Although this file isn't required to hold copyright -- the law automatically grants copyright at the moment the code is created -- it informs others using the code who holds the copyright.
+
+[Further Reading]: #further-reading
 
 
 ### Step 3. Choose and Implement a License
 
-Now that you've figured out who holds copyright over the code, you can turn your attention to choosing a license and getting agreement from the copyright holder(s), if that's not you. Choosing a license is hard. There are many to choose from - MIT, GPL, LGPL, MPL, BSD-3, BSD-2, EPL... just for starters. And they're written in legalese in a way that makes it hard to decipher what they're really trying to say. I'll link to some resources in Further Reading that will help sort through the options.
+Now that you've figured out who holds copyright over the code, you can turn your attention to choosing a license and getting agreement from the copyright holder(s), if that's not you. Choosing a license is hard. There are many to choose from - MIT, GPL, LGPL, MPL, BSD-3, BSD-2, EPL... just for starters. And they're written in legalese in a way that makes it hard to decipher what they're really trying to say. I'll link to some resources in [Further Reading][] that will help sort through the options.
 
 Given all this complexity, you might think it's easier to have no license. You might think "Hey, I don't care what happens to this code, anyone can do anything with it."  Guess what? There's a license for that! (The MIT License) In fact, if that's really what you intend for your code, not choosing a license actually has an opposite effect, and can even lock you out of using your own project!
 
@@ -74,7 +76,7 @@ If so, what license(s) is that code using? What restrictions do those licenses p
 - **Do I have concerns regarding patents?** If patents are an issue, you'll want to pay special attention. Some open source licenses do not address this topic.
 - **Do I have an opinion about topics such as jurisdiction for litigation, how credit for my work is attributed to me, or whether people using this project internally in their organization still need to distribute their modifications?** All of these and more are typically covered by open source licenses.
 
-As you can see, there are a lot of facets to choosing the right license, and you may not have considered many of these before. Fortunately, there are a number of good sites on the web that can assist you. They are listed in the Further Reading section below.
+As you can see, there are a lot of facets to choosing the right license, and you may not have considered many of these before. Fortunately, there are a number of good sites on the web that can assist you. They are listed in the [Further Reading][] section below.
 
 Once you have chosen a license, you need to add it to your project. Start by creating a LICENSE file at the top level of your code with the license text in it. Some licenses also come with instructions on how to apply the license, such as specifying boilerplate text that you can place at the top of each file in your project.
 
