@@ -34,16 +34,27 @@ _**What's the difference between Copyright and License?**_
 
 This is a really important distinction to understand. Copyright is a huge topic of its own, and I Am Not A Lawyer, so we're not going to go too deep into copyright today. Having said that, here's a ballpark answer:
 
-  * **_Copyright_ describes the rights bestowed to the person or persons who created the code**. "Person" here can refer to a natural person or otherwise, like a corporation - more on this in a bit.
-  * A **_license_ describes the rights bestowed by the copyright holder to another person** regarding usage of the software that the copyright holder has created. To make this even more confusing, the license is sometimes referred to as the _copyright license_.
+  * **_Copyright_ is a form of protection granted by law to the person or persons who created the code**. "Person" here can refer to a natural person or a legal entity like a corporation - more on this in a bit. Each person is said to _hold_ the copyright to the code.
 
-For the purposes of copyright, the person who writes the code is not always considered the copyright holder. Most work for hire (e.g. software an employee or contractor creates for a company) is owned by the company and therefore the company is the copyright holder unless they choose to assign their rights otherwise. An even more interesting case is the US Government. The US Government cannot hold copyright, so software written by a government employee is in the public domain and has no copyright. This does not extend to work done on behalf of the Government by a contractor, or by a grantee such as the MPC. In the vast majority of those cases, the government gives the contractor or grantee (the University of Minnesota in our case) authorization to assert copyright to their work but requires them to grant the Government an unrestricted license to that work. And they can also restrict access to work for reasons such as national security, even if it would otherwise be in the public domain.
+  * A **_license_ describes the rights that the copyright holder grants to another person** regarding usage of the copyrighted software.
 
-For the purposes of open sourcing software, it's very important to figure out who holds the copyright to the software. The relationship between copyright and license is that the copyright holder is the one that gets to determine the license under which the work is released. For work you did by yourself on your own time this is straightforward - you own the copyright. For work you did for your employer or client, you need to obtain the permission of your employer or client to release the work unless the work contract assigns copyright to you. For work that you did with a group of people, you need to get the consensus of all copyright holders before proceeding.
+For the purposes of open sourcing software, it's crucial to figure out who holds the copyright to the software because the copyright holder decides whether to release the code or not, and if so, under what license terms.  Therefore, in the simplest case, where you wrote software by yourself on your own time, you are the sole copyright holder.  If you decide to open source your code, you get to choose the license.
 
-If you contribute code to an open source project, you are agreeing to release your work under the license which that project is using at the time you contribute your work. However, you still retain copyright. So, larger open source projects will potentially have many different copyright holders. If there is ever a need to change the project's license, the project would need the permission of every contributor. For this reason, some larger projects require that contributors assign their copyright rights to a single entity organized for that purpose in order to ease management of the project's copyright and any future license changes.
+Under copyright law, the person who writes the code is not always considered the copyright holder.  In work-for-hire situations where an employee or contractor creates software for a company, the company holds copyright to the code unless it's been explicitly re-assigned to the coder.  As staff of the MPC, the University of Minnesota is our employer, so the university holds copyright to software we write.
 
-Once copyright has been clarified, add that information to your project. A top-level file called AUTHORS or COPYRIGHT is one common way to do this. See the resources in the Further Reading below for more information.
+Similarly, if you wrote software for your employer or client, you need to obtain their permission to release the work.
+
+An interesting case regarding the work-for-hire is the US Government.  Works by the US Government have no copyright; therefore software written by federal employees is in the public domain.  Of course, they can restrict access to work for reasons such as national security.
+
+ This absence of copyright does not extend to work done on behalf of the Government by a contractor, or by a grantee such as the MPC.  In the vast majority of those cases, the government gives the contractor or grantee (the University of Minnesota in our case) authorization to assert copyright to their work but requires them to grant the Government an unrestricted license to that work.
+
+If you contribute code to an existing open source project, the authors still hold copyright.  So, larger open source projects will potentially have many different copyright holders.  If there is ever a need to change the project's license, the project would need the permission of every contributor.  For this reason, some larger projects require that contributors assign their copyright rights to a single entity organized for that purpose -- for example, the [Apache Software Foundation][] or the [Software Freedom Conservancy][] -- in order to ease management of the project's copyright and any future license changes.
+
+[Apache Software Foundation]: https://www.apache.org/
+[Software Freedom Conservancy]: https://sfconservancy.org/
+
+Once copyright has been clarified, add that information to your project.  A top-level file called NOTICE or COPYRIGHT is one common way to do this. See the resources in the Further Reading below for more information.  Although this file isn't required to hold copyright -- the law automatically grants copyright at the moment the code is created -- it informs others using the code who holds the copyright.
+
 
 ### Step 3. Choose and Implement a License
 
