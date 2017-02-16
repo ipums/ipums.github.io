@@ -125,7 +125,7 @@ We also created a short document with the specific steps developers should take 
 
 ### Summary
 
-With a little bit of forethought and preparation you can open source your project in a way that helps you clearly understand your goals for doing so, leading to a more informed license choice and a project that is more accessible and usable for both potential users and potential contributors. It's worth the extra time and effort to avoid unintended consequences and maximize the value of your contribution to the community. Here at the MPC we are certainly happy we spent the time considering these factors, and it now feels much easier to move forward with open sourcing more of our work in the near future.
+With a little bit of forethought and preparation, you can open source your project in a way that helps you clearly understand your goals for doing so, leading to a more informed license choice and a project that is more accessible and usable for both potential users and potential contributors. It's worth the extra time and effort to avoid unintended consequences and maximize the value of your contribution to the community. Here at the MPC, we are certainly happy we spent the time considering these factors, and it now feels much easier to move forward with open sourcing more of our work in the near future.
 
 We'd love to hear your experiences, questions and opinions - leave us a comment below! In the meantime, the links below are full of great information to help you continue your journey towards open sourcing your project with intention!
 
