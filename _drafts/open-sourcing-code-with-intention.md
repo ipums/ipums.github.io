@@ -84,9 +84,9 @@ Once you have chosen a license, you need to add it to your project. Start by cre
 
 Ok, you've figured out copyright and you've chosen a license. Now it's time to put the project out there!
 
-Many people assume that open sourcing a project means providing a publicly available source code repository for it. While this is usually the case, it's not a requirement - you can simply put up a tarball of your code with the proper license and copyright information and satisfy the requirements for your open source license.
+Many people assume that open sourcing a project means providing a publicly available source code repository for it. While this is usually the case, it's not a requirement -- you can simply put up a tarball of your code with the proper license and copyright information and satisfy the requirements for your open source license.
 
-Having said that, in most cases you'll need a source code repository. Assuming you use git for your source code versioning tool, the default choice here is Github.com, which offers free public repositories. There are other choices which may make sense for your case, particularly if you want a private repo or want to host your repository on-premise. Github charges fees for these services, but they can be had for free with tools such as Bitbucket or GitLab. Github is still the elephant in the room, but you might want to check out these and other options before committing to one.
+Having said that, in most cases you'll need a source code repository. Assuming you use Git for your source code versioning tool, the default choice here is [GitHub.com](https://github.com), which offers free public repositories. There are other choices which may make sense for your case, particularly if you want a private repo want to host your repository on-premise. GitHub charges fees for these services, but they can be had for free with tools such as [Bitbucket](https://bitbucket.org/) or [GitLab](https://gitlab.com/). GitHub is still the elephant in the room, but you might want to check out these and other options before committing to one.
 
 _IMPORTANT: Before you put your code up on a public repository site, make sure you've scrubbed it for anything sensitive, like passwords, API keys or company-specific information.  Once it's out, there is no going back._
 
