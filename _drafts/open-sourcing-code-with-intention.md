@@ -62,16 +62,16 @@ Now that you've figured out who holds copyright over the code, you can turn your
 
 Given all this complexity, you might think it's easier to have no license. You might think "Hey, I don't care what happens to this code, anyone can do anything with it."  Guess what? There's a license for that! (The MIT License) In fact, if that's really what you intend for your code, not choosing a license actually has an opposite effect, and can even lock you out of using your own project!
 
-> Unless you include a license that specifies otherwise, nobody else can use, copy, distribute, or modify your work without being at risk of take-downs, shake-downs, or litigation. Once the work has other contributors (each a copyright holder), “nobody” starts including you. - http://www.choosealicense.com
+> Unless you include a license that specifies otherwise, nobody else can use, copy, distribute, or modify your work without being at risk of take-downs, shake-downs, or litigation. Once the work has other contributors (each a copyright holder), “nobody” starts including you. -- <http://www.choosealicense.com>
 
-By including a license, you can be explicit about your intentions and make it easier for other individuals and organizations to use and contribute back to your project. Having a license allows you to protect your ability to define the terms for use of your work - so do this before you invite others to contribute to your project!
+By including a license, you're being explicit about your intentions and make it easier for other individuals and organizations to use and contribute back to your project. Having a license allows you to protect your ability to define the terms for use of your work - so do this before you invite others to contribute to your project!
 
 There are a lot of things one must consider when choosing an open source license, such as:
 
 - **Does my project use other open source code?**
-If so, what license(s) is that code using? What restrictions do those licenses put on my own choice of license? An open source license will grant you specific rights on how you can use the code, including how you may - or in some cases, must - redistribute your project that uses their code.  You must make sure you choose a license for your project that is compatible with the licenses used by all the components you used.
+If so, what license(s) is that code using? What restrictions do those licenses put on my own choice of license? An open source license will grant you specific rights on how you can use the code, including how you *may* -- or in some cases, *must* -- redistribute your project that uses their code.  You must make sure you choose a license for your project that is compatible with the licenses used by all the components you used.
 - **Do I want to ensure that modifications to my code remain available as open source under the same terms?** This is one of the main differentiators of the various classes of open source licenses. Some require that derivative works are licensed under the same terms ("strong copyleft"), while some are more flexible and give the user more choice while preserving the requirement to release modified source code ("weak copyleft"), and still others impose only minimal requirements ("permissive").
-- **Do I have concerns regarding patents?** If patents are an issue you'll want to pay special attention. Some open source licenses do not address this topic.
+- **Do I have concerns regarding patents?** If patents are an issue, you'll want to pay special attention. Some open source licenses do not address this topic.
 - **Do I have an opinion about topics such as jurisdiction for litigation, how credit for my work is attributed to me, or whether people using this project internally in their organization still need to distribute their modifications?** All of these and more are typically covered by open source licenses.
 
 As you can see, there are a lot of facets to choosing the right license, and you may not have considered many of these before. Fortunately, there are a number of good sites on the web that can assist you. They are listed in the Further Reading section below.
