@@ -97,14 +97,16 @@ Be clear about your intentions for your project, and that starts right in the RE
 * A one-sentence summary of what your project aims to do.
 * Instructions on how to install and use the code.
 * A clear statement on the current state of the code - alpha, beta, stable, broken?
-* Known bugs and issues
-* A statement about how to get help / report problems. Be very clear about how much support you are willing/able to provide. It's ok to say "I don't have time to provide support but I hope someone finds this useful." It's less ok to have a bug tracker on your repository but to just ignore it.
+* Known bugs and issues.
+* A statement about how to get help and report problems. Be very clear about how much support you are able to provide. It's ok to say "I don't have time to provide support but I hope someone finds this useful." It's less ok to have a bug tracker for your repository but to just ignore it.
 
 You might also include a wishlist or TODO items, some explanation of the motivation for your project, some architectural documentation, or whatever else you feel might be helpful for users or contributors of your project.
 
-### Step 6. (Optional) Document Your Standards and Best Practices
+### Step 6. Document Your Open-Source Practices
 
-If you are part of a larger organization that will be releasing multiple open source projects, you might want to take this time to document your license choice and implementation rationale. At the MPC we made a short document titled "MPC Open Source Software Licensing Policy", the full text of which is here:
+*This step is optional*.
+
+If you are part of a larger organization that will be releasing multiple open source projects, you might want to take this time to document your license choice and implementation rationale. At the MPC, we made a short document titled "MPC Open Source Software Licensing Policy", the full text of which is here:
 
 >Guiding Principles
 >
