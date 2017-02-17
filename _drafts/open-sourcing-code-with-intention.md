@@ -139,5 +139,5 @@ We'd love to hear your experiences, questions and opinions - leave us a comment 
 [Free as in Freedom]: http://www.oreilly.com/openbook/freedom/
 [The Cathedral and the Bazaar]: shop.oreilly.com/product/9780596001087.do
 
-### Acknowledgement 
+### Acknowledgment 
 Our own Jimm Domingo contributed heavily to this article and also taught me much of what I now know about copyright and licensing. Thanks Jimm!
