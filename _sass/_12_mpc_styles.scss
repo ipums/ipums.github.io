@@ -18,5 +18,12 @@ img.meetteam {
 
 a.ontourlink {
     font-weight: bold;
-    border-bottom: 1px dotted;    
+    border-bottom: 1px dotted;
+}
+
+code {
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
