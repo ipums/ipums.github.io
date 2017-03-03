@@ -3,7 +3,7 @@ layout: page
 title: 'Data Product Spotlight:  Current Population Survey'
 teaser: 'Our newest data product spotlight shines on CPS, the federal government monthly survey on employment in America, among other topics.'
 author: ccd
-categories: IPUMS
+categories: Data
 ---
 
 ## MPC Data Product Spotlight: CPS (__Current Population Survey__ )
@@ -18,19 +18,19 @@ CPS has twelve monthly surveys. Different months survey basic employment topics 
 
 ### Survey Description  
 
-MPC has CPS data going back to 1962. We produce new harmonized versions of the data as the BLS releases it.  There are surveys released for every month. The March survey contains data on between thirty and one hundred thousand households and all their individuals -- it has grown over time as the population has grown. The other months contain around fifteen thousand households per month. People participate in more than one survey in a year; there are files of linking keys available from MPC if you want to link people across surveys. 
+MPC has CPS data going back to 1962. We produce new harmonized versions of the data as the BLS releases it.  There are surveys released for every month. The March survey contains data on between thirty and one hundred thousand households and all their individuals -- it has grown over time as the population has grown. The other months contain around fifteen thousand households per month. People participate in more than one survey in a year; there are files of linking keys available from MPC if you want to link people across surveys.
 
 The data isn't a set of compiled statistics but rather the microdata from which those stats get produced, as with other MPC microdata products. People are grouped together into their family and households so you can study them in the context of other family and household members, something you could not do with compiled statistics.
 
 ### CPS Software Development Highlights
 
-Harmonizing the data -- making all the data as comparable as possible --  poses a challenge in CPS as there are more than five hundred datasets from the last fifty-three years. The amount of time and attention available from a developer or subject matter specialist on any one dataset therefore is limited; we needed to create automated QA and easy-to-apply methods for massaging the data into a useful form, and techniques to leverage expert knowledge. 
+Harmonizing the data -- making all the data as comparable as possible --  poses a challenge in CPS as there are more than five hundred datasets from the last fifty-three years. The amount of time and attention available from a developer or subject matter specialist on any one dataset therefore is limited; we needed to create automated QA and easy-to-apply methods for massaging the data into a useful form, and techniques to leverage expert knowledge.
 
 Not only does CPS contain many datasets but it has thousands of survey questions. We provide a web application to select and extract small subsets of this data to assist in studying a particular topic, as with all microdata products, but designing an effective user interface to select from the large number of datasets, survey topics and questions poses unique challenges.
 
 ### What Can I do With CPS?
 
-You can produce time series on some topics that extend back as far as you're interested.  Questions have been added over the years, so only a core subset of topics extend back to 1962. That said, you can look at many subjects over the course of many months and years, through recessions and booms, in a way not possible with census data. 
+You can produce time series on some topics that extend back as far as you're interested.  Questions have been added over the years, so only a core subset of topics extend back to 1962. That said, you can look at many subjects over the course of many months and years, through recessions and booms, in a way not possible with census data.
 
 You can study some regional differences, but keep in mind the small number of households in the survey limits the precision for small geographic areas. Still, there's enough data to look at many individual states. The records include weight variables to allow you to calculate how many people from the entire U.S. population a given person represents. Weights in CPS are more complex than for U.S. Census and International Census MPC data products, but there is good documentation on how to properly use the data.
 
@@ -68,6 +68,3 @@ CPS covers the following topics:
 To learn more and start using CPS data, see <a href="https://cps.ipums.org/cps-action/faq">The IPUMS-CPS FAQ page.</a>
 
 To learn about published research, books and articles using the CPS see our bibliography <a href="https://bibliography.ipums.org"> bibliography.ipums.org</a> and select CPS as the project.
-
-
-

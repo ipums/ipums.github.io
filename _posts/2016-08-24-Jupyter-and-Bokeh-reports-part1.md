@@ -1,12 +1,13 @@
 ---
 author: jerdmann
-title: 'Automated Analysis of a Data Workflow - Part 1' 
+title: 'Automated Analysis of a Data Workflow - Part 1'
 teaser: 'The story of how we created DCP Analytics - our in-house automated, web-based analysis tool using Pandas, Bokeh, Jupyter and Conda to help our researchers quickly find data anomalies and processing errors in our data production pipelines.'
+categories: Code
 ---
 
 At the MPC we have several microdata projects, each with varied characteristics.  Some have thousands of variables, some have hundreds of samples, and some have both. When researchers are preparing new samples, they will often want to compare the new samples to previous samples from the same dataset, to see how things are changing between samples (e.g. from one census or survey year to the next). This can be challenging because of the sheer number of variables and samples that some of our projects contain.
 
-Consistent and thorough automated checks were difficult to come up with because of the variation across projects.  Researchers on each project were mainly left to their own devices to manually check the metrics they thought were most likely to show errors in the data preparation.  They would do this by loading the data into the stats package of their choice.  This can be effective because researchers do in fact have great intuition about the types of problems we tend to have during data preparation, but it also leaves huge holes in coverage and is a much more time consuming process than it needs to be. 
+Consistent and thorough automated checks were difficult to come up with because of the variation across projects.  Researchers on each project were mainly left to their own devices to manually check the metrics they thought were most likely to show errors in the data preparation.  They would do this by loading the data into the stats package of their choice.  This can be effective because researchers do in fact have great intuition about the types of problems we tend to have during data preparation, but it also leaves huge holes in coverage and is a much more time consuming process than it needs to be.
 
 For each variable in a sample, there are a set of possible answers (referred to as values, codes or categories somewhat interchangably). To give a simple example, a question about marital status might have as valid responses "married", "single", "divorced" or "widowed", so in our metadata the variable might be called MARST and it might have four valid codes which map to "married", "single", "divorced" and "widowed". In any given sample, say 1990 US Census, you can count up all the responses and generate a frequency table, such as 32% married, 34% single, 20% divorced, and 14% widowed.  These frequencies naturally change over time, usually gradually, but often when there is a metadata or other processing error you will observe a huge frequency change from sample to sample. For instance, if the frequency of divorce is 22% in one sample and 0% or 95% in the next, you likely have a problem. So, frequency tables are a useful debugging tool.
 
@@ -37,7 +38,7 @@ code|label|percent_es1981a|percent_es1991a|percent_es2001a|percent_es2011a
 8|Unknown|0.00|0.00|0.00|0.00
 9|NIU (not in universe)|0.00|0.00|0.00|0.00
 
-With such a small number of codes and samples, it is easy to determine what is going on with this variable. The set of possible responses to the census question changed between 1981 and 1991, grouping two distinct categories from 1981 into a single new category from 1991 on.  The other notable change is the growth of non-citizens.  Presumably some of these are the British retirees we heard so much about during the Brexit talk earlier in 2016. 
+With such a small number of codes and samples, it is easy to determine what is going on with this variable. The set of possible responses to the census question changed between 1981 and 1991, grouping two distinct categories from 1981 into a single new category from 1991 on.  The other notable change is the growth of non-citizens.  Presumably some of these are the British retirees we heard so much about during the Brexit talk earlier in 2016.
 
 However, some of the hundreds of variables in IPUMS-I have 100 or more codes across a total of 276 samples from 81 countries.  We obviously wouldn't be able look at that much data easily.  Instead, when we're in that situation we can do some quick operations to determine the largest changes across all codes and variables. Here we do that for CITIZEN, and now we can see a bit more clearly what has changed.
 
@@ -62,9 +63,9 @@ code|label|pct_max|pct_min|pct_diff|max_pct_diff
 [Bokeh](http://bokeh.pydata.org/en/latest/)
 -------------------------------------------
 
-Back to the problem of summarizing all of those variables.  In this case, it would be handy to have a plot of the maximum difference on an individual code for each variable to see what the scope of the changes are. It would be even better if we could have nice tooltip to give us more information about individual points. 
+Back to the problem of summarizing all of those variables.  In this case, it would be handy to have a plot of the maximum difference on an individual code for each variable to see what the scope of the changes are. It would be even better if we could have nice tooltip to give us more information about individual points.
 
-That's where [Bokeh](http://bokeh.pydata.org/en/latest/) comes in. In the plot below you can see the variables arranged from greatest to least difference.  Citizen is the fifth variable from the left.  Try the wheel zoom tool on the toolbar and see how it allows you to get a clearer picture.  The plot can also be dragged around and resized which allows a better view of the data.  The tooltips provide the details needed to investigate further. 
+That's where [Bokeh](http://bokeh.pydata.org/en/latest/) comes in. In the plot below you can see the variables arranged from greatest to least difference.  Citizen is the fifth variable from the left.  Try the wheel zoom tool on the toolbar and see how it allows you to get a clearer picture.  The plot can also be dragged around and resized which allows a better view of the data.  The tooltips provide the details needed to investigate further.
 
 <iframe width="575" height="425" src="{{site.url}}/assets/dcp_analytics/variable_frequency_variation.html"></iframe>
 
@@ -102,10 +103,10 @@ tooltip_list = [
 source_dict = ColumnDataSource(data= data_source_dict)
 hover = HoverTool(tooltips=tooltip_list)
 tools = [PanTool(), BoxSelectTool(), WheelZoomTool(), hover, ResetTool(), PreviewSaveTool(), ResizeTool()]
-sample_plot = figure(plot_width=525, plot_height=350, tools=tools, 
+sample_plot = figure(plot_width=525, plot_height=350, tools=tools,
                         title="Variable Frequency Variation")#, x_range=vis_df['var'].tolist())
-    
-sample_plot.line([0, len(vis_df.index.tolist())], [compare_threshold, compare_threshold], 
+
+sample_plot.line([0, len(vis_df.index.tolist())], [compare_threshold, compare_threshold],
                 line_color='red', line_alpha = 0.5, line_dash='dotdash', line_width=2)
 sample_plot.circle('x', 'y', size=10, source=source_dict, alpha=0.5)
 sample_plot.xaxis.axis_label = 'Variable'
@@ -117,11 +118,10 @@ html_out.close()
 
 Similarly, we can render a more detailed view of any individual variable. You'll notice a few quirks about this plot.  First, there is no key.  Some variables have hundreds of codes to plot so a key will not always fit and could hide some data.  We could do things to calculate whether a key would be useful and where to place it, but for expediency we opted to have tooltips for every plotted point that show the details when a user hovers over the point.  
 
-The second quirk is that small differences in values, especially with the small rendering size shown below, will be difficult to see. The user tools provided by Bokeh to manipulate the plot make this much more manageable for the user.  In this case, the 1991 dataset has a frequency of 0.02% of cases with the code 5, "Without citizenship, stateless".  In the default view this is practically invisible.  While we do provide a table of data backing the plot in full report the use can still get this information visually.  Use the scroll zoom tool to zoom in on points of interest like the 1ipumsi_es1991a sample near the zero line.  Eventually you will see the separation between code 5 and the rest.  You can use the reset tool to go back to the default view of the plot. Generally for the purpose of our analysis small differences aren't of interest, but in other use cases those small differences can mean a lot. 
+The second quirk is that small differences in values, especially with the small rendering size shown below, will be difficult to see. The user tools provided by Bokeh to manipulate the plot make this much more manageable for the user.  In this case, the 1991 dataset has a frequency of 0.02% of cases with the code 5, "Without citizenship, stateless".  In the default view this is practically invisible.  While we do provide a table of data backing the plot in full report the use can still get this information visually.  Use the scroll zoom tool to zoom in on points of interest like the 1ipumsi_es1991a sample near the zero line.  Eventually you will see the separation between code 5 and the rest.  You can use the reset tool to go back to the default view of the plot. Generally for the purpose of our analysis small differences aren't of interest, but in other use cases those small differences can mean a lot.
 
 The final quirk is related to the fact that it would be difficult to pick enough colors to represent hundreds of codes.  We haven't generated an upfront set of colors optimized for visual distance, rather we generate random colors and use the luminecence function to determine whether a color will show up on a white background well enough or not.  Sometimes that results in similar colors for different codes.  Future work could be done to better assign colors and ensure less color overlap.
 
 <iframe width="575" height="425" src="{{site.url}}/assets/dcp_analytics/citizen_line_plot.html"></iframe>
 
 In [part 2]({{site.url}}/Jupyter-and-Bokeh-reports-part2/) we discuss the role of Jupyter in creating a comprehensive report that is both portable and has the ability to be interactive as well as Conda in deploying the tool to ensure a consistent environment for all users that will not conflict with other tools.
-

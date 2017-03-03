@@ -9,8 +9,7 @@ wordpress_id: 416
 wordpress_url: http://tech.popdata.org/?p=416
 date: '2015-01-07 09:13:46 -0600'
 date_gmt: '2015-01-07 15:13:46 -0600'
-categories:
-- Team
+categories: Team
 tags: []
 ---
 <strong>Role:</strong> Data Delivery<strong><a href="/images/ben-tacotuesday.jpg"><img class=" size-medium wp-image-417 alignright" src="/images/ben-tacotuesday-300x223.jpg" alt="ben-tacotuesday" width="300" height="223" /></a></strong>
@@ -41,4 +40,3 @@ Glad you asked! I have a post on this very blog, discussing the sublime pleasure
 <strong>What new skill(s) are your currently trying to learn?</strong>
 
 Python and associated data-processing wizardry.
-

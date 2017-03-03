@@ -2,7 +2,7 @@
 author: benklaas
 title: 'Towards a Sustainable Excel'
 teaser: 'Building Excel Macros With Python, part 3 of a series on reinventing our metadata management environment.'
-categories:
+categories: Code
 tags:
 - IPUMS
 - Excel
@@ -134,4 +134,4 @@ We have an in-house Python library that is specifically designed for harvesting 
 
 Though Excel macros are now much more efficient by using Python, at MPC we often have processes that require extra computing power. Our next generation PythonTools will farm jobs off to a linux compute cluster and report back results rather than doing the processing locally on Windows machines.
 
-_Acknowledgements: Jimm Domingo contributed to this article._ 
+_Acknowledgements: Jimm Domingo contributed to this article._

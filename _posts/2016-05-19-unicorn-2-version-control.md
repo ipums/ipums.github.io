@@ -3,7 +3,7 @@ layout: page
 title: Excel VBA and Version Control
 teaser: The second post in the series about Team Unicorn Rainbows' work in the first round of MPC IT Shark Tank.
 author: jdomingo
-categories:
+categories: Code Infrastructure
 tags:
 - IPUMS
 - Excel
@@ -51,7 +51,7 @@ A toolkit's editions have different filenames because Excel cannot open 2 files 
 
 The naming convention distinguishes between the production edition of a toolkit that a developer has _built_ in her workspace and the production edition once it's been _installed_ in the user's add-ins folder [^1].  The different file names of these 2 copies control what their respective menu titles are.
 
-Because the production edition is built by the development edition (we'll cover the build process in a moment), the repository only contains the development edition, i.e., `*_DEV.xlam`.  This is the file that developers work with. 
+Because the production edition is built by the development edition (we'll cover the build process in a moment), the repository only contains the development edition, i.e., `*_DEV.xlam`.  This is the file that developers work with.
 
 
 ### Bootstrapping in Development Mode

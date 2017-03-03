@@ -9,8 +9,7 @@ wordpress_id: 398
 wordpress_url: http://tech.popdata.org/?p=398
 date: '2014-12-07 09:11:07 -0600'
 date_gmt: '2014-12-07 15:11:07 -0600'
-categories:
-- Team
+categories: Team
 tags: []
 ---
 <strong><a href="/images/fran-corn.jpg"><img class=" size-medium wp-image-407 alignright" src="/images/fran-corn-300x208.jpg" alt="fran-corn" width="300" height="208" /></a>Name:  </strong>Fran Fabrizio
@@ -36,5 +35,3 @@ Perl.  It wasn't my first programming language, but it was the first language I 
 <b>What new skill(s) are your currently trying to learn?  </b>
 
 <p style="text-align: justify;">I try to dedicate time each week to keeping my technical skills sharp.  I've been playing with some APIs (Google, Evernote) and Apache Spark lately.
-
-

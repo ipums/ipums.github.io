@@ -4,7 +4,7 @@ title: 'Exploring Nicollet Island'
 teaser: 'Using MPC Data to Research and Visualize the Demographic History of Your Neighborhood.'
 author: mpcit
 date: 2015-12-21 10:00:00
-categories: Microdata
+categories: Data
 ---
 <style>
 .interactive_selected a:link, .interactive_selected a:hover, .interactive_selected a:visited, .interactive_selected a:active, .interactive_selected a { color: #57849e }
@@ -47,9 +47,9 @@ opacity: 0;
 <img src="/images/nicollet-island/detailed-aerial-1940.png" height="400">
 *(Aerial Photograph of Nicollet Island in 1940 -- John R. Borchert Map Library)*
 
-So, you want to research the history of your neighborhood. Where do you start? You might study newspaper archives, talk to a historical society if one exists in your area, and visit the library after exhausting leads from a Google search. For a narrative account of a place you may get lucky and find articles. But what about more quantitative information answering questions such as "How many people lived here over the years?" and "What kind of people were they?" You may run across sites that claim to have data from the U.S. Census and you think "Perfect, I'll just look up my neighborhood..." And that's where you'll often run out of ideas, because  -- unless you're very lucky -- no data exists covering only your neighborhood. Either the area is too small or tract boundaries cross right in the middle of your area of interest. This is especially true if you're looking back to the 1940, 1930 or earlier census years, where tracts were fewer. In more recent years the Census Bureau published statistics on city blocks and groups of blocks (though the kinds of information at that scale are limited), but you'll find no such stats in earlier decades. 
+So, you want to research the history of your neighborhood. Where do you start? You might study newspaper archives, talk to a historical society if one exists in your area, and visit the library after exhausting leads from a Google search. For a narrative account of a place you may get lucky and find articles. But what about more quantitative information answering questions such as "How many people lived here over the years?" and "What kind of people were they?" You may run across sites that claim to have data from the U.S. Census and you think "Perfect, I'll just look up my neighborhood..." And that's where you'll often run out of ideas, because  -- unless you're very lucky -- no data exists covering only your neighborhood. Either the area is too small or tract boundaries cross right in the middle of your area of interest. This is especially true if you're looking back to the 1940, 1930 or earlier census years, where tracts were fewer. In more recent years the Census Bureau published statistics on city blocks and groups of blocks (though the kinds of information at that scale are limited), but you'll find no such stats in earlier decades.
 
-In this post we'll show you the data behind the statistics the Census Bureau publishes and talk about how you can create never-before-published statistics for your neighborhood. We'll use Nicollet Island in Minneapolis, Minnesota as our case study. We'll look at data from between the years 1900 and 1940. 
+In this post we'll show you the data behind the statistics the Census Bureau publishes and talk about how you can create never-before-published statistics for your neighborhood. We'll use Nicollet Island in Minneapolis, Minnesota as our case study. We'll look at data from between the years 1900 and 1940.
 
 The [Wikipedia article on Nicollet Island](https://en.wikipedia.org/wiki/Nicollet_Island) has a good account of the history, but you'll notice it doesn't give any details about the population living there over the decades, other than a general story.
 
@@ -68,7 +68,7 @@ You can find scanned images with some helpful search capabilities at [ancestry.c
 
 Fortunately demographic researchers have made the public Census forms machine readable. In the past they have sampled the forms and entered one or five percent of the data, allowing for many tabulations of the data that provide useful information not previously published by the Census. But Nicollet Island has numbered in the hundreds of residents, so one or five percent samples of them would not tell you much with any accuracy.
 
-Lucky for us, MPC has made all the census data machine readable. It requires a lot of additional processing to make it acceptable for research, especially if that research spans decades. Currently we have only published  the 1940 and 1880 full count data, but eventually all decades from 1850 will get published as we "integrate" it. In the meantime we can offer a peek at what could be done with this data. 
+Lucky for us, MPC has made all the census data machine readable. It requires a lot of additional processing to make it acceptable for research, especially if that research spans decades. Currently we have only published  the 1940 and 1880 full count data, but eventually all decades from 1850 will get published as we "integrate" it. In the meantime we can offer a peek at what could be done with this data.
 
 Matching these records on their street addresses we collected households of people living on Nicollet Island. Then we aggregated the data to these custom summary statistics:
 
@@ -89,7 +89,7 @@ Matching these records on their street addresses we collected households of peop
 <svg class="chart">
 </svg>
 
-You can also use the microdata to create narratives for individual households of people within your target geographical area. Combining these narratives with historical photography can help create a more complete picture of life in the early 1900s. Below are some photographs of the island taken in the late 19th century and early 20th century, and then an interactive map with data from individual households attached to their modern day locations. The map showcases data for 1940, 1930 and 1920. 
+You can also use the microdata to create narratives for individual households of people within your target geographical area. Combining these narratives with historical photography can help create a more complete picture of life in the early 1900s. Below are some photographs of the island taken in the late 19th century and early 20th century, and then an interactive map with data from individual households attached to their modern day locations. The map showcases data for 1940, 1930 and 1920.
 
 A few houses:
 <img src="/images/nicollet-island/107-109-West-Island-Ave.png" alt="107-109 West Island Ave" width="800">

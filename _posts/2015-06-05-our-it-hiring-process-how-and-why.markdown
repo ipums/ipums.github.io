@@ -3,14 +3,13 @@ layout: page
 status: publish
 published: true
 title: 'Our IT Hiring Process: How and Why'
-teaser: 'An overview of our IT hiring process and why we designed it this way.' 
+teaser: 'An overview of our IT hiring process and why we designed it this way.'
 author: fran
 wordpress_id: 905
 wordpress_url: http://tech.popdata.org/?p=905
 date: '2015-06-05 15:03:05 -0500'
 date_gmt: '2015-06-05 20:03:05 -0500'
-categories:
-- Team
+categories: DevCulture Team
 tags: []
 ---
 
@@ -75,4 +74,3 @@ To sum up what we've learned throughout this journey, I would encourage others t
 1. Your process should lead both parties to feel like they have all the information they need to make the right decision - if the process is working, decisions should mostly feel easy.
 
 I hope you've found this article helpful - please let us know in the comments if so. Happy Hiring!
-

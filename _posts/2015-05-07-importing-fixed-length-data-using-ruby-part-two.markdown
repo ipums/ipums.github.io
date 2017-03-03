@@ -9,9 +9,7 @@ wordpress_id: 667
 wordpress_url: http://tech.popdata.org/?p=667
 date: '2015-05-07 00:08:41 -0500'
 date_gmt: '2015-05-07 05:08:41 -0500'
-categories:
-- IPUMS
-- Data Processing
+categories: Code Infrastructure
 tags: []
 ---
 <em>Read [part one]({% post_url 2015-01-28-fixed-length-record-data %}) first.</em>
@@ -242,4 +240,3 @@ Get the iRuby project source and documentation from <a href="https://github.com/
 When using iRuby or JuPyter you'd find the HFLR gem useful in formatting your hierarchical fixed-length data into sets of CSV files for easy consumption. You may run into size limitations, but not with even the full-sized example extract in my example code.
 
 Have fun.
-

@@ -9,8 +9,7 @@ wordpress_id: 535
 wordpress_url: http://tech.popdata.org/?p=535
 date: '2015-03-10 12:59:54 -0500'
 date_gmt: '2015-03-10 17:59:54 -0500'
-categories:
-- IPUMS
+categories: Infrastructure
 tags: []
 ---
 IPUMS is one of the oldest projects at the MPC, having been in active development for decades. Its first commit dates back to 2003, when IPUMS was first added to a version control system (VCS), which happened to be Concurrent Versions System (CVS), a popular VCS of that era. Several years later the project was migrated to Subversion (SVN), an improvement in terms of functionality and ease of use. Recently, however, the flexibility and increasing popularity of Git, combined with the University of Minnesota's introduction of its own enterprise GitHub instance, made a compelling case for the migration of the IPUMS codebase from SVN to Git. Based on this information, the IPUMS team decided to proceed with the code migration.
@@ -51,5 +50,3 @@ Some of the key points to be noted while converting a very large project from SV
 * When the conversion gets interrupted, the process can be resumed by using the rebase functionality of svn2git.
 * In the case of one way conversion from SVN to GIT, the <em>.git/svn</em> subfolder can be deleted to reduce the size of converted git repository.
 * The "<em>git filter-branch</em>" command can be used to filter out commits that are related to a specific directory.
-
-

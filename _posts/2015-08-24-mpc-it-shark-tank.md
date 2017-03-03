@@ -3,13 +3,12 @@ layout: page
 title: MPC IT Shark Tank!
 teaser: Our latest initiative to keep things fun and solve those pesky challenges that live in the shadows of our main projects.
 author: fran
-categories:
-    - Team
+categories: Team DevCulture
 ---
 
 This month we launched a new initiative we're calling MPC IT Shark Tank.  It's sort of a mashup between a code hackathon and the TV show Shark Tank.  It works like this:
 
-1. At our quarterly all-IT meeting, we will have a pitch session during which "idea champions" will pitch an idea for a small-scale coding project.  The only requirement is that the project must address some existing pain point or gap or provide some new capability to the MPC IT world.  After hearing all the pitches, audience members can then choose to join a team, or no team at all - participation is not mandatory. 
+1. At our quarterly all-IT meeting, we will have a pitch session during which "idea champions" will pitch an idea for a small-scale coding project.  The only requirement is that the project must address some existing pain point or gap or provide some new capability to the MPC IT world.  After hearing all the pitches, audience members can then choose to join a team, or no team at all - participation is not mandatory.
 
 2. Pitches which successfully recruit teams will then become the "hack projects" for the quarter.  For our first quarter, we have 4 teams.  During our code hunker Fridays[^1] each week, the teams will meet for a couple of hours to work on their project.
 

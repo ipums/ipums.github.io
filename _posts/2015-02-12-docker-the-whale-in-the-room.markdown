@@ -10,8 +10,7 @@ wordpress_id: 527
 wordpress_url: http://tech.popdata.org/?p=527
 date: '2015-02-12 13:13:48 -0600'
 date_gmt: '2015-02-12 19:13:48 -0600'
-categories:
-- Devops
+categories: Infrastructure
 tags: []
 ---
 Docker is a new and interesting technology. I'd read about it and spent some time creating images and containers at home, but I always struggled to understand what it would look like to use Docker every day working on a non-trivial application. I wondered if it could be useful at the MPC, if we could use it to run tests more consistently, if we could use it to create development environments faster, or if we might even be able to realistically run containers in production.
@@ -270,4 +269,3 @@ Our IPUMS codebase is fairly complex and has a history of requiring an embarrass
 * Phusion Blog: <a href="http://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/">http://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/</a>
 * Mathew Miner Blog Post on Docker: <a href="http://matthewminer.com/2015/01/25/docker-dev-environment-for-web-app.html">http://matthewminer.com/2015/01/25/docker-dev-environment-for-web-app.html</a>
 * Dev Ops U Blog Post on Docker Misconceptions: <a href="https://devopsu.com/blog/docker-misconceptions/">https://devopsu.com/blog/docker-misconceptions/</a>
-

@@ -1,7 +1,8 @@
 ---
 author: jerdmann
-title: 'Automated Analysis of a Data Workflow - Part 2' 
+title: 'Automated Analysis of a Data Workflow - Part 2'
 teaser: 'The conclusion of the story of how we created DCP Analytics - our in-house automated, web-based analysis tool using Pandas, Bokeh, Jupyter and Conda to help our researchers quickly find data anomalies and processing errors in our data production pipelines..'
+categories: Code
 ---
 
 In [part 1]({{site.url}}/Jupyter-and-Bokeh-reports-part1/) we discussed how Pandas and Bokeh work to find and highlight potential concerns in the data our researchers are producing across a broad range of samples and variables.  In today's part 2, we tackle the role of Jupyter in pulling all of these insights into a static, easily shared report and a reusable notebook that can be used to explore any issues identified by our tool. Finally, we'll discuss how Anaconda is used to package the tool and isolate its dependencies from other Python tools we provide.
@@ -14,7 +15,7 @@ The generated report includes a lot of useful information about variables in the
 * Variables that appear in only a subset of samples
 * Variables that have varying sets of codes across samples
 * A full plot on the maximal frequency change for a code for each variable
-* A user-configurable number of detailed plots for the variables showing the greatest change across samples. 
+* A user-configurable number of detailed plots for the variables showing the greatest change across samples.
 
 ![Sample Jupyter]({{site.urlimg}}/dcp_analytics_jupyter.png)
 
@@ -35,7 +36,7 @@ html_exporter = HTMLExporter()
 html_exporter.template_file = 'full'
 ```
 
-This handles the majority of user needs. The configuration can be altered and the report regenerated as often as is necessary, allowing researchers to iterate over the data processing workflow and check their work and changes quickly. However, this workflow can be a bit clunky, especially for our more technologically-inclined users who are already exploring Jupyter notebooks for their own purposes. 
+This handles the majority of user needs. The configuration can be altered and the report regenerated as often as is necessary, allowing researchers to iterate over the data processing workflow and check their work and changes quickly. However, this workflow can be a bit clunky, especially for our more technologically-inclined users who are already exploring Jupyter notebooks for their own purposes.
 
 For instance, what happens when a variable of interest is not one of the configured range of variables that are fully analyzed in the default report?  We mentioned before that most of the code to generate the report is packaged as a library imported into the notebook, so the researcher already has access to example code for generating the plots and tables for a given variable right there within the notebook.  With access to the .ipynb notebook file, a technically savvy researcher could simply duplicate a notebook cell and alter it to display the variable they care about. So, a few more lines of code are used to emit an .ipynb notebook file next to the static HTML report.
 
@@ -55,9 +56,9 @@ While this templating works well for us in the short term, we do have our eyes o
 
 The final consideration we have is deployment.  How do we get the tool in front of users without them having to think about setting up a Python environment and ensuring dependencies are satisfied?  There are many options available, but we're fond of Conda.  We package the script, the module and dependecies using `conda build`.  We can then install that package to our own custom channel on our shared file system.  From there we install the package in a new environment of its own that has only its dependencies installed.  
 
-This process wraps our script in another script that will only run in the enviroment where the tool was installed.  By ensuring that wrapper is in the users PATH we know the tool will always be run in a clean environment with the correct libraries available.  It doesn't matter which or even if Python is in the user's path. Nor does it matter what other tools a user runs during their session.  Each Python tool is executed in an environment with its and only its dependencies installed. 
+This process wraps our script in another script that will only run in the enviroment where the tool was installed.  By ensuring that wrapper is in the users PATH we know the tool will always be run in a clean environment with the correct libraries available.  It doesn't matter which or even if Python is in the user's path. Nor does it matter what other tools a user runs during their session.  Each Python tool is executed in an environment with its and only its dependencies installed.
 
 Conclusion
 ----------
 
-This tool chain made it fairly easy to get a functional prototype in front of users quickly and push out updates as requests for new features come in.  Jupyter is especially helpful as we hope this all-in-one  programming, documentation and visualization environment will give research staff and IT staff a common environment for collaboration. We are excited about this new platform for iterative data development, and we're looking forward to pushing forward with this set of tools to see how it can further improve this critical workflow at the MPC. 
+This tool chain made it fairly easy to get a functional prototype in front of users quickly and push out updates as requests for new features come in.  Jupyter is especially helpful as we hope this all-in-one  programming, documentation and visualization environment will give research staff and IT staff a common environment for collaboration. We are excited about this new platform for iterative data development, and we're looking forward to pushing forward with this set of tools to see how it can further improve this critical workflow at the MPC.

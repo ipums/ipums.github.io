@@ -3,8 +3,7 @@ layout: page
 author: mpcit
 title: 'IT Core Spotlight: Jim Young'
 teaser: Meet Jim Young, who joined us this year on a part-time basis as a way to stay involved in software development after retirement.
-categories: 
-- Team
+categories: Team
 ---
 
 ![Jim]({{site.urlimg}}/jim-young-luminary.jpg){: .meetteam .imgleft .r15 .pr20}
@@ -15,7 +14,7 @@ categories:
 
 **What brought you to your current professional field and eventually to the MPC?**
 
-I took a high school computer programming class in 1966. We had one computer for the class to share.  It had a paper tape reader for input, an electric typewriter for output, no disk drives of any kind, it's dimensions were about 3' x 4' x 15", and it had probably 100+ circuit boards. It had 512 15-bit words of (real core!) memory. Needless to say, it didn't have any compilers.  We programmed it in assembly & machine language. 
+I took a high school computer programming class in 1966. We had one computer for the class to share.  It had a paper tape reader for input, an electric typewriter for output, no disk drives of any kind, it's dimensions were about 3' x 4' x 15", and it had probably 100+ circuit boards. It had 512 15-bit words of (real core!) memory. Needless to say, it didn't have any compilers.  We programmed it in assembly & machine language.
 
 As for the MPC, I didn't want to completely retire but the company I was working for wasn't interested in having part timers.  MPC appealed to me because it offered schedule flexibility and would allow me to do other things I was interested in.
 
@@ -42,4 +41,3 @@ By bike or on foot - only a 15 minute walk from home!
 **What new skill(s) are your currently trying to learn?**
 
 How to get this *&%#$ Mac to do what I want it to!
-

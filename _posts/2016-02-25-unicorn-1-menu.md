@@ -3,7 +3,7 @@ layout: page
 title: Improving Menu Creation in Excel with VBA
 teaser: In this series, we present some highlights from Team Unicorn Rainbows' work in the first round of MPC IT Shark Tank.  This first post describes how we improved menu creation in Excel.
 author: jdomingo
-categories:
+categories: Code
 tags:
 - IPUMS
 - Excel
@@ -82,7 +82,7 @@ To address these issues, we explored how to simplify the menu's definition.  Sin
 ``` plaintext
 &Data dictionaries  ==>
     &Show all rows or just variables  |  IpDdShowAllOrJustVars
-    
+
     # workbooks
     -----------
     &New workbook               |  IpDdNewWorkbook
@@ -90,13 +90,13 @@ To address these issues, we explored how to simplify the menu's definition.  Sin
     &Format (svar style)        |  IpDdFormatSvarStyle
     Sort this svar value &rows  |  IpDdSortRowByTargetCodesFront
     Sort all svar value &rows   |  IpDdSortAllRowsByTargetCodesFront
-    
+
     # tagging
     ---------
     &Tagging view             |  IpDdTaggingView
     &Import Enumeration Tags  |  IpDdImportEnumTagValues
     &Autopopulate D Tags      |  IpDdDTagAutomate
-    
+
     # checks
     --------
     Run &all checks                     |  IpDdRunAllChecks
@@ -109,17 +109,17 @@ To address these issues, we explored how to simplify the menu's definition.  Sin
     Check for &duplicate values         |  IpDdCheckDupValues
     Check for consistency of var &width to column value  |  IpDdCheckVariableWidthToColumnValue
 
-    
+
     # syntax files
     --------------
     Create syntax file &YAML                 |  IpDdMakeSyntaxFileYAML
     Make SPSS syntax for &universe checking  |  IpDdMakeSPSSUnivCheck
-    
+
     # misc
     ------
     Check for &small cells                          |  IpDdCheckSmallCells
     &Propagate edits from a master data dictionary  |  IpDdMasterPropagate
-    
+
     # reformatting tools
     --------------------
     Adjust &column locations                |  IpDdAdjustColLocations
@@ -161,7 +161,6 @@ End Sub
 
 This approach works fine with menu definitions of modest length.  Given that our complete menu definition is over a hundred lines with comments, we chose to read the definition from a text file.  This alternative approach provides several benefits; for example, we no longer need to escape double quotes in menu actions.  
 
-Another significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code. Because the menu data is now contained in a defined, formatted text file instead of embedded in VBA code, it's also much (much!) easier to visually parse. 
+Another significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code. Because the menu data is now contained in a defined, formatted text file instead of embedded in VBA code, it's also much (much!) easier to visually parse.
 
 Finally, and perhaps most importanly, by using the "_caption_ \| _action_" syntax for defining menu items, we've architected a model in which the action of the menu item is abstracted from the code that's executed, **_including whether that action calls VBA or Python code_**. This is a critical piece of building an infrastructure that allows for incremental replacement of VBA with Python, one macro at a time.  There is no need to re-engineer a massive VBA codebase all at once in Python. In other words, that technical debt hole we talked about being dug into at the start of the article? We just built the ladder. Stay tuned for future posts, where we will talk about climbing out.
-

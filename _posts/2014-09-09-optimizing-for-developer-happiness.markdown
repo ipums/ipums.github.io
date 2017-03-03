@@ -9,9 +9,7 @@ wordpress_id: 126
 wordpress_url: http://tech.popdata.org/?p=126
 date: '2014-09-09 16:41:12 -0500'
 date_gmt: '2014-09-09 16:41:12 -0500'
-categories:
-- Ruby on Rails
-- IPUMS
+categories: Infrastructure DevCulture
 tags:
 - JRuby
 - Java
@@ -50,4 +48,3 @@ If you are looking for a path off of Java, this strategy might be a compelling c
 In our case, it's certainly <strong>developer happiness achieved.</strong>
 
 <a href="/images/keep-calm-code-in-ruby-e1411412083867.png"><img class="alignnone size-full wp-image-140" src="/images/keep-calm-code-in-ruby-e1411412083867.png" alt="keep-calm-code-in-ruby" width="600" height="338" /></a>
-

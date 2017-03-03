@@ -10,8 +10,7 @@ wordpress_id: 623
 wordpress_url: http://tech.popdata.org/?p=623
 date: '2015-03-16 15:28:58 -0500'
 date_gmt: '2015-03-16 20:28:58 -0500'
-categories:
-- Team
+categories: Team
 tags: []
 ---
 <strong><a href="/images/jason_goray.jpg"><img class=" size-medium wp-image-624 alignright" src="/images/jason_goray-225x300.jpg" alt="jason_goray" width="225" height="300" /></a>Project:</strong> All (more or less) MPC web facing projects
@@ -55,4 +54,3 @@ Recently, kids have been a major portion of my life as well.
 <strong> <b>How do you get to work?</b></strong>
 
 Depends on the day.  My default modes are walking or bicycling, but if someone's coming this way, I'll grab a car pool in.  Occasionally, I'll ride the bus, but I find I can get most places faster on foot than via MetroTransit since I apparently live in the transit cul-de-sac of Minneapolis.
-

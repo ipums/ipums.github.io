@@ -8,8 +8,7 @@ wordpress_id: 254
 wordpress_url: http://tech.popdata.org/?p=254
 date: '2014-11-07 20:18:11 -0600'
 date_gmt: '2014-11-07 20:18:11 -0600'
-categories:
-- TerraPop
+categories: Data
 tags: []
 ---
 <em><strong>"Terra Populus will integrate the world's population and environmental data"</strong></em>
@@ -55,4 +54,3 @@ Computationally, it's not so hard for our extract engine to do this for one pers
 To pull this off, performance is obviously a top priority.  We lean again on Java for efficiency at the critical parts of the process.  We are also exploiting parallelism wherever possible to allow us to scale up as demand for the project's data increases.  We are continually testing technologies such as Hadoop-based platforms and NoSQL database engines to find novel platforms that might scale better.  We're actively developing new approaches for doing spatial computations at this scale.  It's tricky, challenging, fun - but it's certainly not boring!
 
 That's a quick taste of the TerraPop project.  If this sounds interesting or there are certain aspects of the project you'd like to hear more about, let us know in the comments.  We'd love you hear from you!
-

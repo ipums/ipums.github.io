@@ -5,9 +5,7 @@ teaser: 'An introduction to Ember.js for devs who are used to thinking in Rails.
 author: jakew
 date: '2014-12-10 12:47:16 -0600'
 date_gmt: '2014-12-10 18:47:16 -0600'
-categories:
-- Ruby on Rails
-- NHGIS
+categories: Code Infrastructure
 ---
 In my <a href="{{site.url}}/take-it-and-run-a-tale-of-risk-failure-and-the-beginning-of-a-javascript-journey/" title="previous post">previous post</a>, I talked about our project's desperate need for a major Javascript refactoring, and how I got over the fear of failure in tackling this huge challenge. Now that I've set out on this task, all I had to do was figure out where to go next. Easier said than done with the wealth of Javascript tools and frameworks to choose from. After consulting with the rest of the team I decided I would take a run at Ember.js to see if that would bear fruit. The following is an overview of what I learned about how Ember works, tailored to someone with a background in Rails.
 
@@ -144,4 +142,3 @@ The files would look like this:
 The `{{outlet}}` directive means yield any sub template into this area. The `add.handlebars` gets put into the `{{outlet}}` part of the application template, and any sub templates of `add` get put into the `{{outlet}}` part of `add`. Sub templates might come from the results route or any of the filter routes as seen in the router.js file. The `{{model.ts_tables_count}}` directive means print out the `ts_tables_count` property of the model attached to this specific route. If that model changes for any reason, that value will also change immediately, without having to re-render the entire template.
 {% endraw %}
 So that's a quick peek at my first adventure into Ember.js. I'm still not sure that it's the best solution for our project, but I learned how Ember and Rails "think differently" about application workflow. I'll continue to explore what Ember can offer, and blog more about the process in the future. If you've found this helpful, please let me know in the comments. Thanks for reading!
-

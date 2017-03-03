@@ -3,7 +3,7 @@ layout: page
 title: MPC IT Shark Tank - Cycles 4 & 5 Results!
 teaser: "We closed out 2016 with two more rounds of Shark Tank! Read on for details."
 author: fran
-categories: team
+categories: Team DevCulture 
 date: 2017-01-03 09:00:00
 tags: []
 ---

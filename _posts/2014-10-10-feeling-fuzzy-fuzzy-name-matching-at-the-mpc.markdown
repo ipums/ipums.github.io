@@ -10,8 +10,7 @@ wordpress_id: 171
 wordpress_url: http://tech.popdata.org/?p=171
 date: '2014-10-10 18:04:38 -0500'
 date_gmt: '2014-10-10 18:04:38 -0500'
-categories:
-- Data Processing
+categories: Code
 tags:
 - Blarticle
 ---
@@ -142,7 +141,7 @@ My results were getting better all the time, but there was one last group of nam
 | String 1 | String 2 | Edit Distance |
 |-
 | Guillaume Boucher | Guillaume Vandenbroucke | 9 |
-| Melissa Moreno | Melissa Gearhart Moreno | 9 | 
+| Melissa Moreno | Melissa Gearhart Moreno | 9 |
 
 I felt that there ought to be some way that I could penalize the 9 edits it takes to go from Boucher -> Vandenbroucke more severely than the 9 edits it takes to insert Melissa's maiden (or middle) name Gearhart.  The presence/absence of a middle initial or name is a common case for us, but because these name pairs rarely phonetically match, and the distance calculations tended to be high, we were missing these types of matches.
 
@@ -163,4 +162,3 @@ This change had the desired effect.  Comparisons like Melissa Moreno <=> Melissa
 At this point, I was happy with my algorithm soup.  I ran the process over the entire set of over 100k users and 10k citations and by the end of the day I had forwarded a list of potential matches and their confidence scores to our user support team for verification.  Preliminary indications are that we should be able to make links for at least 50% of our citations.  Not bad for a day's work!
 
 Another job crossed off the list.  It wasn't always pretty, and there's certainly room for improvement, but this was a job that called for the 80/20 rule and I'm pretty pleased with how it turned out.  I hope others find this article useful for your own fuzzy name matching challenges, and I also hope that it gives you a small window into the sorts of tasks we tackle day in and day out here at MPC IT!
-

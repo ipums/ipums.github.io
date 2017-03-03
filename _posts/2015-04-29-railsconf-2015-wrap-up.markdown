@@ -6,8 +6,7 @@ teaser: The entire IPUMS web development team saddled up and headed to
   Atlanta for RailsConf 2015. Here's our summary.
 date: '2015-04-29 13:40:06 -0500'
 date_gmt: '2015-04-29 18:40:06 -0500'
-categories:
-- Ruby on Rails
+categories: DevCulture
 tags: []
 ---
 Last week, the entire IPUMS web development team saddled up and headed to Atlanta for <a href="http://railsconf.com/">RailsConf 2015</a>. Having attended my first RailsConf just last year in Chicago, I'm not exactly a grizzled RailsConf veteran, but the warm, inclusive vibe of this conference feels like something you can count on as an attendee. RailsConf seems to embody the very best aspects of the Ruby developer community. Like all my favorite developer conferences, RailsConf leaves me feeling recharged and excited about programming, and the welcoming atmosphere provides a perfect backdrop for learning.
