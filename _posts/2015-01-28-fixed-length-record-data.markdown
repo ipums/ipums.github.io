@@ -4,14 +4,12 @@ status: publish
 published: true
 title: Fixed Length Record Data
 author: ccd
-teaser: Dealing with fixed-length record (FLR) data is a reality for us at the MPC. Colin introduces
-  readers to his Ruby Gem, HFLR, which makes processing hierarchical fixed-lengh record data a bit easier.
+teaser: Dealing with fixed-length record (FLR) data is a reality for us at the MPC. Colin introduces readers to his Ruby Gem, HFLR, which makes processing hierarchical fixed-length record data a bit easier.
 wordpress_id: 500
 wordpress_url: http://tech.popdata.org/?p=500
 date: '2015-01-28 11:10:23 -0600'
 date_gmt: '2015-01-28 17:10:23 -0600'
-categories:
-- Data Processing
+categories: Code
 tags: []
 ---
 ## What it is and How to Make it Go Away Using Ruby
@@ -220,4 +218,3 @@ And we have information on the layout, so we can make a layout structure:
 {% endhighlight %}
 
 In [part two of this post]({% post_url 2015-05-07-importing-fixed-length-data-using-ruby-part-two %}), I'll show how to import FLR data into a database using Active Record to help with validating data, and how to import multiple record types at once and set foreign keys between them.
-

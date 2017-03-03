@@ -3,7 +3,7 @@ layout: page
 title: 'MPC IT Shark Tank - Cycle 2 Results'
 teaser: 'Cycle 2 of MPC IT Shark Tank has concluded, and once again we have some fantastic results!'
 author: fran
-categories: team
+categories: Team DevCulture
 date: 2016-03-15 09:00:00
 ---
 

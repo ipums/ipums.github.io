@@ -8,9 +8,7 @@ wordpress_id: 84
 wordpress_url: http://tech.popdata.org/?p=84
 date: '2014-09-23 13:41:29 -0500'
 date_gmt: '2014-09-23 13:41:29 -0500'
-categories:
-- IPUMS
-- Data Processing
+categories: Infrastructure Data
 tags: []
 ---
 Here at the MPC, we deal with lots of different kinds of source data.  The Data Conversion Program (DCP) creates the MPC's harmonized version of microdata for many of the <a title="Data Products" href="http://tech.popdata.org/about/data-products/">MPC's data products</a>.
@@ -100,4 +98,3 @@ DCP produces these outputs:
 The DCP is written in C for performance.  It's highly modularized to allow it to consume many different record types.  It also features a rules layer which allows our researchers to specify more complex transformations than can be expressed in a simple translation table.  We use this rules engine to generate new variables like those "head-of-household" pointers, as well as other use cases.  Over the years, the DCP has grown to be incredibly configurable, taking in many different kinds of inputs, producing many types of output, and instrumented to provide lots of statistics on its performance and processing status.
 
 The DCP is one of the key pieces of software that enables the MPC to do what we do, and it continually evolves to meet our changing needs.  In future blog posts, we'll highlight aspects of the DCP in more detail, to illustrate some of the complexity that has been captured in this code base over time.
-

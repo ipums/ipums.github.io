@@ -3,6 +3,7 @@ layout: page
 title: New Blog Platform, New Blog Look
 author: fran
 teaser: We've updated the blog platform from WordPress to Jekyll (GitHub Pages)!  We also took the opportunity to refresh the blog's look.  Read more about the motivations for the switch.
+category: News
 ---
 
 **MPC IT Blog - Now with more simple!**
@@ -23,9 +24,9 @@ We always knew it would be a temporary solution, since there were several pain p
 * We had to maintain a third-party host (because it's less work than running our own WP server).  Dreamhost did a fine job, but it was yet another service to learn how to support (and selfishly, it was also generating annoying paperwork for me in the form of the monthly expense report!)
 * Also, PHP.
 
-Things came to a head when my blog maintenance partner left the MPC and I was left as the only maintainer and editor.  I wanted something simpler, and I wanted it fast. 
+Things came to a head when my blog maintenance partner left the MPC and I was left as the only maintainer and editor.  I wanted something simpler, and I wanted it fast.
 
-Goals for the new platform: 
+Goals for the new platform:
 
 * Reduce barriers for authors to create new content
 * Reduce barriers for me to edit and get a new post online
@@ -45,13 +46,3 @@ Now, where to host it? GitHub Pages, Github's solution for hosting web sites for
 There are lots of other great benefits, too.  We adopted a minimalist, flexible, responsive theme ([Feeling Responsive](https://phlow.github.io/feeling-responsive/)) so there's not a lot to worry about other than the content itself.  We get great code syntax highlighting through Jekyll's support of [Pygments](http://pygments.org/).  And as a static site, I don't have to worry about sysadmin headaches like database connections or PHP/WP security patches.  Brilliant #4,5,6!
 
 Porting content was a bit of a chore, but our site wasn't all that big so some search-and-replace fu got our content most of the way to a state of clean markdown syntax.  I've been pleasantly surprised at how easy it has been for me to make layout tweaks, since I am not a front end developer and CSS is not my usual cup of tea.  The template engine syntax is clean, so it's easy to pull in data like author information from the YAML config files.  All in all, I've rebuilt the entire site on Jekyll in about a week - way easier than even WordPress.  And for our needs, which are in a word "simple", it's a perfect match.  Hopefully this means more great content for the blog in the coming months!
-
-
-
-
-
-
-
-
-
-

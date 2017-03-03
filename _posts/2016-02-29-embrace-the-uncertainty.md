@@ -3,7 +3,7 @@ layout: page
 title: 'Embracing the Uncertainty of Software Development'
 teaser: 'Thoughts on how to avoid being fooled by the false certainty of deadlines and estimates and approach our work more honestly.'
 author: fran
-categories: team
+categories: DevCulture
 ---
 
 Certainty.  Human beings crave it.  Organizations full of humans crave it even more.  Software development has precious little of it.
@@ -20,9 +20,9 @@ Often, teams ignore this reality.  As part of our human desire to feel like we k
 
 More often than not we learn the hard way that our great plan was really just a house of cards that collapsed under the weight of the uncertain reality of software development. If you're lucky, no real damage is done, the team adjusts, and you still deliver a lot of business value.  But sometimes it can be painful, emotional and relationship-straining. When that happens, it’s no fun at all, and I’m sure many of us have been there. As software teams, we need to find approaches that help the organization meet its goals and execute its business plan while being based on honest communication about what we do or do not know and can or cannot predict.
 
-I’ve been thinking a lot about this problem, how to talk about it in our organization, and most importantly, what to do about it. For inspiration, I looked at Agile. I thought that the Agile community might have something to say about the topic given that Agile is a set of software development approaches specifically designed to manage the risks associated with software development. And indeed, Ron Jeffries, one of the original signatories of the Agile Manifesto, [tackled the topic](http://ronjeffries.com/xprog/articles/jatmakingthedate/) back in 2005. It's a good read. I won't even be offended if you stop right now to read that and come back to this later! 
+I’ve been thinking a lot about this problem, how to talk about it in our organization, and most importantly, what to do about it. For inspiration, I looked at Agile. I thought that the Agile community might have something to say about the topic given that Agile is a set of software development approaches specifically designed to manage the risks associated with software development. And indeed, Ron Jeffries, one of the original signatories of the Agile Manifesto, [tackled the topic](http://ronjeffries.com/xprog/articles/jatmakingthedate/) back in 2005. It's a good read. I won't even be offended if you stop right now to read that and come back to this later!
 
-But at the end of the day, Agile still tries to embrace traditional deadlines (by that I mean deadlines which say we'll have X done by date Y).  Agile does this via the "velocity" concept.[^2] The velocity concept feels bad to me because it's trying to use past performance as an accurate predictor of future results. The problem is that it assumes that a team will make constant progress. Development teams know that's rarely the case. What's more likely is that in a project with 50 features, just a few features will end up dominating the overall time spent - and it's hard to know which features those will be ahead of time. 
+But at the end of the day, Agile still tries to embrace traditional deadlines (by that I mean deadlines which say we'll have X done by date Y).  Agile does this via the "velocity" concept.[^2] The velocity concept feels bad to me because it's trying to use past performance as an accurate predictor of future results. The problem is that it assumes that a team will make constant progress. Development teams know that's rarely the case. What's more likely is that in a project with 50 features, just a few features will end up dominating the overall time spent - and it's hard to know which features those will be ahead of time.
 
 The Agile community didn't have a better answer for me.  After some more research, I felt that it was a topic deserving of more exploration. That's when I sat down to begin work on this post.
 
@@ -40,7 +40,7 @@ If we don't know everything about how to solve the problem, then naturally we al
 
 This seemingly self-evident idea - that if we do not yet know how to solve the problem then we cannot know when we’ll be done - is so easily ignored. We don’t want to believe it because the implications can make us feel powerless. So sometimes we trick ourselves into pretending we can know the unknowable. But to pretend we can do this for our software systems is dishonest - to ourselves and to our collaborators. As software builders we generally know we can make the system do X, and we know we can do something by date Y, but we most certainly do NOT know that we can do X before Y for any but the most trivial instances of X. There are so, so many ways in which even a seemingly straightforward software system build can go sideways, and it's very rarely in a way you could predict at the start.
 
-So, if tricking ourselves into thinking that X will be done by Y is a bad way to work, then how should we work?  I’ve achieved some hard-earned clarity on this over the past few years.  This is what I’ve concluded we should do: 
+So, if tricking ourselves into thinking that X will be done by Y is a bad way to work, then how should we work?  I’ve achieved some hard-earned clarity on this over the past few years.  This is what I’ve concluded we should do:
 
 **We should identify the most important things and work on those things until they’re either done or no longer the most important things.**  
 
@@ -50,9 +50,9 @@ Note that the statement has absolutely nothing to say about deadlines or estimat
 
 Adhering to this statement leads to a beautiful outcome. If you approach your work in this way, you guarantee that wherever you do end up achieving in any given period of time will represent the best results that were possible, even though you started out not knowing what that was. Pretty neat, eh?
 
-Of course there are devils in the details. How do you define the most important things? What are the criteria? That's where open communication on the team, especially between the technical and business sides, is critical. "Most important" is a subjective concept, and the answer is going to depend entirely on what is going to bring the most value to the organization - which is a very local concern. Sometimes that's having as many features as possible done by a certain date. Sometimes it's having some critical set of features done no matter how long it takes (the "minimum viable product"). 
+Of course there are devils in the details. How do you define the most important things? What are the criteria? That's where open communication on the team, especially between the technical and business sides, is critical. "Most important" is a subjective concept, and the answer is going to depend entirely on what is going to bring the most value to the organization - which is a very local concern. Sometimes that's having as many features as possible done by a certain date. Sometimes it's having some critical set of features done no matter how long it takes (the "minimum viable product").
 
-And of course, "most important" can and will change over time, and the team needs open, frequent conversation to be able to adjust to those changes.  That's what the "no longer the most important things" part is talking about. 
+And of course, "most important" can and will change over time, and the team needs open, frequent conversation to be able to adjust to those changes.  That's what the "no longer the most important things" part is talking about.
 
 Does this mean deadlines and estimations are worthless?  No.  Deadlines and estimations are important data points to help inform the team’s decisions about what is most important to work on.  But it does mean we need to redefine our expectations of what a deadline or an estimation can do for us.
 
@@ -80,7 +80,7 @@ Anything else feels dishonest.
 
 [^1]: "There are things we know that we know. There are known unknowns. That is to say there are things that we now know we don't know. But there are also unknown unknowns. There are things we do not know we don't know." Thank you Donald Rumsfeld.
 
-[^2]: Velocity is a method of calculating a team's productivity by looking at past iterations and adding up the estimates for the work the team was ultimately able to complete in each iteration. The team can then compute a velocity by averaging these historical rates of output and then estimate how long the remainder of the project will take to complete by *assuming that average velocity over the remaining iterations will be about the same.*  It's that last assumption that bothers me. 
+[^2]: Velocity is a method of calculating a team's productivity by looking at past iterations and adding up the estimates for the work the team was ultimately able to complete in each iteration. The team can then compute a velocity by averaging these historical rates of output and then estimate how long the remainder of the project will take to complete by *assuming that average velocity over the remaining iterations will be about the same.*  It's that last assumption that bothers me.
 
 [^3]: Isn’t this the very appeal of our work? That it’s not a rote regurgitation of the same solutions over and over, but that there is an undiscovered space that you need to work towards and uncover as you progress? It’s a big part of why we all choose to do this, I imagine.
 

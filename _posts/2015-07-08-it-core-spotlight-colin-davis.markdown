@@ -3,8 +3,7 @@ layout: page
 author: mpcit
 title: 'IT Core Spotlight: Colin Davis'
 teaser: Meet Colin, the longest tenured member of the IT Core.
-categories: 
-- Team
+categories: Team
 ---
 
 ![Colin]({{site.urlimg}}/colin.jpg){:.imgleft .r15 .pr20 style="float:left"}
@@ -15,11 +14,11 @@ categories:
 
 **What brought you to your current professional field and eventually to the MPC?**
 
-At school I dropped physics and switched to computer science when I realized I was skipping studying to work on game projects. One day I found myself writing another chapter in my book on game development and decided I’d better play to my strengths and study something I actually liked doing. 
+At school I dropped physics and switched to computer science when I realized I was skipping studying to work on game projects. One day I found myself writing another chapter in my book on game development and decided I’d better play to my strengths and study something I actually liked doing.
 
-Later on, after spending time in the technical support field, I started a business selling disk imaging software to tech support groups (well, I mostly just made the software, didn’t do much selling.) Then the tech bubble burst. 
+Later on, after spending time in the technical support field, I started a business selling disk imaging software to tech support groups (well, I mostly just made the software, didn’t do much selling.) Then the tech bubble burst.
 
-The game development paid off at my MPC interview. The programmer on the hiring committee told me he figured anyone who could write the graphics library I’d submitted as part of my portfolio couldn’t be a total incompetent. 
+The game development paid off at my MPC interview. The programmer on the hiring committee told me he figured anyone who could write the graphics library I’d submitted as part of my portfolio couldn’t be a total incompetent.
 
 **What’s the coolest thing you’ve gotten to work on at the MPC?**
 

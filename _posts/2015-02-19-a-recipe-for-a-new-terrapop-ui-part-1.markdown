@@ -10,8 +10,7 @@ wordpress_id: 517
 wordpress_url: http://tech.popdata.org/?p=517
 date: '2015-02-19 16:27:21 -0600'
 date_gmt: '2015-02-19 22:27:21 -0600'
-categories:
-- TerraPop
+categories: DevCulture
 tags:
 - UI
 - user testing
@@ -71,4 +70,3 @@ What's the take on all of this? Here's a list:
 As for that last item - you can be the best chef and have the perfect list of ingredients and the best recipe to make a great product, but left alone you're not going to achieve much improvement. Instead, if you have the opportunity to work with others and have an exchange of ideas and feedbacks, you can create new recipes and improve your own as well.
 
 Bonus point: during the buildout of the prototype I described in this article, I developed a nice little jQuery plugin for zebra-striped tables. I'm going to use it a lot, but it needs feedback. <a href="https://github.com/bafio/zebra-stripe" target="_blank">Check it out</a>!
-

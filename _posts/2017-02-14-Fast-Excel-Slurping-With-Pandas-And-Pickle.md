@@ -2,7 +2,7 @@
 author: benklaas
 title: "Slurping Up Excel Data on the Quick: Python, Pandas, and Pickle"
 teaser: 'If you have very large tables of data imprisoned in a vendor-locked Excel jail, consider setting them free by caching worksheets using Python+Pandas+Pickle.'
-categories:
+categories: Code Infrastructure
 tags:
 - IPUMS
 - Excel

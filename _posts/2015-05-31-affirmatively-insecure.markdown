@@ -11,8 +11,7 @@ wordpress_id: 705
 wordpress_url: http://tech.popdata.org/?p=705
 date: '2015-05-31 21:46:12 -0500'
 date_gmt: '2015-06-01 02:46:12 -0500'
-categories:
-- Devops
+categories: Infrastructure
 tags:
 - shaaaaaaaaaaaaa
 - jq

@@ -3,7 +3,7 @@ layout: page
 title: 'MPC IT Shark Tank - Cycle 3 Results'
 teaser: 'Cycle 3 of MPC IT Shark Tank wrapped up last month.  Here''s the scoop!'
 author: fran
-categories: team
+categories: Team DevCulture
 date: 2016-07-14 09:00:00
 ---
 
@@ -19,7 +19,7 @@ In June the third round of MPC IT Shark Tank was completed.  As is becoming the 
 * **IPUMS Mobile** - The team's goal was to create a mobile-friendly application for accessing IPUMS USA metadata and servicing simple questions that can be answered using variable code frequencies (e.g. "How many married people in 1910?") (They also presented in Cycle 2 but made significant progress in this round, so they presented again).
 * **The Producers** - This is a little different than our usual Shark Tank projects.  This team wants to create introductory videos for each of our major data products.
 * **Grid Diff** - So much of our metadata is stored in Excel spreadsheets.  This team posed the question, "How can we visualize change of an Excel spreadsheet through time?"  They aimed to solve this problem by creating a grid diff tool that could easily visualize when cells of a spreadsheet have changed between versions.
-* **Access Denied** - This team continues to work on their web-based tool for doing quality control and making edits to historical US census data. 
+* **Access Denied** - This team continues to work on their web-based tool for doing quality control and making edits to historical US census data.
 
 The IPUMS Mobile team presented their latest achievements, including the ability to generate cross-tabulations of two variables and restricting results to a specific US state. They also spent time cleaning up the responsive web UI. The project is definitely feeling less like a proof-of-concept and more like a useful addition to the IPUMS toolkit.  While still only available internally, the team is closing in on having something production-ready.
 
@@ -46,4 +46,3 @@ Past winners received tins of Crazy Aaron's Thinking Putty or Lego Minifigures (
 ![Thinking Putty]({{site.urlimg}}/sharktank_cycle1_putty.jpg)
 
 That's it for Shark Tank Cycle 3!  Cycle 4 is underway, so we'll have another update in a few months.  Thanks for reading!
- 

@@ -8,8 +8,7 @@ wordpress_id: 163
 wordpress_url: http://tech.popdata.org/?p=163
 date: '2014-10-07 20:16:44 -0500'
 date_gmt: '2014-10-07 20:16:44 -0500'
-categories:
-- IPUMS
+categories: Code
 tags:
 - duplication
 - 1880 Census
@@ -41,4 +40,3 @@ Once we select our columns, we set about comparing the patterns extracted from t
 After all the potential matches from our selected columns are enumerated, we identify pairs of sheets that have a 95% or higher pattern match across 75% or more of our selected columns move on to the final phase. In 1800, this leads to 71 possible sets of duplicate sheets, which are subjected to a cell-by-cell comparison.  Seven sheets ultimately prove to be easily identifiable duplicates while the rest are eliminated for reasons, such as a majority of the sheet being empty cells.
 
 This is just one of the many quality checks we apply to historical datasets.  For instance, we still have to go back and deal with that typo up above.  But that's for a later phase in the process - and a later blog post.
-

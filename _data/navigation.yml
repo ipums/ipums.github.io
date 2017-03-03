@@ -11,9 +11,26 @@
 #  - title: "Blog Archive"
 #    url: "/blog/archive/"
 
-- title: Archive
+- title: "Blog Index"
   url: /blog/archive/
   side: left
+  dropdown:
+    - title: "Complete Archive"
+      url: "/blog/archive/"
+    - title: "Categories Explained"
+      url: "/categories/"
+    - title: Code
+      url: "/categories/code/"
+    - title: Data
+      url: "/categories/data/"
+    - title: DevCulture
+      url: "/categories/devculture/"
+    - title: Infrastructure
+      url: "/categories/infrastructure/"
+    - title: News
+      url: "/categories/news/"
+    - title: Team
+      url: "/categories/team/"
 
 - title: "About Us"
   url: "/about/about-mpc-it/"

@@ -3,7 +3,7 @@ layout: page
 title: 'Data Product Spotlight:  IPUMS USA'
 teaser: 'This edition of the Data Product Spotlight goes wayyy back to the very beginnings of the MPC and takes a look at our first and still most widely known data product, IPUMS USA.'
 author: ccd
-categories: IPUMS
+categories: Data
 ---
 
 
@@ -11,21 +11,21 @@ categories: IPUMS
 
 Find it at <a href="http://usa.ipums.org">http://usa.ipums.org/</a>.
 
-###  **What is IPUMS USA** 
+###  **What is IPUMS USA**
 
-The Integrated Public Use Microdata Series (IPUMS - pronounced "ipp umms", not "eye pums") is the most well known Minnesota Population Center data product, and comprises the microdata (data about individual persons) projects at the Center. Although today it encompasses almost a dozen separate projects, it all got started with a single project, IPUMS USA.  As a result, if someone refers to just "the IPUMS", they often mean IPUMS USA, as opposed to, say, IPUMS International. 
+The Integrated Public Use Microdata Series (IPUMS - pronounced "ipp umms", not "eye pums") is the most well known Minnesota Population Center data product, and comprises the microdata (data about individual persons) projects at the Center. Although today it encompasses almost a dozen separate projects, it all got started with a single project, IPUMS USA.  As a result, if someone refers to just "the IPUMS", they often mean IPUMS USA, as opposed to, say, IPUMS International.
 
 IPUMS USA contains U.S. census microdata from 1850 to the present. IPUMS USA began in 1990 with the first data release of fifty thousand sampled people from the 1880 U.S. census. Over the ensuing twenty five years IPUMS USA datasets have been integrated and released to cover census decades up to 2010. Since 2001 the U.S. Census Bureau has run an annual survey called the American Community Survey, and we have also included the ACS data in the IPUMS product, making it comparable with the census data.  Recently, new samples have been added to increase the sampling density. Full count datasets (which include every record from the original census) have been released for 1880 and recently 1940. Eventually we plan to release full count census data for 1850 to 1940, and 1950 when the data is made public in 2022.
 
-### **Description of IPUMS Data** 
+### **Description of IPUMS Data**
 
 IPUMS data is not a collection of statistics but rather individual records which IPUMS users can use to create their own statistics. Users can select particular questions of interest and select census years they want to study, then request an extract to be downloaded for local analysis. For simple analyses we also provide an online tabulator, which avoids the extract step.
 
-IPUMS USA microdata covers the U.S. census decades from 1850 to 2010 and the annual American Community Survey from 2001 to the present. In the past the US census included a large number of questions which was asked of a subset of the population, known as the "Long Form", while the rest of the population was asked a simpler "Short Form". IPUMS USA includes both types of data. More recently, the annual ACS survey mentioned above has become something of a replacement for the long form questionaires -- the census no longer includes a long form. 
+IPUMS USA microdata covers the U.S. census decades from 1850 to 2010 and the annual American Community Survey from 2001 to the present. In the past the US census included a large number of questions which was asked of a subset of the population, known as the "Long Form", while the rest of the population was asked a simpler "Short Form". IPUMS USA includes both types of data. More recently, the annual ACS survey mentioned above has become something of a replacement for the long form questionaires -- the census no longer includes a long form.
 
 Why do we start at 1850? Prior to 1850 the census didn't record individual people but rather summarized each enumerated household. This makes the pre-1850 censuses far less useful for analysis.  However, in the future we plan to offer the household microdata from 1790 to 1840.  We should also note that we don't offer the 1890 census data either, since the original forms burned in a warehouse fire long before they could be digitally preserved. (You can still find tabulations published from the original 1890 data, however, and we've done some research on re-creating a synthetic version of the 1890 census by extrapolating from the existing 1880 and 1900 data.)
 
-Through a lot of effort, the MPC created these census samples from the original enumeration forms for the historical census data, by making them machine readable. But this digitization was only the first step. We also do a lot of work towards data quality, detecting errors in digitization and also filling in missing data. However, the most important step remained.  To allow easy comparison of the United States population across time, the MPC also created an standardized form of each sample, which recodes each census year's individual questions and answers into a universal, standardized set of questions and answers which are consistent across time. This is necessary because the US Censuses do not try to maintain consistency through time; the questions and answers change with every census (e.g. the number of possible answers for the Race question has expanded dramatically from 1850 to present).  This standardization process is what puts the "Integrated" in Integrated Public Use Microdata Series.  A lot of the value of IPUMS USA is in this "integration" across census years, because it's makes studying change over time much easier for researchers. 
+Through a lot of effort, the MPC created these census samples from the original enumeration forms for the historical census data, by making them machine readable. But this digitization was only the first step. We also do a lot of work towards data quality, detecting errors in digitization and also filling in missing data. However, the most important step remained.  To allow easy comparison of the United States population across time, the MPC also created an standardized form of each sample, which recodes each census year's individual questions and answers into a universal, standardized set of questions and answers which are consistent across time. This is necessary because the US Censuses do not try to maintain consistency through time; the questions and answers change with every census (e.g. the number of possible answers for the Race question has expanded dramatically from 1850 to present).  This standardization process is what puts the "Integrated" in Integrated Public Use Microdata Series.  A lot of the value of IPUMS USA is in this "integration" across census years, because it's makes studying change over time much easier for researchers.
 
 Integrating data consists of:
 
@@ -36,7 +36,7 @@ Integrating data consists of:
 
 ### **IPUMS USA Software Challenges and Highlights**
 
-In this section we'll look at some of the unique aspects of IPUMS USA from a software development perspective. 
+In this section we'll look at some of the unique aspects of IPUMS USA from a software development perspective.
 
 As the first MPC data, IPUMS USA had the oldest code base. Originally the data integration software was written in Fortran. The first version of the data extraction system ran as a Perl CGI site with a Fortran program to produce data extracts in the background. So, modernizing the architecture was the first challenge. Since then we've re-written the integration application in C++, used Ruby for the website, and turned to Java for the back-end data extraction jobs. For large scale tabulation and some large data processing and extraction work we're now beginning to use Apache Spark on many MPC products.
 
@@ -44,13 +44,13 @@ IPUMS-USA solves some additional unique problems through software not found in o
 
 Here's one example: the 1850, 1860 and 1870 censuses didn't ask people their relationship to the household head or their marital status. These turn out to be very powerful pieces of information, which, if known, allow for computing the "pointer" variables mentioned earlier and better imputation of missing data, as well as comparison to later decades. To rectify this shortcoming, we take a set of donor people from the U.S. 1880 census (when these questions WERE asked) and use that info to develop a model to predict their relationship and marital status values, then apply that model to the earlier decades. The technique resembles a classifier but with a lot of tuning applied to get the best results.  Other data-mining techniques came close but couldn't quite match the accuracy of our method.
 
-Imputing missing cases on many different variables is a simple problem in essence, but applying the solution across large datasets correctly and efficiently is not so simple. In the days of the Fortran integration application RAM was at a premium and yet donor values had to reside in RAM if the program was to finish within a reasonable time (days rather than weeks), so special techniques had to be used to select the best donors only. It worked well, but the result is a stateful process which cannot run in parallel. As we have increased the size of our data releases we needed to parallelize our integration process, necessitating the development of a stateless missing data server, which we have recently completed. 
+Imputing missing cases on many different variables is a simple problem in essence, but applying the solution across large datasets correctly and efficiently is not so simple. In the days of the Fortran integration application RAM was at a premium and yet donor values had to reside in RAM if the program was to finish within a reasonable time (days rather than weeks), so special techniques had to be used to select the best donors only. It worked well, but the result is a stateful process which cannot run in parallel. As we have increased the size of our data releases we needed to parallelize our integration process, necessitating the development of a stateless missing data server, which we have recently completed.
 
 We also have some unique project requirements to consider.  For example, the USA integration software needs to be able to execute in a non-networked environment for use in secure research data centers on data that's not yet in the public domain.  In these environments, external dependancies need to be minimized, so we consider that when building our tools.
 
 Finally, the IPUMS USA data spans a large time period. More effort is needed to integrate the data across time than with any other data product. Additionally the expectations for data quality are very high for the USA data. This requires research and special knowledge of U.S. historical  demography and the Census. Applying this knowledge results in the most complex domain-specific code of any of the MPC products.
 
-### **What can I Study With IPUMS?** 
+### **What can I Study With IPUMS?**
 
 ##### __Family Structure and Individuals in the Context of their Families__
 
@@ -64,7 +64,7 @@ The Census has questions about citizenship, birthplace, migration between states
 
 Using ACS data in particular, you could study the rise and fall of home prices over the course of the housing boom and bust, just to measure it or to look for significant corelations.  
 
-As homeowners lost their homes to foreclosure they moved into rental situations, reducing supply of rental housing and increasing rents. But the picture is rather nuanced. You could look not just at changes in numbers of houses / households rented vs. owned, but by using the microdata you could calculate total numbers of people living in rented housing vs. owned (by the household head) housing.   I might suggest that the demand for rental housing will stay higher for longer than might be expected, because even as people leave larger rented households, they will continue to rent on their own due to loss of net worth and credit worthiness since 2008. 
+As homeowners lost their homes to foreclosure they moved into rental situations, reducing supply of rental housing and increasing rents. But the picture is rather nuanced. You could look not just at changes in numbers of houses / households rented vs. owned, but by using the microdata you could calculate total numbers of people living in rented housing vs. owned (by the household head) housing.   I might suggest that the demand for rental housing will stay higher for longer than might be expected, because even as people leave larger rented households, they will continue to rent on their own due to loss of net worth and credit worthiness since 2008.
 
 There's also data on second mortgages, house values, monthly rent and mortgage payments, HOA fees and utility costs in the ACS data. Linking that data with other demographic and housing data could yield interesting results.  
 
@@ -78,6 +78,6 @@ Here's an interesting article that uses ACS and census data on housing costs and
 
 ##### New Data on Race and Same-Sex Partnership
 
-In 2000 and 2010 the Census has allowed more than one response to the question of race and same-sex partnerships (marriage was not an option but an "unmarried partner" response was collected.) Using the microdata you can study households with much more nuance regarding race and same-sex partner relationships and families. 
+In 2000 and 2010 the Census has allowed more than one response to the question of race and same-sex partnerships (marriage was not an option but an "unmarried partner" response was collected.) Using the microdata you can study households with much more nuance regarding race and same-sex partner relationships and families.
 
 I hope you enjoyed this introduction to IPUMS USA, the MPC's oldest data product.  For more research ideas, be sure to check our <a href="bibliography.ipums.org"> bibliography</a> to discover the many papers, books and articles using the IPUMS USA data.

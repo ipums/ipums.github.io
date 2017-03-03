@@ -9,9 +9,7 @@ wordpress_id: 325
 wordpress_url: http://tech.popdata.org/?p=325
 date: '2014-12-01 12:53:15 -0600'
 date_gmt: '2014-12-01 18:53:15 -0600'
-categories:
-- Ruby on Rails
-- NHGIS
+categories: DevCulture
 tags: []
 ---
 
@@ -34,4 +32,3 @@ So, I've decided I'm going to refactor this Javascript wholesale and clean out t
 Stay tuned - I plan to share some more technical bits along the way. In the meantime, if you're reading this and thinking about similar challenges in your own projects, I hope I've inspired you to go and find the time, space and courage to fail a little bit more. Thanks for reading!
 
 <em>Update:  Part 2 of this series - <a href="http://tech.popdata.org/ember-for-rails-devs-understanding-how-ember-thinks/" title="Ember for Rails Devs: Understanding How Ember Thinks">Ember for Rails Devs: Understanding How Ember Thinks</a> - is now posted!</em>
-
