@@ -3,7 +3,7 @@ layout: page
 title: Open Sourcing Code with Intention
 teaser: "A quick guide to what you need to think about before you open source your code."
 author: fran
-categories: code
+categories: DevCulture
 tags: []
 ---
 
@@ -139,5 +139,5 @@ We'd love to hear your experiences, questions and opinions - leave us a comment 
 [Free as in Freedom]: http://www.oreilly.com/openbook/freedom/
 [The Cathedral and the Bazaar]: shop.oreilly.com/product/9780596001087.do
 
-### Acknowledgment 
+### Acknowledgment
 Our own Jimm Domingo contributed heavily to this article and also taught me much of what I now know about copyright and licensing. Thanks Jimm!
