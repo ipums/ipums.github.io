@@ -20,15 +20,13 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
     author: <your x500 here>
     title: This is the Title of My Post
     teaser: This is a short teaser about my post.  I'm going to talk about cool things!
-    categories:
-    - IPUMS
-    - Data Processing
+    categories: Code Data
     tags:
     - Ruby
     - CSV
     ---
     ```
-    Categories and tags are optional and can be omitted.
+    Categories can be one or more of [Code Data DevCulture Infrastructure News Team]. Tags are optional and can be omitted.
 5. Add your markdown-formatted blog content below the front matter.
 6. (First time only) Run `bundle install` _OR_ (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages. It may also be necessary to run `gem install bundler` before running the `bundle install`. If you run into permissions errors with installing gems, consider running ruby out of a [virtual environment](https://rvm.io), and running everything out of that.
 7. Run `bundle exec jekyll serve --config _config.yml,_config_dev.yml`
@@ -36,6 +34,8 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
 9. Iterate.  The local server will reflect changes automatically by detecting when files change.
 10. When done, do `git add . && git commit -a && git push`
 11. Submit a pull request back to the master branch.
+12. Each pull request to master requires a reviewer (this is a GitHub feature now). You can ask someone else to review your post, and they can mark it as reviewed from GitHub.
+13. The blog editors (Fran; others) will do the merge to master, which triggers publishing on the live site.
 
 You really ought to read the rest of these instructions, though.
 
@@ -56,8 +56,7 @@ All Jekyll blog posts need to start with a YAML section called the "front matter
 title: 'Our IT Hiring Process: How and Why'
 teaser: 'An overview of our IT hiring process and why we designed it this way.'
 author: fran
-categories:
-- Team
+categories: Team
 tags:
 - hiring
 - staff
@@ -66,7 +65,7 @@ tags:
 
 Most front matter variables have site-wide defaults, so you don't need to worry about setting them in each post.  The minimum set of front matter fields you should include in each post are title, author and categories.  A teaser is strongly encouraged, and tags are optional but also encouraged.  There are other variables which can be used to change the layout of a post or otherwise alter behavior, but the site editors would generally add these if needed.  
 
-For the `categories` variable, the set of allowable values is XXX coming soon XXX.
+For the `categories` variable, the set of allowable values is [Code Data DevCulture Infrastructure News Team]. The site code expects only these six categories - please don't invent new ones.
 
 #### Blog Post Content - Kramdown Markdown
 
@@ -138,6 +137,7 @@ _Note: If you don't have Jekyll installed, please see [Instructions for Installi
 1. Start your Jekyll server if you haven't already, and preview your work.
 1. When done, add your new file, commit your changes, and push your branch to Github.
 1. Go to the Github web interface for the repository, and [create a pull request](https://help.github.com/articles/creating-a-pull-request/) back to the master branch.
+1. Each pull request to master requires a reviewer (this is a GitHub feature now). You can optionally ask someone else to review your post, and they can mark it as reviewed from GitHub. Otherwise, the blog editors (Fran; others) will do this step.
 
 #### Method 2: Online via the Github Web Interface
 
@@ -150,6 +150,7 @@ _Note: If you don't have Jekyll installed, please see [Instructions for Installi
 1. Click the + icon to create a new file in the _posts directory. Use the naming scheme "YYYY-MM-DD-title-of-my-post.markdown" for your new file.
 1. Create your post. Follow the directions for [Creating Blog Post Content](#content_reqs).
 1. When done, submit a pull request back to the master branch.
+1. Each pull request to master requires a reviewer (this is a GitHub feature now). You can optionally ask someone else to review your post, and they can mark it as reviewed from GitHub. Otherwise, the blog editors (Fran; others) will do this step.
 
 ## <a name="install">Instructions for Installing and Running Jekyll Locally</a>
 
