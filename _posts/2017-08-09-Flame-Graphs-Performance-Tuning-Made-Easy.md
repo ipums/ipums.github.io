@@ -118,7 +118,7 @@ The __hasVariable(const string &name)__ version is clearly kind of slow; the Met
 
 So we used this method in the editing API rules for our CPS editing API, and although CPS was taking a long time to run through DCP, we assumed that was because CPS has a ton of data - 554 datasets and counting. Additionally, any given dataset may run slow due to some legitimately complex data edits.
 
-Recently, after a while of this solution being in production, I decided to take another look at the "CPS takes a long time to run" issue, and I started by generating a flame graph.
+Recently, after a while of this solution being in production, I decided to return to  the "CPS takes a long time to run" issue, and I started by generating a flame graph.
 
 ##### Flame Graphs to the Rescue
 
