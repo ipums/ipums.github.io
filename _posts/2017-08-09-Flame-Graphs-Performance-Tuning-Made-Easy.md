@@ -24,11 +24,7 @@ The "Flame Graph" is a visual representation of a  process' execution which is c
 
 Don't worry about understanding it fully yet; we'll come back to this graph later.
 
-<<<<<<< Updated upstream
-Levels of the stack are layered from bottom to top with outer calls at the bottom. The overall shape resembles flames or mountains (or even plateaus if you have a pretty flat graph).  Note that calls are sorted alphabetically, not by order of execution.
-=======
 In a flame graph, levels of the execution stack are layered from bottom to top with outer calls at the bottom. The overall shape resembles flames or mountains (or even plateaus if you have a pretty flat graph).  Note that the x-axis is sorted alphabetically, not by order of execution.
->>>>>>> Stashed changes
 
 To repeat, the main idea of a flame graph is that the wider a function stack is on the graph, the bigger percentage of overall runtime that stack is consuming. Therefore, wide stacks may indicate areas of the code that are ripe for optimization.
 
@@ -81,11 +77,7 @@ The next thing to notice is that the stack with func_b() has the most width, fol
 
 Finally, we see that do_work() appears in both the func_b() stack and the func_c() stack, but we can tell from the graph that we spend more time in do_work() on the func_b() stack than we do on the func_c() stack, exactly what we expect to see based on the code logic.
 
-<<<<<<< Updated upstream
 This simple example illustrates the power of the flame graph to quickly show the programmer where a program is spending its time, not just by individual functions, but also by entire function stack code paths.
-=======
-This simple example shows the power of the flame graph to quickly show the programmer where a program is spending its time, not just by individual functions but also by entire execution stack code paths.
->>>>>>> Stashed changes
 
 In this example we sampled the program during its entire execution. You might instead sample a process only during problematic behavior. For instance, if a particular query seemed to excessively slow down a database system, you might sample its performance   only while the system processed that query.
 
@@ -99,11 +91,7 @@ At IPUMS we produce our public microdata using the DCP (Data Conversion Program)
 
 The DCP includes an editing API which our researchers use to write rules to edit and transform the data in complex ways as it passes through the DCP pipeline. This editing enhances the usefulness of the public data. For instance, we use the editing API to make family pointer variables which indicate how people in a household are related to each other. Spouses get linked to each other, children to parents, and so on. We use the editing API for lots of other things as well - there are cost of living adjustments, poverty threshold calculations, and many, many others.
 
-<<<<<<< Updated upstream
-For one of our data products - IPUMS CPS (Current Population Survey) - we had a particular edit we wanted to implement which required being able to query whether a given variable instance (e.g. "RACE") was for a variable that is found in the current record type we were examining (e.g. a Person record, which would have a "RACE" variable, vs. a Household record, which would not). In this particular situation  we had special variables we needed to check given that we didn't know which type of record they belonged on, and we did not know which dataset we'd be running when the check occurred. In other words, we needed something like a __record.hasVariable(variable)__ method.
-=======
 For one of our data products - IPUMS CPS (Current Population Survey) - we had a particular edit we wanted to implement which required being able to query whether a given variable instance (e.g. "RACE") was found in the current record type we were examining (e.g. a Person record, which would have a "RACE" variable, vs. a Household record, which would not). In other words, we needed something like a __record.hasVariable(variable)__ method.
->>>>>>> Stashed changes
 
 As it happened, the program already had a similar function __hasVariable(string)__ in the back-end of the user facing API. It checks a record given an arbitrary variable name label. It was designed to be used on a single record as part of a DCP mode where a human would be supplying the variable label and interactively looking at a single record at a time (for QA or debugging purposes). In other words, it was not designed with scalability in mind, and the function isn't especially fast because it doesn't need to be.  
 
@@ -128,11 +116,7 @@ bool Record::hasVariable(const string &name) const {
 
 The __hasVariable(const string &name)__ version is clearly kind of slow; the Metadata::Cache::getVar(name) just pulls something out of a hash, but the __count(name)__ call up-front is rather expensive. Nevertheless, it actually ran fast enough to not get noticed right away.
 
-<<<<<<< Updated upstream
-So we used this method in the editing API rules for our CPS editing API, and although CPS was taking a long time to run through DCP, we assumed that was because CPS has a ton of data - 554 datasets and counting. Additionally, any given dataset may run slow due to some legitimately complex data edits. We'd used a standard profiler on this code a while ago -- before the __hasVariable()__ change -- improving the performance. Since then remaining sluggishness has been attributed to that code. You can see it in the profile under "sploc()" and "momloc()" and "poploc()".
-=======
-So we used this approach, and although CPS was taking a long time to run through DCP, we assumed that was simply because CPS has a ton of data - 554 datasets and counting.
->>>>>>> Stashed changes
+So we used this method in the editing API rules for our CPS editing API, and although CPS was taking a long time to run through DCP, we assumed that was because CPS has a ton of data - 554 datasets and counting. Additionally, any given dataset may run slow due to some legitimately complex data edits.
 
 Recently, after a while of this solution being in production, I decided to take another look at the "CPS takes a long time to run" issue, and I started by generating a flame graph.
 
@@ -187,7 +171,7 @@ Here's the transcript of commands I used to create the trivial example flame gra
 
 	$ flamegraph.pl  a.folded > a.svg
 
-For GCC programs, you will want to build the program you're profiling with the '-Og' flag (only include optimizations which don't interfere with debugging) or -O0, and '-g' (include debugging symbols).  You don't need the '-p' flag; that's for the gprof profiler. Note that in the simple example we started with, compiling with -Og will optimize away the __do_work()__ function in the stack, as the compiler can predict the results every time. The behavior of __do_work()__ doesn't vary and  it takes no arguments. 
+For GCC programs, you will want to build the program you're profiling with the '-Og' flag (only include optimizations which don't interfere with debugging) or -O0, and '-g' (include debugging symbols).  You don't need the '-p' flag; that's for the gprof profiler. Note that in the simple example we started with, compiling with -Og will optimize away the __do_work()__ function in the stack, as the compiler can predict the results every time. The behavior of __do_work()__ doesn't vary and  it takes no arguments.
 
 One nice side benefit of using "perf": Some profiling tools for GCC will cause the application to run unacceptably slow.  The "callgrind" program can profile an application in fine grained detail but may make running your already slow program nearly impossible. This isn't the case for producing flame graphs using the process described here. You can gather data for a flame graph with, among other tools, __dtrace__ and __perf_events__ which do not seriously slow down the process being monitored.
 
