@@ -1,3 +1,20 @@
+- date: 2017-09-25
+  title: API:World
+  location: San Jose, CA
+  link: http://apiworld.co/
+  text: Attending
+
+- date: 2017-08-22
+  title: JupyterCon
+  location: New York, NY
+  link: https://conferences.oreilly.com/jupyter/jup-ny
+  text: Attending
+
+- date: 2017-08-16
+  title: Edward Tufte Data Visualisation Seminar
+  location: Bloomington, MN
+  link: https://www.edwardtufte.com/tufte/courses
+  text: Attending
 
 - date: 2017-05-01
   title: MinneWebCon
