@@ -177,7 +177,7 @@ One nice side benefit of using "perf": Some profiling tools for GCC will cause t
 
 To reproduce my example, you need the 'perf' utility. You can get it from the 'linux-tools-common' package in Ubuntu, 'perf' on Redhat, and it is available for other distributions as well, or you can build from source. You may need to install a version specific to your kernel version, such as 'linux-tools-4.4.0-52'. Use 'uname -r' to get your kernel version.  The __perf__ program will instruct you on this if it doesn't match your kernel.
 
-Clone the https://github.com/brendangregg/FlameGraph repository and for convenience put it on your path. Then you should be able to do the following:
+Clone the <https://github.com/brendangregg/FlameGraph> repository and for convenience put it on your path. Then you should be able to do the following:
 
 	./my_program &  # start your program in the background
 	perf record -F 99 -p [pid of my_program]  --call-graph dwarf -- sleep 60
