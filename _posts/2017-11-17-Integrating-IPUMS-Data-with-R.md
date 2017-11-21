@@ -3,7 +3,7 @@ author: gfellis
 title: 'ipumsr - Integrating IPUMS Data with R'
 teaser: 'We are excited to announce the ipumsr R package, which helps make importing IPUMS data into R easy.'
 categories: Code
-tags:
+tags: R
 ---
 
 We are excited to announce the [ipumsr](https://cran.r-project.org/package=ipumsr) R package, which helps make importing IPUMS data into R easy. [Though](https://cran.r-project.org/package=SAScii) [several](http://labs.time.com/data-sheet/the-census/) [approaches](http://courses.demog.berkeley.edu/mason213/TFRII/welcome.pdf) [already](http://answers.popdata.org/Is-possibel-ipums-data-R-q585592.aspx) [exist](https://rpubs.com/walkerke/ipums_dplyr), bringing data to R hasn't been as easy as other statistical software. We hope you'll find that ipumsr changes this.
@@ -14,7 +14,7 @@ _**Click on this image to launch the interactive version in a new tab.**_
 
 [![Internal migration flows between provinces in China 1995-2000]({{ "/images/china-example.png" | absolute_url }})](http://rpubs.com/gergness/ipumsr){:target="_blank"}
 
-Data from China's 2000 Census Data from IPUMS International, small numbers suppressed to maintain confidentiality. Map made with the ipumsr package and several other R packages, see below for the code and the [MIGCN](https://international.ipums.org/international-action/variables/MIGCN) variable page for more details about the definition.
+_Data from China's 2000 Census Data from IPUMS International, small numbers suppressed to maintain confidentiality. Map made with the ipumsr package and several other R packages, see the [ipumsr gist on rpubs](http://rpubs.com/gergness/ipumsr) for the code and the [MIGCN](https://international.ipums.org/international-action/variables/MIGCN) variable page for more details about the definition._
 
 
 
