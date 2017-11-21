@@ -193,7 +193,7 @@ Several IPUMS microdata projects also provide geographic data, which can be load
 And with that, your IPUMS data is available to you in R! If you're new to R or want to learn more about it, there's a lot of great resources. Some that we know of are:
 
 * [DataCamp's free introduction to R course](https://www.datacamp.com/)
-* [R for Data Science](http://r4ds.had.co.nz/) by Garret Rolemund and Hadley Wickham
+* [R for Data Science](http://r4ds.had.co.nz/) by Garret Grolemund and Hadley Wickham
 * [The John Hopkins MOOC R Programming](https://www.coursera.org/learn/r-programming)
 
 
