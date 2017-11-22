@@ -38,15 +38,6 @@ In his free time, he enjoys homebrewing, cooking, canoeing, and tinkering with h
 
 ***
 
-### Jesse Erdmann
-<a href="{{ site.urlimg }}/jje_pic-e1420578085161.jpg"><img class=" wp-image-426 size-thumbnail alignright" src="{{ site.urlimg }}/jje_pic-e1420578085161-150x150.jpg" alt="jje_pic" width="150" height="150" /></a>Jesse has worked on a diverse set of projects over his career. He has worked on firewalls embedded on NICs (and got to install some of them in the engine room of a not quite ready for deployment Navy Destroyer), connecting Electronic Health Records Systems at a start-up and developing data processing pipelines in pioneering cancer research here at the University of Minnesota. At the MPC, Jesse is working in the Data Production Group leveraging new technology to improve the speed at which new data is processed and released to the world. He has sworn a blood oath to find a way to wedge his long held passion for semantic technology into the MPC.
-
-Outside of the MPC, Jesse has been deeply involved with the local soccer community, dark-clouds.com, as well as pretending to be a music nerd on a music discovery podcast and associated site at audiobonsai.com. His wife allows him to reside in their home in the Northeast Suburbs of the Twin Cities along with their pet Labradoodle and decidedly less furry human child.
-
-<a title="LinkedIn" href="https://www.linkedin.com/pub/jesse-erdmann/3/4aa/99b" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>
-
-***
-
 ### Fran Fabrizio
 <a href="{{ site.urlimg }}/Fabrizio_Headshot-e1420664595616.jpg"><img class=" size-thumbnail wp-image-432 alignright" src="{{ site.urlimg }}/Fabrizio_Headshot-e1420664595616-150x150.jpg" alt="Fabrizio_Headshot" width="150" height="150" /></a>Fran originally planned to become a garbage truck driver (coolest thing ever to this 4-year-old boy), but the gift of a PCjr when he was 8 sparked a hobby interest in programming, typing in BASIC programs from the back of Family Computing magazine. Years later, he would find himself in the right place (a science and tech high school) at the right time (the birth of the Web), which changed his life course completely and led him to a career in computer science and IT.
 
@@ -66,13 +57,6 @@ Outside of work, Fran is likely to be found making a horrible mess of the kitche
 My primary interest in web development is the interface design and how people use web sites. I enjoy the constantly evolving environment of the web and trying to best apply good programming and design techniques to new platforms and technologies.
 
 (Jason has also been <a title="IT Core Spotlight: Jason Goray" href="/it-core-spotlight-jason-goray/">Spotlighted</a>!)
-
-***
-
-### Brian Gottreu
-<a href="{{ site.urlimg }}/brian-g-web.jpg"><img class=" size-thumbnail wp-image-443 alignright" src="{{ site.urlimg }}/brian-g-web-150x150.jpg" alt="brian-g-web" width="150" height="150" /></a>Brian has worked primarily in academia.  After seven years at Louisiana Tech University, he decided to trade heat stroke for frostbite and joined the MPC in July 2014 as a system administrator.
-
-Given his enthusiasm for computers, music, and cats, one would expect Brian to enjoy the Venetian Snares album "Songs About My Cats" more than he does.
 
 ***
 
@@ -144,10 +128,13 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 
 ***
 
-### Jon Renner
-<a href="{{ site.urlimg }}/jon-renner_imag0077.png"><img class=" size-thumbnail wp-image-674 alignright" src="{{ site.urlimg }}/jon-renner_imag0077-150x150.png" alt="jon-renner_imag0077" width="150" height="150" /></a> Jon has been interested in computers from a very early age, but it wasn't until 2011 that he began to teach himself how to program. Before that, he graduated from the University of Minnesota with a degree in Asian Languages and Literature, and went to Taiwan to study Asian history. After developing a semi-successful mobile game, Jon has come to the MPC where he is working on historical data as part of the Data Production team.
+### June Taylor
 
-(Jon has also been <a title="IT Core Spotlight: Jon Renner" href="/it-core-spotlight-jon-renner/">Spotlighted</a>!)
+<a href="{{ site.urlimg }}june.jpg"><img class=" size-thumbnail wp-image-412 alignright" src="{{ site.urlimg }}/june-150x150.jpeg" alt="june" width="150" height="150" /></a>June works on the IT Operations team, providing technical development and support to the computing infrastructure used at the Institute. Prior to joining, June developed and supported electronic systems for medical research, wireless ISPs, petroleum supply chains, and a variety of other small businesses. In these areas, June honed skills with database administration, enterprise system integration, multiple programming languages, and operating in highly regulated and audited environments.
+
+When she’s not at work she enjoys playing with her kids, gardening, keeping backyard chickens, and woodworking.
+
+As a relatively new Minnesotan June is likely to take the last cookie on the plate, but is working to curb this behaviour.
 
 ***
 
