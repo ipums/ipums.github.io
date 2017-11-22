@@ -193,7 +193,7 @@ Several IPUMS microdata projects also provide geographic data, which can be load
 And with that, your IPUMS data is available to you in R! If you're new to R or want to learn more about it, there's a lot of great resources. Some that we know of are:
 
 * [DataCamp's free introduction to R course](https://www.datacamp.com/)
-* [R for Data Science](http://r4ds.had.co.nz/) by Garret Grolemund and Hadley Wickham
+* [R for Data Science](http://r4ds.had.co.nz/) by Garret Rolemund and Hadley Wickham
 * [The John Hopkins MOOC R Programming](https://www.coursera.org/learn/r-programming)
 
 
@@ -201,7 +201,7 @@ And with that, your IPUMS data is available to you in R! If you're new to R or w
 
 Here I describe some of the design challenges of loading IPUMS data into R and how we solved them.  
 
-## Value labels don't fit in factors
+### Value labels don't fit in factors
 
 A valuable part of IPUMS harmonization process is that we add meaningful and consistent value labels to our data. At first glance, base R's often maligned and misunderstood data structure factors seems like a natural fit. However, factors are incompatible with the way IPUMS (and other statistical software) treat labelled values in two ways:
 
@@ -211,11 +211,11 @@ A valuable part of IPUMS harmonization process is that we add meaningful and con
 
 The ipumsr package is not the first time R developers have encountered this problem, so we were able to build off the existing approach in the haven package. ipumsr imports the labels into haven's labelled objects, and then provides helper functions like `lbl_collapse()`, `lbl_na_if()` and `lbl_clean()` that are designed to make it easier to work with the conventions most IPUMS labels follow. See the labelled values vignette for more details.
 
-## Base R's read.fwf/read.csv are slow
+### Base R's read.fwf/read.csv are slow
 
 Functions like `readr::read_fwf` for fixed width files and `readr::read_csv` or `data.table::fread` (among others) are much faster than the base R functions like `read.csv` and `read.fwf`. In my tests, `readr::read_fwf` is about 40 times faster than `read.fwf`. To make matters worse, IPUMS hierarchical data have widths that change depending on the record type, which none of these functions support. The ipumsr package uses readr functions when possible, but has C++ code to handle the hierarchical files. Winston Chang's package profvis provides a wonderful interface for making flame graphs in R, so it was easy to find the performance bottlenecks.
 
-## Using other IPUMS metadata
+### Using other IPUMS metadata
 
 We also wanted to make the IPUMS metadata like the value labels, variable labels, variable descriptions and geographic boundary files as easy to use as possible. Beyond the labelled values helpers mentioned above, you can peruse the value labels and variable descriptions interactively using `ipums_view()`, read and merge geographic data from IPUMS using `read_ipums_shape()` and `ipums_shape_left_join()`, and hopefully more coming soon.
 
