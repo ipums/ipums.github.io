@@ -3,7 +3,7 @@ layout: post
 title: "Large Data on a Laptop: Tools and Strategies"
 date: 2018-03-25 20:55:27 -0800
 comments: true
-author: Colin Davis
+author: ccd
 teaser:
 categories:   Code, Data
 tags:
@@ -458,6 +458,7 @@ There's one more type of software out there which I'd consider the  expert power
 The "Q"  language is a humane coating of syntactic sugar for the "K" language; "J" is similar to "K". Both are descendents of APL. KDB and JDB are column oriented databases; unlike Parquet format they allow very fast appends / inserts, while keeping very fast query times and compact size. JDB supports a fairly friendly query language, though it's not SQL. The actual J and K languages are, like APL, extremely terse with single ASCII symbols used as keywords.  
 
 If you need the absolute maximum query speed against a constantly updated database -- which Parquet and similar formats don't enable -- you need "K" and KDB+. There's a free non-commercial 32 bit version; the "J" and JDB combination is free, but it doesn't scale as well.
+
 
 
 
