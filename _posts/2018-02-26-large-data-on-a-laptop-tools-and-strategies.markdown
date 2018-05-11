@@ -135,7 +135,9 @@ Columnar file formats address this use case head-on by organizing data into colu
 
 To make reads even faster, and to save space on disk, columnar  formats typically use data compression on a per-column basis often enabling the compression algorithms to be more effective than with row-based data while preserving relatively high speed decompression.
 
-Parquet is a columnar format for data used in Apache "Big Data" products like Spark, Drill and many others. It compresses to impressively high ratios while enabling super fast analytic queries. In many cases you win both in huge storage savings and dramatically lower query times. Parquet can represent a flat schema  as well as nested record structures; my example here,the current Python libraries, and other tools don't support nesting yet, (but Apache Spark and Drill do,) but this is an area of rapid development. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files. 
+Parquet is a columnar format for data used in Apache "Big Data" products like Spark, Drill and many others. It compresses to impressively high ratios while enabling super fast analytic queries. In many cases you win both in huge storage savings and dramatically lower query times. 
+
+Parquet can represent a flat schema  as well as nested record structures; my example here,the current Python libraries, and other tools don't support nesting yet, (but Apache Spark and Drill do,) but this is an area of rapid development. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files. 
 
 Here I'll demonstrate use of the Parquet data format in a command line tools setting. While typically coupled with "Big Data" tools, you can use Parquet libraries with your own code to build a command line data analysis work-flow.
 
