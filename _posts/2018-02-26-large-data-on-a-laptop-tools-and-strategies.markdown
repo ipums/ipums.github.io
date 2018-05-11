@@ -326,7 +326,9 @@ We pipe the table made by "Q" to gnuplot to make this graph:
 	
 <a href="/images/count_bikers_walkers_by_income.png"><img   src="/images/count_bikers_walkers_by_income.png" alt="Graph of bikers and walker population by income" width="800" height="600" /></a>	
 	
-Income in thousands is on the X-axis, numbers of human powered commuters is on the Y-axis. Pretty much looks like an income distribution; of course the vast majority of anybody doing most things is on the lower income side (by a lot.) We're not learning much yet. Instead we should compare percent of bikers and walkers within each income bracket. There may be many fewer people biking who earn $150,000, but what's the  ratio of  drivers to walkers and bikers at each income bracket? I'm cutting off the income at $400,000; there are too few cases in the sample to get much accuracy higher at higher income levels.
+Income in thousands is on the X-axis, numbers of human powered commuters is on the Y-axis. Pretty much looks like an income distribution; of course the vast majority of anybody doing most things is on the lower income side (by a lot.) We're not learning much yet except that there really is a "one-percent."
+
+Instead we should compare share of bikers and walkers within each income bracket. There may be many fewer people biking who earn $150,000, but what's the  ratio of  drivers to walkers and bikers at each income bracket? I'm cutting off the income at $400,000; there are too few cases in the sample to get much accuracy higher at higher income levels.
 
 	$time ./tabulate_pq usa_00065.parquet PERWT YEAR TRANWORK INCTOT |
 	q -d, -H -O  "select  ((inctot/20000) * 20000)/1000 as income_thousands,sum(case when tranwork in (40,50) then TOTAL else 0 end) * 100.0 / sum(TOTAL)   as bike_or_walk \
