@@ -127,7 +127,9 @@ In answer to the question, yes, programmers seem to bike at a 61% higher rate th
 
 ### Save Huge Space and Time  with the Parquet Format
 
-In the previous section, we found an easy way to query CSV data, but performance degrades quickly with increase in data size and memory requirements become prohibitive. If we could avoid loading most of the example dataset into memory we'd  be able to  analyze much larger datasets given the same hardware; for instance in the previous query we only need to examine four columns out of eighty-two.  
+In the previous section, we found an easy way to query CSV data, but performance degraded quickly as data size increased and memory requirements became prohibitive. 
+
+If we could avoid loading most of the example dataset into memory we'd  be able to  analyze much larger datasets given the same hardware; for instance in the previous query we only need to examine four columns out of eighty-two.  
 
 Columnar file formats address this use case head-on by organizing data into columns rather than rows. Such a structure makes reading in only  requested data simple and allows more efficient read operations.  Such formats typically make use of data compression on a per-column basis making the compression algorithms more effective than with row-based data while preserving relatively high speed decompression.
 
