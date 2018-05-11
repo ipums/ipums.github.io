@@ -141,7 +141,7 @@ Here I'll demonstrate use of the Parquet data format in a command line tools set
 
 Thanks to the <a href="http://github.com/apache/parquet-cpp"> parquet-cpp</a> project you don't need to set up a "Big Data" execution framework and the JVM to use Parquet. To get the most out of Parquet with limited resources, C++ is required; but "parquet-cpp" is also tightly integrated with the "PyArrow" project for Python and there's a pure Go-lang  implementation too. 
 
-Here I'll demonstrate fast query times by direct use of the C++ Parquet library, but you can do something similar (if slightly less efficiently) with <a href="https://github.com/dask/fastparquet"> Python</a>,   , <a href="https://github.com/xitongsys/parquet-go"> Go</a> or <a href="http://www.jofre.de/?p=1459"> Java</a>. 
+The following  examples achieve good performance by direct use of the C++ Parquet library, but you can do something similar (if slightly less efficiently) with <a href="https://github.com/dask/fastparquet"> Python</a>,   , <a href="https://github.com/xitongsys/parquet-go"> Go</a> or <a href="http://www.jofre.de/?p=1459"> Java</a>. 
 
 Memory used will be exactly proportional to the number of columns involved in a query: Some categories of query can be optimized further by aggregating data as columns are read in (averages, counts) while others require complete column data (medians.)  With 17,000,00 rows and four columns our example will require at most  259 megabytes (17000000 * 4 columns * 32 bit number types.) This means we could directly query a Parquet dataset with up to around 525,000,000 rows on an 8GB laptop, larger than the entire population of the U.S., before even attempting to optimize for memory use. 
  With a little effort you could build a tool  computing counts or averages where data size is only limited by your hard disk / SSD size.
@@ -162,7 +162,7 @@ Here's the dataset from the last section before and after converting to Parquet:
 
 See how ssmall it got?  That's just one of the benefits. Watch how fast it goes.
 
-To super-charge queries like those we want to do on the "usa_00065.parquet" , I've created a small program "tabulate_pq." Think of "tabulate_pq" as a large data pre-processor or a high performance back-end to the "Q" utility. 
+To super-charge queries like those we want to do on the "usa_00065.parquet" , dataset I've created a small program "tabulate_pq." Think of "tabulate_pq" as a large data pre-processor or a high performance back-end to the "Q" utility. 
 
 "tabulate_pq" showcases one simple but powerful use of Parquet data and a specialized reader. It doesn't contain an SQL query engine; there are no options;  it does one thing very well: Weighted cross tabs. 
 
