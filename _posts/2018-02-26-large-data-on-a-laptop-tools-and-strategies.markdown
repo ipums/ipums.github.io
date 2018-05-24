@@ -122,6 +122,28 @@ I'll use the -D  (output delimiter), -b "beautify) and -O (format print output h
 	
 All right, that was easy... but it took forever. If we're planning to field questions fifty times a day  we need to find a better way.  Looking at memory use of the above process, it's clear the  "Q" program creates an in memory database after loading all the CSV data into memory; several other tools operate in a similar manner. If my machine had  less than 8GB the script would fail; if I want to analyze a larger dataset I'll hit a wall.
 
+If you're focusing on one dataset of moderate size   you could skip the "Q" middle-man and import your CSV into Sqlite, then repeatedly query it. This helps if the data isn't too large and you don't need to constantly import different new data. Here's how to import our sample data
+
+	sqlite> .mode csv
+	sqlite> .import ./usa_00065.csv extract
+	sqlite> select count(*) from extract;
+	17634469
+
+	sqlite> .schema extract
+	CREATE TABLE extract(
+	  "YEAR" TEXT,
+	  "DATANUM" TEXT,
+	  "SERIAL" TEXT,
+	  "HHWT" TEXT,
+	  "STATEFIP" TEXT,
+	  "METAREA" TEXT,
+	  "METAREAD" TEXT,
+	  ........ [many more columns ] ....
+
+The import takes a while, but not as long as "Q". For the duration of your session you have an in-memory database  you can query. The big catch is that you're limited by available RAM. If I had included every year from 2000 to 2016 from the Amaerican Cummunity Survey in my data it would not fit in my computer's memory.
+
+#### Conclusion to Part 1
+
 In answer to the question, yes, programmers seem to bike at a 61% higher rate than the average of  all other types of workers, but the absolute rates (0.91% for information technology workers, 0.56% for others)  is  really low. I'd really like to break out mode of transportation by more categories but that will take a long time with the current method. In addition, I'd like to classify workers by income, because I'm suspecting biking to work may be connected to income and class more than profession. So, on to something better.
 
 
@@ -129,7 +151,7 @@ In answer to the question, yes, programmers seem to bike at a 61% higher rate th
 
 In the previous section, we found an easy way to query CSV data, but performance degraded quickly as data size increased and memory requirements became prohibitive. 
 
-If we could avoid loading most of the example dataset into memory we'd  be able to  analyze much larger datasets given the same hardware; for instance in the previous query we only need to examine four columns out of eighty-two.  
+If we could avoid loading most of the example dataset into memory we'd  be able to  analyze much larger datasets given the same hardware; for instance in the previous query we only need to examine four columns out of eighty-two.
 
 Columnar file formats address this use case head-on by organizing data into columns rather than rows. Such a structure makes reading in only  requested data fast: In simple terms, at the low level, a reader seeks to the start of a column's worth of data, in the data file, then reads until the indicated end location in the file. Coluns of data not requested never get read, saving time.
 
@@ -139,7 +161,7 @@ Parquet is a columnar format for data used in Apache "Big Data" products like Sp
 
 Parquet can represent a flat schema  as well as nested record structures; my example here,the current Python libraries, and other tools don't support nesting yet, (but Apache Spark and Drill do,) but this is an area of rapid development. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files. 
 
-Here I'll demonstrate use of the Parquet data format in a command line tools setting. While typically coupled with "Big Data" tools, you can use Parquet libraries with your own code to build a command line data analysis work-flow.
+Here I'll demonstrate use of the Parquet data format in a command line tools setting. While typically coupled with "Big Data" tools, you can use Parquet libraries with your own code to build a command line data analysis work-flow. While the size of my test dataset is just on the edge of what's possible to fit in a typical laptop's memory -- making it possible to keep the data in conventional formats -- you still benefit with performance and space savings by converting to Parquet. If the data were ten times larger (easily possible if all available IPUMS U.S. Census data were used) a columnar, compressed  format like Parquet would be necessary to get results back in under a minute.
 
 Thanks to the <a href="http://github.com/apache/parquet-cpp"> parquet-cpp</a> project you don't need to set up a "Big Data" execution framework and the JVM to use Parquet. To get the most out of Parquet with limited resources, C++ is required; but "parquet-cpp" is also tightly integrated with the "PyArrow" project for Python and there's a pure Go-lang  implementation too. 
 
@@ -150,7 +172,7 @@ Memory used will be exactly proportional to the number of columns involved in a 
 
 To create Parquet formatted data, use your own C++ or Go application, or use the PyArrow library (built on top of the "parquet-cpp" project.) Apache Spark or Drill can save results in Parquet format as well. Again, C++ will be most efficient both with memory and CPU usage but PyArrow or Spark will be more convenient for an off-the-shelf solution, and Spark or Drill can map the Parquet conversion process across many cores and machines. Later I'll show a quick example of saving to Parquet from both Pandas + PyArrow and Spark.
 
-I have written a stand-alone tool in C++ for converting either CSV or fixed-width data (one of the IPUMS data formats) to Parquet format. It allows some conversions that would be difficult using Spark or PyArrow, as well as being super easy to deploy anywhere. It's very fast  and minimizes memory use; you can easily run it on your laptop.  I won't get into the details here. For purposes of this example assume we are able to convert the large dataset in the previous section into Parquet by some means. The process takes around five minutes for the example "usa_00065.csv" dataset.
+I have written a stand-alone tool in C++ for converting either CSV or fixed-width data (one of the IPUMS data formats) to Parquet format. It allows some conversions that would be difficult using Spark or PyArrow, as well as being super easy to deploy anywhere. It's very fast  and minimizes memory use; you can easily run it on your laptop.  I won't get into the details here. For purposes of this example assume we are able to convert the large dataset in the previous section into Parquet by some means. The process takes around five minutes with my "make-parquet" utility  for the example "usa_00065.csv" dataset.
 
 Here's the dataset from the last section before and after converting to Parquet:
 
@@ -162,13 +184,13 @@ Here's the dataset from the last section before and after converting to Parquet:
 	$ ls -sh usa_00065.parquet
 	688M extract65.parquet
 
-See how ssmall it got?  That's just one of the benefits. Watch how fast it goes.
+See how small it got?  That's just one of the benefits. Watch how fast it goes.
 
 To super-charge queries like those we want to do on the "usa_00065.parquet" , dataset I've created a small program "tabulate_pq." Think of "tabulate_pq" as a large data pre-processor or a high performance back-end to the "Q" utility. 
 
 "tabulate_pq" showcases one simple but powerful use of Parquet data and a specialized reader. It doesn't contain an SQL query engine; there are no options;  it does one thing very well: Weighted cross tabs. 
 
-"tabulate_pq" takes a weight variable and a list of other variables as arguments, and produces a table of weighted cross tabulated data in CSV form and writes to standard out. You can simply view the results or consume the table as part of a data analysis pipeline as I'll demonstrate.
+"tabulate_pq" takes a weight variable name, and a list of other variable names found in the Parquet file,  as arguments, and produces a table of weighted cross tabulated data in CSV form and writes to standard out. You can simply view the results or consume the table as part of a data analysis pipeline as I'll demonstrate.
 
 	tabulate_pq datafile WEIGHT VAR1 VAR2 VAR3
 	
@@ -182,7 +204,7 @@ To super-charge queries like those we want to do on the "usa_00065.parquet" , da
 	1970,1,131963200
 	.....
 
-If the weight variable doesn't exist then it assumes every case in the data represents one actual case. The "tabulate_pq" program always returns a column called "total" containing the case count for each cross-tab cell which will either be the value of the weight variable (like "PERWT") or 1.
+If the supplied weight variable doesn't exist in the Parquet data then "tabulate_pq" assumes every case in the data represents one actual case. The "tabulate_pq" program always returns a column called "total" containing the case count for each cross-tab cell which will either be the value of the weight variable (like "PERWT") summed for all cases represented in the row, or 1 for every matching case.
 
 here's a head-to-head comparison To give you an idea of the huge speed-up provided by Parquet. This is a simplified query looking at similar data to the example in the last section, this time comparing total commuters who bike compared to the total since 1980. 
 
@@ -366,6 +388,9 @@ And returning to our original inquirey about biking to work -- are tech workers 
 
 So it appears biking increases a lot as income rises; and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably walking among low income people drops off sharply as income increases.	 Over all we can see the higher rate of biking among tech workers is in line with everyone earning their incomes ($70,000 to $160,000.) 
 
+To be clear all we've seen so far are some interesting coorelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. If you have a more compelling  analysis you can use the same approach to quickly check a hypothesis and refine your inquiry.
+
+
 ### Custom Parquet-Powered Tools
 
 The "tabulate_pq" utility is just a proof of concept; you could make something similar but support more variables or add in more powerful aggregate functions -- even medians -- (tabulate_pq only does sum().) And this is a single threaded program. With a little effort it could be multi-threaded.   By making use of one of the "Linq"-like<a href="https://github.com/k06a/boolinq"> libraries</a>   for C++, and the <a href="http://stxxl.org/"> STXXL</a> large container library,   you could create a powerful query engine that handles very large data on a single machine. 
@@ -406,7 +431,7 @@ pd.crosstab((filtered.OCC2010>=1000) &(filtered.OCC2010<1100) ,
 	aggfunc=sum)
 
 ```	
-Timing this,:
+Timing this, with a cold start:
 
 	$  time python prog_bikers.py
 
@@ -424,6 +449,8 @@ Here's a sample:
 
 [ program that reads in usa_00065.csv, converts to Parquet, show timing]
 
+
+Finally, you can use all the cores on your machine in parallel with PyArrow, so that column reads occurr at the same time up to the limit of cores. This is the easiest general purpose approach for fast data analysis on a single machine. You're only limited by available memory. 
 
 ### Spark: Use Parquet, Harness  all the Cores on Your System and Beyond
 
