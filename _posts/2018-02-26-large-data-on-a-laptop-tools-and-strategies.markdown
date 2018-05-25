@@ -7,14 +7,13 @@ author: ccd
 teaser:
 categories:   Code, Data
 tags:
-	- Ruby
-	- CSV
-	- Parquet
-	- C++
-	- Spark
-	- Data Science
+ - Ruby
+ - CSV
+ - Parquet
+ - C++
+ - Spark
+ - Data Science
 ---
-
 
 Doing analysis on large data doesn't  have to mean mastering enterprise "Big Data" tools or accessing hundred node compute clusters in the cloud; find out what your humble laptop can do with the help of modern tools first.
 
@@ -23,10 +22,10 @@ If you're running into slow access to your data or even running out of space, yo
 Depending on your volume of data and sophistication of the software you use you may find your poor computer:
 
 1. Spending lots of time loading enormous spreadsheets and running  macros and formulas. You put effort into  organizing and versioning spreadsheets.
-2. Waiting while loading data into Postgres, MySql or Sql Server. Waiting for slow analytic queries / reports. 
+2. Waiting while loading data into Postgres, MySql or Sql Server. Waiting for slow analytic queries / reports.
 3. Dealing with text data in CSV, JSON or other custom formats.  Running out of space? Need a bigger hard drive?
 
-Solutions include: 
+Solutions include:
 
 * Bring better tools to your data: Don't just hack something together with Excel, find a way to query your data with SQL
 * Change your data format: Columnar formats allow for faster analytic queries and save lots of disk space
@@ -38,8 +37,8 @@ To make your data life better, let's look at four tools that put these solutions
 
 If you're dealing with CSV data by importing into Excel you should consider applying query tools like <a href="http://harelba.github.io/q/"> Q (Text as Data)  </a> or <a href="https://csvkit.readthedocs.io/en/1.0.2/"> CSV Kit</a> directly to the CSV data. Here's how we <a href="http://tech.popdata.org/keeping-it-simple-exploiting-csv-and-csvkit-at-the-mpc/"> use CSVKit</a> at IPUMS. If, on the other hand,  your data starts out as spreadsheets, and is generic tabular data you could save as CSV and  use the "q" utility on it.  To automate the conversion from spreadsheets, try "intocsv" from "CSVKit."
 
-The "q" tool allows SQL queries directly against CSV data as if it were a database table. 
-You could import the CSV data into any number of databases or read it with Python's Pandas or even Apache Spark; but if you already know the query you'd like to run, and the data is of reasonable size, those tools may be overkill. The "q" utility lets you query CSV directly. You can even join two or more "tables" (files). 
+The "q" tool allows SQL queries directly against CSV data as if it were a database table.
+You could import the CSV data into any number of databases or read it with Python's Pandas or even Apache Spark; but if you already know the query you'd like to run, and the data is of reasonable size, those tools may be overkill. The "q" utility lets you query CSV directly. You can even join two or more "tables" (files).
 
 Installation of "q" is extremely simple and it's free. If you know the UNIX command line, you can combine "q" with other command line UNIX tools, because "Q" defaults to outputting plain text consumable by other UNIX  tools such as "sort", "sed" and so forth.
 
@@ -53,23 +52,23 @@ __q example__
 
 IPUMS keeps a pipe delimited log of every run of our internal data conversion tool; every time  a researcher or developer produces an IPUMS file we record  basic information to have an historical record apart from the application logs. The file has a few columns:
 
-	run_date|user|product|dataset|seconds_to_produce|data_items	
+	run_date|user|product|dataset|seconds_to_produce|data_items
 
 and at this point there are many rows:
 
 	$ wc dcp_multi.completed.csv
 	223949   990559 12617458 dcp_multi.completed.csv
-	
+
 We can easily find how many times we've produceed datasets for each data product:
-	
+
 	$ time q -d"|" -H -b \
 	"select count(*) as runs, product \
 	from ./dcp_multi.completed.csv \
 	group by product \
 	order by runs desc \
 	limit 15"
-	
-	
+
+
 	132642|usa     
 	33604 |dhs     
 	31712 |cps     
@@ -83,20 +82,20 @@ We can easily find how many times we've produceed datasets for each data product
 	1480  |highered
 	858   |nsduh   
 	405   |nyts    
-	292   |fullusa 
+	292   |fullusa
 	153   |ahtus   
-	
+
 	real	0m2.491s
 	user	0m2.432s
 	sys	0m0.044s
 
-That was fast and straightforward. (The -d"|" defines the delimiter; -b formats the output a bit; -H reads the header for column names; the '\' tells bash to continue reading on the next line.)	
-	
+That was fast and straightforward. (The -d"|" defines the delimiter; -b formats the output a bit; -H reads the header for column names; the '\' tells bash to continue reading on the next line.)
+
 Now I really like this tool, and I'll try it the next time I want to query a CSV formatted dataset.  Recently using the <a href="usa.ipums.org"> IPUMS-USA</a> I built a moderately large demographic dataset created to study changes in commuting patterns and housing costs among U.S. workers since 1960.  I've downloaded the data to my computer. It contains over 17 million individual records and eighty-two columns, so it's pretty large, but not "big data" by any means. The data is in CSV form as I requested, in the file "usa_00065.csv. and it takes about 4.2GB uncompressed.
 
 Someone asks "Hey, is biking to work really more popular among software developers compared to other kinds of workers?" Well, this dataset has all the IPUMS variables to answer that question. How about I  just throw a query right at the "usa_00065.csv" file I downloaded from IPUMS?
 
-In the following query the OCC2010  column uses numeric codes to represent job classifications; 1000 to 1099 can be considered developers and similar workers. The TRANWORK (mode of transport to work) uses 20 for motorcycles and 40 for bikes (all other modes are recorded as well.)  How do I know this? Check the <a href="https://usa.ipums.org/usa-action/variables/OCC2010#description_section"> documentation.</a>  Googling "IPUMS variable TRANWORK" or other IPUMS variable names will bring it right up. 
+In the following query the OCC2010  column uses numeric codes to represent job classifications; 1000 to 1099 can be considered developers and similar workers. The TRANWORK (mode of transport to work) uses 20 for motorcycles and 40 for bikes (all other modes are recorded as well.)  How do I know this? Check the <a href="https://usa.ipums.org/usa-action/variables/OCC2010#description_section"> documentation.</a>  Googling "IPUMS variable TRANWORK" or other IPUMS variable names will bring it right up.
 
 Let's start with bicycling  during 2016. We'll exclude non-employed people (OCC2010 < 9900.) The "sum(PERWT)" gives us a total population count adjusted for the 1% sample size of the 2016 American Community Survey this data comes from.
 
@@ -110,7 +109,7 @@ I'll use the -D  (output delimiter), -b "beautify) and -O (format print output h
 	where YEAR=2016 and  OCC2010<9900 and TRANWORK>0 \
 	group by  biker, programmer"
 
-	total    |biker |programmer 
+	total    |biker |programmer
 	36719    |Biking|Programmers
 	824999   |Biking|other      
 	3983940  |other |Programmers
@@ -119,7 +118,7 @@ I'll use the -D  (output delimiter), -b "beautify) and -O (format print output h
 	real	24m53.442s
 	user	24m30.220s
 	sys	0m21.928s
-	
+
 All right, that was easy... but it took forever. If we're planning to field questions fifty times a day  we need to find a better way.  Looking at memory use of the above process, it's clear the  "Q" program creates an in memory database after loading all the CSV data into memory; several other tools operate in a similar manner. If my machine had  less than 8GB the script would fail; if I want to analyze a larger dataset I'll hit a wall.
 
 If you're focusing on one dataset of moderate size   you could skip the "Q" middle-man and import your CSV into Sqlite, then repeatedly query it. This helps if the data isn't too large and you don't need to constantly import different new data. Here's how to import our sample data
@@ -149,7 +148,7 @@ In answer to the question, yes, programmers seem to bike at a 61% higher rate th
 
 ### Save Huge Space and Time  with the Parquet Format
 
-In the previous section, we found an easy way to query CSV data, but performance degraded quickly as data size increased and memory requirements became prohibitive. 
+In the previous section, we found an easy way to query CSV data, but performance degraded quickly as data size increased and memory requirements became prohibitive.
 
 If we could avoid loading most of the example dataset into memory we'd  be able to  analyze much larger datasets given the same hardware; for instance in the previous query we only need to examine four columns out of eighty-two.
 
@@ -157,17 +156,17 @@ Columnar file formats address this use case head-on by organizing data into colu
 
 To make reads even faster, and to save space on disk, columnar  formats typically use data compression on a per-column basis often enabling the compression algorithms to be more effective than with row-based data while preserving relatively high speed decompression.
 
-Parquet is a columnar format for data used in Apache "Big Data" products like Spark, Drill and many others. It compresses to impressively high ratios while enabling super fast analytic queries. In many cases you win both in huge storage savings and dramatically lower query times. 
+Parquet is a columnar format for data used in Apache "Big Data" products like Spark, Drill and many others. It compresses to impressively high ratios while enabling super fast analytic queries. In many cases you win both in huge storage savings and dramatically lower query times.
 
-Parquet can represent a flat schema  as well as nested record structures; my example here,the current Python libraries, and other tools don't support nesting yet, (but Apache Spark and Drill do,) but this is an area of rapid development. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files. 
+Parquet can represent a flat schema  as well as nested record structures; my example here,the current Python libraries, and other tools don't support nesting yet, (but Apache Spark and Drill do,) but this is an area of rapid development. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files.
 
 Here I'll demonstrate use of the Parquet data format in a command line tools setting. While typically coupled with "Big Data" tools, you can use Parquet libraries with your own code to build a command line data analysis work-flow. While the size of my test dataset is just on the edge of what's possible to fit in a typical laptop's memory -- making it possible to keep the data in conventional formats -- you still benefit with performance and space savings by converting to Parquet. If the data were ten times larger (easily possible if all available IPUMS U.S. Census data were used) a columnar, compressed  format like Parquet would be necessary to get results back in under a minute.
 
-Thanks to the <a href="http://github.com/apache/parquet-cpp"> parquet-cpp</a> project you don't need to set up a "Big Data" execution framework and the JVM to use Parquet. To get the most out of Parquet with limited resources, C++ is required; but "parquet-cpp" is also tightly integrated with the "PyArrow" project for Python and there's a pure Go-lang  implementation too. 
+Thanks to the <a href="http://github.com/apache/parquet-cpp"> parquet-cpp</a> project you don't need to set up a "Big Data" execution framework and the JVM to use Parquet. To get the most out of Parquet with limited resources, C++ is required; but "parquet-cpp" is also tightly integrated with the "PyArrow" project for Python and there's a pure Go-lang  implementation too.
 
-The following  examples achieve good performance by direct use of the C++ Parquet library, but you can do something similar (if slightly less efficiently) with <a href="https://github.com/dask/fastparquet"> Python</a>,   , <a href="https://github.com/xitongsys/parquet-go"> Go</a> or <a href="http://www.jofre.de/?p=1459"> Java</a>. 
+The following  examples achieve good performance by direct use of the C++ Parquet library, but you can do something similar (if slightly less efficiently) with <a href="https://github.com/dask/fastparquet"> Python</a>,   , <a href="https://github.com/xitongsys/parquet-go"> Go</a> or <a href="http://www.jofre.de/?p=1459"> Java</a>.
 
-Memory used will be exactly proportional to the number of columns involved in a query: Some categories of query can be optimized further by aggregating data as columns are read in (averages, counts) while others require complete column data (medians.)  With 17,000,00 rows and four columns our example will require at most  259 megabytes (17000000 * 4 columns * 32 bit number types.) This means we could directly query a Parquet dataset with up to around 525,000,000 rows on an 8GB laptop, larger than the entire population of the U.S., before even attempting to optimize for memory use. 
+Memory used will be exactly proportional to the number of columns involved in a query: Some categories of query can be optimized further by aggregating data as columns are read in (averages, counts) while others require complete column data (medians.)  With 17,000,00 rows and four columns our example will require at most  259 megabytes (17000000 * 4 columns * 32 bit number types.) This means we could directly query a Parquet dataset with up to around 525,000,000 rows on an 8GB laptop, larger than the entire population of the U.S., before even attempting to optimize for memory use.
  With a little effort you could build a tool  computing counts or averages where data size is only limited by your hard disk / SSD size.
 
 To create Parquet formatted data, use your own C++ or Go application, or use the PyArrow library (built on top of the "parquet-cpp" project.) Apache Spark or Drill can save results in Parquet format as well. Again, C++ will be most efficient both with memory and CPU usage but PyArrow or Spark will be more convenient for an off-the-shelf solution, and Spark or Drill can map the Parquet conversion process across many cores and machines. Later I'll show a quick example of saving to Parquet from both Pandas + PyArrow and Spark.
@@ -177,8 +176,8 @@ I have written a stand-alone tool in C++ for converting either CSV or fixed-widt
 Here's the dataset from the last section before and after converting to Parquet:
 
 	$ ls -sh usa_00065.csv
-	4.2G usa_00065.csv	
-	
+	4.2G usa_00065.csv
+
 ... converting "usa_00065.csv" to a parquet version named "usa_00065.parquet" using default "snappy" compression ....
 
 	$ ls -sh usa_00065.parquet
@@ -186,14 +185,14 @@ Here's the dataset from the last section before and after converting to Parquet:
 
 See how small it got?  That's just one of the benefits. Watch how fast it goes.
 
-To super-charge queries like those we want to do on the "usa_00065.parquet" , dataset I've created a small program "tabulate_pq." Think of "tabulate_pq" as a large data pre-processor or a high performance back-end to the "Q" utility. 
+To super-charge queries like those we want to do on the "usa_00065.parquet" , dataset I've created a small program "tabulate_pq." Think of "tabulate_pq" as a large data pre-processor or a high performance back-end to the "Q" utility.
 
-"tabulate_pq" showcases one simple but powerful use of Parquet data and a specialized reader. It doesn't contain an SQL query engine; there are no options;  it does one thing very well: Weighted cross tabs. 
+"tabulate_pq" showcases one simple but powerful use of Parquet data and a specialized reader. It doesn't contain an SQL query engine; there are no options;  it does one thing very well: Weighted cross tabs.
 
 "tabulate_pq" takes a weight variable name, and a list of other variable names found in the Parquet file,  as arguments, and produces a table of weighted cross tabulated data in CSV form and writes to standard out. You can simply view the results or consume the table as part of a data analysis pipeline as I'll demonstrate.
 
 	tabulate_pq datafile WEIGHT VAR1 VAR2 VAR3
-	
+
 (you can supply one to three variables for tabulation) So for instance you'd get the following sent to standard out from "tabulate_pq ./extract65.parquet YEAR OWNERSHP" :
 
 	YEAR,OWNERSHP,total
@@ -206,7 +205,7 @@ To super-charge queries like those we want to do on the "usa_00065.parquet" , da
 
 If the supplied weight variable doesn't exist in the Parquet data then "tabulate_pq" assumes every case in the data represents one actual case. The "tabulate_pq" program always returns a column called "total" containing the case count for each cross-tab cell which will either be the value of the weight variable (like "PERWT") summed for all cases represented in the row, or 1 for every matching case.
 
-here's a head-to-head comparison To give you an idea of the huge speed-up provided by Parquet. This is a simplified query looking at similar data to the example in the last section, this time comparing total commuters who bike compared to the total since 1980. 
+here's a head-to-head comparison To give you an idea of the huge speed-up provided by Parquet. This is a simplified query looking at similar data to the example in the last section, this time comparing total commuters who bike compared to the total since 1980.
 
 First, going back to  "Q"
 
@@ -229,7 +228,7 @@ First, going back to  "Q"
 	user	24m18.680s
 	sys	0m20.048s
 
-	
+
 Now, give "Q" an assist with Parquet data:
 
 	$ time ./tabulate_pq ./usa_00065.parquet PERWT YEAR TRANWORK OCC2010 |  \
@@ -243,12 +242,12 @@ Now, give "Q" an assist with Parquet data:
 	** Diagnostic output of tabulate_parquet **
 
 	num_rows: 17634469
-	file has 8 row groups.	
+	file has 8 row groups.
 	Data extract took: 1.248 seconds.
 	Cross tab computation took: 0.835 seconds.
-	
-	** Output of Q ** 
-	
+
+	** Output of Q **
+
 	YEAR|trav_total|bikers_total
 	1980|94722000 |446400
 	1990|114747377|461038
@@ -259,8 +258,8 @@ Now, give "Q" an assist with Parquet data:
 	real    0m2.212s
 	user    0m1.859s
 	sys     0m0.375s
-	
-Well, that was super fast. But what did I just do there? The "q" program is attached to "tabulate-pq" by a UNIX pipe: If we select from "-" in our "from" clause we read from standard input on the command line. 
+
+Well, that was super fast. But what did I just do there? The "q" program is attached to "tabulate-pq" by a UNIX pipe: If we select from "-" in our "from" clause we read from standard input on the command line.
 
 The "pq-tabulate" program takes a Parquet file, a "weight" variable and one to three column names to cross tabulate. It sends that table in the form of a CSV to standard out, in this case getting sent down the pipe to "q".  Simplest illustration of this concept would be:
 
@@ -276,7 +275,7 @@ Before moving on,  for contrast, look at walking to work (I won't show the query
 	2000|128268633|3759188
 	2010|137026072|3789511
 	2016|150439303|4070578
-	
+
 The trend is very much in the opposite direction from biking to work, no glamour attached to walking.
 
 Now that we have a fast way to query the data, we can look at tech workers in more detail without having to run the query over lunch. I've added other categories of transportation to the original query, to see how tech workers compare to the average worker in every mode of transit:
@@ -299,11 +298,11 @@ Now that we have a fast way to query the data, we can look at tech workers in mo
 
 	num_rows: 17634469
 	file has 8 row groups.
-	Data extract took: 1.238 seconds.	
+	Data extract took: 1.238 seconds.
 	Cross tab computation took: 0.836 seconds.
-	
+
 	** Output of Q **
-	
+
 	sum(TOTAL)|programmer|travel
 	824999   |other     |biker
 	36719    |programmer|biker
@@ -325,14 +324,14 @@ Now that we have a fast way to query the data, we can look at tech workers in mo
 
 Let's include one more tool in our command-line approach. The results of this next query would be overwhelming to read in a table, so we'll graph them with GnuPlot.
 
-I'm suspecting the higher rate of bike commuters among tech workers is really just a reflection of their relatively high incomes; though one could argue they are out-lyers and rates of non-car commuting are actually higher at lower incomes because cars cost money. We'll soon find out.  I'll ignore work-from-home people (not commuting) and public transportation. 
+I'm suspecting the higher rate of bike commuters among tech workers is really just a reflection of their relatively high incomes; though one could argue they are out-lyers and rates of non-car commuting are actually higher at lower incomes because cars cost money. We'll soon find out.  I'll ignore work-from-home people (not commuting) and public transportation.
 
-I'll need to create a bunch of income brackets, too many to easily read in a table. So I'll graph the data. 
+I'll need to create a bunch of income brackets, too many to easily read in a table. So I'll graph the data.
 
-Here I'm  gluing a script together with the shell and passing all commands to GnuPlot on the command line. It's a great approach for exploring data, but once you've found the interesting plots you'll want to explore gnuplot some more with a dedicated script. 
+Here I'm  gluing a script together with the shell and passing all commands to GnuPlot on the command line. It's a great approach for exploring data, but once you've found the interesting plots you'll want to explore gnuplot some more with a dedicated script.
 
 You can control the output format, labels, graph styles and really anything about the graph. The ">cat" indicates data will come from standard input rather than a file; to plot data from a file instead you'd write something like <code> gnuplot -e "plot 'results.tsv'".
- 
+
 	$./tabulate_pq usa_00065.parquet PERWT YEAR TRANWORK INCTOT |
 	q -d, -H -O  "select ((inctot/25000)*25000 / 1000) || 'K'  as income, sum(total) as biker_walkers \
 	from - \
@@ -345,9 +344,9 @@ You can control the output format, labels, graph styles and really anything abou
 
 We pipe the table made by "Q" to gnuplot to make this graph:
 
-	
-<a href="/images/count_bikers_walkers_by_income.png"><img   src="/images/count_bikers_walkers_by_income.png" alt="Graph of bikers and walker population by income" width="800" height="600" /></a>	
-	
+
+<a href="/images/count_bikers_walkers_by_income.png"><img   src="/images/count_bikers_walkers_by_income.png" alt="Graph of bikers and walker population by income" width="800" height="600" /></a>
+
 Income in thousands is on the X-axis, numbers of human powered commuters is on the Y-axis. Pretty much looks like an income distribution; of course the vast majority of anybody doing most things is on the lower income side (by a lot.) We're not learning much yet except that there really is a "one-percent."
 
 Instead we should compare share of bikers and walkers within each income bracket. There may be many fewer people biking who earn $150,000, but what's the  ratio of  drivers to walkers and bikers at each income bracket? I'm cutting off the income at $400,000; there are too few cases in the sample to get much accuracy higher at higher income levels.
@@ -361,14 +360,14 @@ Instead we should compare share of bikers and walkers within each income bracket
 	gnuplot -e "set terminal png;set style data lines;\
 	set datafile separator comma; \
 	plot '<cat' title columnheader linewidth 5" > percent_bikers_walkers_by_income.png
-	
+
 	real    0m5.051s
 	user    0m5.031s
 	sys     0m0.766s
 
 
-<a href="/images/percent_bikers_walkers_by_income.png"><img   src="/images/percent_bikers_walkers_by_income.png" alt="Graph of percentage bikers and walkers by income" width="800" height="600" /></a>	
-	
+<a href="/images/percent_bikers_walkers_by_income.png"><img   src="/images/percent_bikers_walkers_by_income.png" alt="Graph of percentage bikers and walkers by income" width="800" height="600" /></a>
+
 In this plot the X-axis is income in thousands, the Y-axis is percent of total commuters who bike or walk.
 
 And returning to our original inquirey about biking to work -- are tech workers special or is there a higher rate of biking to work at moderately high incomes compared to median income and below?
@@ -382,38 +381,38 @@ And returning to our original inquirey about biking to work -- are tech workers 
 	gnuplot -e "set terminal png;set style data lines;\
 	set datafile separator comma; \
 	plot '<cat' title columnheader linewidth 5" > percent_bikers_by_income.png
-	
 
-<a href="/images/percent_bikers_by_income.png"><img   src="/images/percent_bikers_by_income.png" alt="Graph of percent bikers by income" width="800" height="600" /></a>	
 
-So it appears biking increases a lot as income rises; and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably walking among low income people drops off sharply as income increases.	 Over all we can see the higher rate of biking among tech workers is in line with everyone earning their incomes ($70,000 to $160,000.) 
+<a href="/images/percent_bikers_by_income.png"><img   src="/images/percent_bikers_by_income.png" alt="Graph of percent bikers by income" width="800" height="600" /></a>
+
+So it appears biking increases a lot as income rises; and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably walking among low income people drops off sharply as income increases.	 Over all we can see the higher rate of biking among tech workers is in line with everyone earning their incomes ($70,000 to $160,000.)
 
 To be clear all we've seen so far are some interesting coorelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. If you have a more compelling  analysis you can use the same approach to quickly check a hypothesis and refine your inquiry.
 
 
 ### Custom Parquet-Powered Tools
 
-The "tabulate_pq" utility is just a proof of concept; you could make something similar but support more variables or add in more powerful aggregate functions -- even medians -- (tabulate_pq only does sum().) And this is a single threaded program. With a little effort it could be multi-threaded.   By making use of one of the "Linq"-like<a href="https://github.com/k06a/boolinq"> libraries</a>   for C++, and the <a href="http://stxxl.org/"> STXXL</a> large container library,   you could create a powerful query engine that handles very large data on a single machine. 
+The "tabulate_pq" utility is just a proof of concept; you could make something similar but support more variables or add in more powerful aggregate functions -- even medians -- (tabulate_pq only does sum().) And this is a single threaded program. With a little effort it could be multi-threaded.   By making use of one of the "Linq"-like<a href="https://github.com/k06a/boolinq"> libraries</a>   for C++, and the <a href="http://stxxl.org/"> STXXL</a> large container library,   you could create a powerful query engine that handles very large data on a single machine.
 
 Before taking on that project, check out <a href="http://project-thrill.org/"> Thrill</a>, for ideas. Thrill is a big data execution engine written in C++. It's intended for distributed computation and is built with STXXL.
 
 Take a look at the "parquet-cpp" library and the example programs included with it. Even if you never need to write code directly against the library yourself, seeing how it functions will help you understand the strengths and limitations of the Parquet format, and what the absolute bare metal limits are.
 
-### PyArrow + Pandas 
+### PyArrow + Pandas
 
-<a href="https://pandas.pydata.org/">Pandas</a> came about as a method to manipulate tabular data in Python, specifically data saved from Excel spreadsheets; it tries to smooth the data import / export process and provide an API for working with spreadsheet data programmatically in Python. It's essentially adifferent approach to the problem the "Q" utility tries to solve, though Pandas does much more. 
+<a href="https://pandas.pydata.org/">Pandas</a> came about as a method to manipulate tabular data in Python, specifically data saved from Excel spreadsheets; it tries to smooth the data import / export process and provide an API for working with spreadsheet data programmatically in Python. It's essentially adifferent approach to the problem the "Q" utility tries to solve, though Pandas does much more.
 
 Large data sets have long been <a href="http://wesmckinney.com/blog/apache-arrow-pandas-internals/"> problematic</a> with Pandas due to inefficient memory use; and reading large data could be faster. That's where PyArrow enters the picture.
 
 <a href="https://arrow.apache.org/docs/python/index.html">PyArrow</a> is based on the "parquet-cpp" library and in fact PyArrow is one of the reasons the "parquet-cpp" project was developed in the first place and has reached its current state of maturity.
 
-Let's test a similar query  to the previous example queries using PyArrow and Pandas. 
+Let's test a similar query  to the previous example queries using PyArrow and Pandas.
 
 First though, we need to install Pandas and PyArrow. The following code will install in Python 2 by default if that's your system Python; but it will install into Python 3 as well (see the PyArrow documentation, it's excellent.)
 
 	$ pip install pyarrow
 	.....
-	
+
 Run this code:
 
 ```python
@@ -430,7 +429,7 @@ pd.crosstab((filtered.OCC2010>=1000) &(filtered.OCC2010<1100) ,
 	filtered.PERWT,
 	aggfunc=sum)
 
-```	
+```
 Timing this, with a cold start:
 
 	$  time python prog_bikers.py
@@ -439,18 +438,18 @@ Timing this, with a cold start:
 	user    0m0.590s
 	sys     0m1.120s
 
-Not as good as the C++ and Q combo, but pretty good. Part of the time is due to starting up Python; and testing out on my faster desktop with SSD I get a time only slightly worse than the C++ program, about two seconds total. 
+Not as good as the C++ and Q combo, but pretty good. Part of the time is due to starting up Python; and testing out on my faster desktop with SSD I get a time only slightly worse than the C++ program, about two seconds total.
 
 In general reads should be just as fast as with a C++ program. Data read in from Parquet is stored using "Arrow," an in-memory data storage library which is designed for efficiency and avoids unnecessary copying, so even once you're working in Python many operations involving a lot of data will fly by.
 
-If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier. You could even convert CSV data to Parquet with Python, though it won't be as efficient as the method I described with custom C++ code. 
+If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier. You could even convert CSV data to Parquet with Python, though it won't be as efficient as the method I described with custom C++ code.
 
 Here's a sample:
 
 [ program that reads in usa_00065.csv, converts to Parquet, show timing]
 
 
-Finally, you can use all the cores on your machine in parallel with PyArrow, so that column reads occurr at the same time up to the limit of cores. This is the easiest general purpose approach for fast data analysis on a single machine. You're only limited by available memory. 
+Finally, you can use all the cores on your machine in parallel with PyArrow, so that column reads occurr at the same time up to the limit of cores. This is the easiest general purpose approach for fast data analysis on a single machine. You're only limited by available memory.
 
 ### Spark: Use Parquet, Harness  all the Cores on Your System and Beyond
 
@@ -458,7 +457,7 @@ Finally, you can use all the cores on your machine in parallel with PyArrow, so 
 
 Spark supports "Spark SQL", so you can stick with SQL if that makes the most sense; Spark also provides other ways to manipulate data with RDDs (resilient Distributed Datasets) and user defined functions callable from Spark SQL. Spark imposes a bit of overhead due to its need to coordinate multiple nodes; in "local" mode this overhead is smaller. By the time you need to reach for a Spark cluster the overhead, given the size of the data, should not matter, except when sub-second response times are critical to your application. In that case you'll need to craft the data files for best performance as well as picking the right configuration for Spark.
 
-Spark was written in Scala -- a JVM language -- and provides a Java API in addition to the Scala API. There's also an extensive Python API, but a few things were missing from it until recent versions of Spark. 
+Spark was written in Scala -- a JVM language -- and provides a Java API in addition to the Scala API. There's also an extensive Python API, but a few things were missing from it until recent versions of Spark.
 
 I used JRuby to create a small interactive Spark environment; JRuby can use Java classes directly, so all I had to do was instantiate Spark Java classes in JRuby and use the Java API from Ruby's "irb" REPL. What I'm doing here is using the Java API for Spark; JRuby is simply a convenient way to script the use of the Java API so I don't have to compile Java programs every time I make a change.
 
@@ -468,7 +467,7 @@ __Spark JRuby example__
 
 ```ruby
 
-# 
+#
 # This first part is the setup only, could be moved
 # to a 'helper' file.
 
@@ -542,9 +541,9 @@ Notice the slight overhead; you won't get any extra speed on a single machine co
 
 __Spark Friendly Parquet__
 
-Spark doesn't deal especially well with very large monolithic  Parquet files: While in principle -- and easily with a C++ reader or PyArrow -- you could read from different parts of a Parquet file in parallel, the Spark Parquet reader doesn't automatically do this well in unless you're using HDFS (Hadoop Distributed File System.) Additionally extremely large numbers of columns in a Parquet dataset will hurt Spark performance, while this isn't intrinsic to the Parquet format. 
+Spark doesn't deal especially well with very large monolithic  Parquet files: While in principle -- and easily with a C++ reader or PyArrow -- you could read from different parts of a Parquet file in parallel, the Spark Parquet reader doesn't automatically do this well in unless you're using HDFS (Hadoop Distributed File System.) Additionally extremely large numbers of columns in a Parquet dataset will hurt Spark performance, while this isn't intrinsic to the Parquet format.
 
-However, the Spark Parquet reader has other strengths. By breaking up the Parquet monolith into chunks (multiple Parquet files) organized by some interesting column you can really take advantage of all the cores Spark can bring to bare without excessive I/O costs. Depending on how you expect your Parquet data to be queried, you can partition it into pieces to make those queries faster. 
+However, the Spark Parquet reader has other strengths. By breaking up the Parquet monolith into chunks (multiple Parquet files) organized by some interesting column you can really take advantage of all the cores Spark can bring to bare without excessive I/O costs. Depending on how you expect your Parquet data to be queried, you can partition it into pieces to make those queries faster.
 
 With PyArrow you can save Parquet as "spark" type Parquet data; when constructing it manually, ensure "block groups" are around 1GB in size and consult Spark documentation for supported column data types. Sizes of "row groups"  need to be larger than the HDFS block size; this is 128mb by default but it's recommended to use larger HDFS block sizes for Spark and Hadoop.
 
@@ -555,8 +554,3 @@ There's one more type of software out there which I'd consider the  expert power
 The "Q"  language is a humane coating of syntactic sugar for the "K" language; "J" is similar to "K". Both are descendents of APL. KDB and JDB are column oriented databases; unlike Parquet format they allow very fast appends / inserts, while keeping very fast query times and compact size. JDB supports a fairly friendly query language, though it's not SQL. The actual J and K languages are, like APL, extremely terse with single ASCII symbols used as keywords.  
 
 If you need the absolute maximum query speed against a constantly updated database -- which Parquet and similar formats don't enable -- you need "K" and KDB+. There's a free non-commercial 32 bit version; the "J" and JDB combination is free, but it doesn't scale as well.
-
-
-
-
-
