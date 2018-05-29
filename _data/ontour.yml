@@ -1,3 +1,33 @@
+- date: 2018-07-12
+  title: DevOpsDays Minneapolis
+  location: Minneapolis, MN
+  link: https://www.devopsdays.org/events/2018-minneapolis/welcome/
+  text: Attending
+
+- date: 2018-06-12
+  title: DockerCon
+  location: San Francisco, CA
+  link: http://apiworld.co/
+  text: Attending
+
+- date: 2018-05-17
+  title: DevOps UMN
+  location: Minneapolis, MN
+  link: http://devops.umn.edu/
+  text: Speaking
+
+- date: 2018-05-16
+  title: Glue Con
+  location: Broomfield, CO
+  link: http://gluecon.com/
+  text: Attending
+
+- date: 2018-01-11
+  title: Code Freeze 2018
+  location: Minneapolis, MN
+  link: https://www.umsec.umn.edu/events/Code-Freeze-2018-Microservice-Architectures
+  text: Attending
+
 - date: 2017-09-25
   title: API:World
   location: San Jose, CA
@@ -34,14 +64,14 @@
   link: https://www.umsec.umn.edu/events/Code-Freeze-2017-Software-Visualization
   who: Multiple Staff
   text: Attending
-  
+
 - date: 2016-12-04
   title: USENIX LISA16
   location: Boston, MA
   link: https://www.usenix.org/conference/lisa16
   who: Willy Lee
   text: Attending
-  
+
 - date: 2016-07-20
   title: DevOpsDays
   location: Minneapolis, MN
@@ -69,7 +99,7 @@
   link: http://minnewebcon.org/
   who: TBD
   text: Attending
-  
+
 - date: 2016-02-17
   title: Elastic{on}
   location: San Francisco, CA
@@ -83,7 +113,7 @@
   link: https://www.umsec.umn.edu/events/Code-Freeze-2016-Disruptive-Innovation
   who: Fran Fabrizio, Alex Jokela, Kevin Horne
   text: Attending
- 
+
 - date: 2015-11-08
   title: USENIX LISA
   location: Washington, DC
@@ -97,6 +127,3 @@
   link: http://geo-bigdata.github.io/2015/presentations/01_David_Haynes.pdf
   who: Ankit Soni
   text: Presenting at workshop
-
- 
-
