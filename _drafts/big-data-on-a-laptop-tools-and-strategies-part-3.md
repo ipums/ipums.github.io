@@ -3,7 +3,9 @@ title: "Big Data on a Laptop: Tools and Strategies - Part 3"
 comments: true
 teaser: In our final installment of this series, we show how to harness all the compute cores available on your local system, turning it into a personal cluster for parallel computing.
 author: ccd
-categories: Code, Data
+categories:
+  - Code 
+  - Data
 tags:
  - Python
  - CSV

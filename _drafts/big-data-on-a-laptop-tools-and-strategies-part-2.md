@@ -3,7 +3,9 @@ title: "Big Data on a Laptop: Tools and Strategies - Part 2"
 comments: true
 author: ccd
 teaser: When you've hit the memory or storage limits of your local machine, it's time to look at more efficient data storage formats. Today, we explore Parquet.
-categories: Code, Data
+categories:
+  - Code
+  - Data
 tags:
  - CSV
  - Parquet
