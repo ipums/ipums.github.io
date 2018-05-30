@@ -138,12 +138,6 @@ As a relatively new Minnesotan June is likely to take the last cookie on the pla
 
 ***
 
-### Vladimir Vladykin
-
-<a href="{{ site.urlimg }}/vlad_blog_web-e1420575286524.jpg"><img class=" wp-image-420 size-thumbnail alignright" src="{{ site.urlimg }}/vlad_blog_web-e1420575286524-150x150.jpg" alt="vlad_blog_web" width="150" height="150" /></a>A native of St. Petersburg, Russia, Vlad was trained in both Computer Science and Applied Economics at the University of Minnesota. During his time with the MPC, Vlad has held a wide variety of positions from Web Programmer to Project Coordinator. Currently, among other things, Vlad develops software for the IPUMS-International project, and is responsible for original data reformatting. He likes spending his spare time with his wife and three kids, occasionally escaping to local antique shows to replenish his collection of old clocks, scales and automata.
-
-***
-
 ### Jacob Wellington
 <img class=" wp-image-394 size-thumbnail alignright" src="{{ site.urlimg }}/jacob-wellington2-e1420058562302-150x150.jpg" alt="jacob-wellington" width="150" height="150" />A.K.A. "Jake", "Jakey", "The Jakester", and "Big Deal"
 
