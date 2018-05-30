@@ -1,6 +1,7 @@
 ---
 title: "Big Data on a Laptop: Tools and Strategies - Part 1"
 comments: true
+teaser: Doing analysis on big data doesn’t have to mean mastering enterprise Big Data tools or accessing hundred-node compute clusters in the cloud. In this series, we’ll find out what your humble laptop can do with the help of modern tools first.
 author: ccd
 categories:
  - Code
@@ -13,8 +14,6 @@ tags:
  - Spark
  - Data Science
 ---
-
-Doing analysis on big data doesn't have to mean mastering enterprise Big Data tools or accessing hundred-node compute clusters in the cloud. In this series, we'll find out what your humble laptop can do with the help of modern tools first.
 
 # Introduction
 
