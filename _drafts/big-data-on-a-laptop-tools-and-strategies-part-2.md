@@ -17,7 +17,7 @@ tags:
 
 Doing analysis on big data doesn't have to mean mastering enterprise Big Data tools or accessing hundred-node compute clusters in the cloud. In this series, we'll find out what your humble laptop can do with the help of modern tools first.
 
-In the first part of this series, we looked at how to get out of Excel and work with big datasets more effectively. We found an easy way to query CSV data, but performance degraded quickly as data size increased and memory requirements became prohibitive. Today, we'll look at Parquet, a columnar file format that is optimized for space and makes it easier and much faster to extract subsets of the data.
+In the [first part]({{site.url}}/large-data-on-a-laptop-tools-and-strategies-part-1/) of this series, we looked at how to get out of Excel and work with big datasets more effectively. We found an easy way to query CSV data, but performance degraded quickly as data size increased and memory requirements became prohibitive. Today, we'll look at Parquet, a columnar file format that is optimized for space and makes it easier and much faster to extract subsets of the data.
 
 # Save Space and Time with Parquet
 
