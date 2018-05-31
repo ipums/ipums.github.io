@@ -307,3 +307,167 @@ If you're comfortable with Pandas you could use a Pandas + PyArrow Python script
 Although Parquet was originally developed for use with parallel processing frameworks like Hadoop and Spark, today we've seen how this handy columnar storage format can also make single-computer big data computation a lot faster and more scalable with just a bit of code.
 
 The `tabulate_pq` C++ utility and the Python PyArrow examples above are just proofs of concept. You could make something that supports more variables or adds in more powerful aggregate functions like medians -- tabulate_pq only does sum(). And most importantly, these examples are all still just single-threaded programs. Since all modern computers ship with multiple compute cores, multi-threaded approaches can unlock even more of the potential and performance of your little laptop or desktop to work on big data. We'll explore that concept in Part 3 of this series.
+
+
+## Notes on Parquet-cpp and the Arrow API
+
+
+The parquet-cpp library has a low-level API, which is what I used to build "tabulate-pq" and "make-parquet". There's a higher level API that could be used to write a tool similar to "tabulate-pq", and it includes support for the Arrow in-memory data storage library.
+
+Among other things Arrow makes dealing with different column types dynamically in C++ easier and it allows passing data around wihtout excessive copying, saving memory and time.
+
+The APIs for Arrow and Parquet are defined in files included by https://github.com/apache/parquet-cpp/src/parquet/api/*.h, and ../src/parquet/arrow/*.h.  For documentation of the API see the /tools/ and /examples directories. There are two programs in the examples, one demonstrating use of Arrow and Parquet together and a similar example program implemented with  the low-level Parquet API.
+
+
+Arrow features data structures called Array that hold  columns of same-type data, filled by a "builder" of a given type:
+```c++
+	arrow::Int64Builder i64builder;
+	i64builder.Append({1, 2, 3, 4});
+	
+	std::shared_ptr<arrow::Array> i64array;
+	i64builder.Finish(&i64array);
+	
+	arrow::StringBuilder strbuilder;
+	strbuilder.append("one");
+	strbuilder.append("two");
+	strbuilder.append("three");
+	strbuilder.append("four");
+	
+	std::shared_ptr<arrow::Array> strarray;
+	strbuilder.finish(&strarray);
+```
+
+You make Arrow "tables" by combining an Arrow schema object with Arrow data:
+
+```c++
+	// Make the schema by supplying fields, each field needs a name and type:
+	auto schema = arrow::schema(
+	      {arrow::field("int", arrow::int64()), 
+	      arrow::field("str", arrow::utf8())});
+
+	// The data table needs the schema and the data. The data is from the 
+	// two arrow::Array objects, and they must be in the same order as the
+	// fields in the schema.
+	auto data_table = arrow::Table::Make(schema, {i64array, strarray});
+```
+
+You can save Arrow tables into Parquet files (see the example programs with parquet-cpp.) 
+
+To read selected columns into Arrow Arrays, an ability crucial for a tool like "tabulate-pq", you can use the Arrow wrapping of the Parquet API:
+
+```c++
+	std::shared_ptr<arrow::io::ReadableFile> infile;
+	arrow::io::ReadableFile::Open(
+	      "parquet-arrow-example.parquet", arrow::default_memory_pool(), &infile);
+	      
+	 // Attach an  arrow::io::ReadableFile to a Parquet file reader:
+	std::unique_ptr<parquet::arrow::FileReader> reader;	      
+	parquet::arrow::OpenFile(infile, arrow::default_memory_pool(), &reader);
+	
+	// Here we can make an Arrow Array object without knowing
+	// the type of data it will hold.
+	std::shared_ptr<arrow::Array> array;
+	
+	// Read the zeroth column; you read columns by position in the schema.
+	reader->ReadColumn(0, &array);
+
+	  arrow::PrettyPrint(*array, 4, &std::cout);	
+```
+
+The concept of row groups is important; if you're memory constrained you may need to read in one row group worth of a column at a time (these are known as column chuncks.) This way you can read in part of a column, deal with the data by performing some reduce operation and dispose of the memory before moving on to the next row group.
+
+```c++
+	// The setup goes exactly as before but we call the RowGroup() method, passing in the row group number.  
+	//   You can chain the return of RowGroup() and call Column(), passing in the column number you want,
+	// and call the Read() method on the returned Column object.
+	
+	// (just for instance)
+	int column_number = 8;
+	int row_group_number = 3;
+	
+	reader->RowGroup(row_group_number)->Column(column_number)->Read(&array);
+```
+
+
+You can use the arrow::Table class to read in columns in one call (and in parallel threads as an option.)
+
+```c++
+
+	// Assuming we have set up the reader as in previous snippets...
+	reader->set_num_threads(4);
+	
+	std::shared_ptr<arrow::Table> table;
+	
+	// Read a selected set of columns into the table
+	// assuming we know what those columns are...
+	auto selected_columns = {5,9,23,28};
+	reader->ReadTable(selected_columns, &table);
+	
+	// Now the table has data for the selected columns	
+	for(auto c=0;c<selected_columns.size();c++){
+		auto this_column = table->column(c);
+		std::cout << "name: " << this_column->name() << "\n";
+			
+	}
+	
+```
+
+
+The core of a  very simple memory efficient tabulator:
+
+```c++
+	// Suppose we can determine the column indices to 
+	// extract by matching column names in the schema 
+	// with their positions....	
+	vector<int> columns_to_tabulate = get_from_schema("{"PERWT",AGE","MARST"});
+	
+	// Can extract columns in parallel
+	reader->set_num_threads(4);
+
+
+	int rg = reader->num_row_groups();
+	
+	// You can read into a table just a group of rows 
+	// rather than the entire Parquet file...
+	for(int group_num=0;group_num<rg;group_num++){
+		std::shared_ptr<arrow::Table> table;
+		reader->ReadRowGroup(rg, columns_to_tabulate, &table);
+		auto rows = table->num_rows();
+		
+		vector<const int*> raw_data;
+		
+		// We pull out a list of pointers to raw data so that
+		// we can produce an arbitrary length record as long as 
+		// the data type is known up-front. This way we can support
+		// tabulating one, two, three, four or even more columns.
+		for(int c=0;c<columns_from_schema.size();c++){			
+			auto column_data =  std::static_pointer_cast<arrow::Int32Array>(
+				table->column(c)->data()->chunk(0));
+			raw_data.push_back(column_data->raw_values());
+		}
+					
+		// There is an experimental API in the works to automate conversion
+		// from columnar to record layouts,  but for now it's manual ...
+		 for(int row_num=0;row_num<rows;row_num++){
+		 	vector<int32_t> record;
+		 	for (int c=0;c<columns_to_tabulate.size();c++){
+		 		auto datum = raw_data[c][row_num];
+		 		record.push_back(datum);
+		 	}
+		 	// First column is assumed to be weight, the rest get crossed
+		 	// with each other and the counts weighted.
+		 	add_to_tabulation(record);		 			
+		}
+		
+	}
+
+```
+
+
+
+
+
+
+
+
+
