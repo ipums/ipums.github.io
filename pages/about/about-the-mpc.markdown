@@ -4,11 +4,6 @@ status: publish
 published: true
 title: About ISRDI and IPUMS
 author: isrdi-it
-date: '2014-07-28 22:51:04 -0500'
-date_gmt: '2014-07-28 22:51:04 -0500'
-categories: []
-tags: []
-permalink: /about/about-the-mpc/
 permalink: /about/about-ipums/
 ---
 

@@ -20,7 +20,7 @@ widget-2:
 widget-3:
     title: "About ISRDI"
     url: 'http://www.ipums.org'
-    text: 'The home of IPUMS is the <a href"http://isrdi.umn.edu">Institute for Social Research and Data Innovation</a>, an interdisciplinary research center at the University of Minnesota. As a leading developer and disseminator of some of the world&#39;s largest demographic databases, we serve an audience of more than 50,000 researchers, policymakers, journalists, and data scientists around the globe.'
+    text: 'The home of IPUMS is the <a href="http://isrdi.umn.edu">Institute for Social Research and Data Innovation</a>, an interdisciplinary research center at the University of Minnesota. As a leading developer and disseminator of some of the world&#39;s largest demographic databases, we serve an audience of more than 50,000 researchers, policymakers, journalists, and data scientists around the globe.'
     image: umn-logo.jpg
 ---
 

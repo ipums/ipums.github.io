@@ -4,10 +4,6 @@ status: publish
 published: true
 title: Working @ ISRDI
 author: isrdi-it
-date: '2014-08-01 20:47:46 -0500'
-date_gmt: '2014-08-01 20:47:46 -0500'
-categories: []
-tags: []
 permalink: /working-mpc/
 ---
 Working at ISRDI offers a chance to work with 100+ of the best co-workers one could want, in an environment known for its collaborative spirit, creative and diverse members, and an emphasis on work-life balance. Explore the pages below to learn more about working at ISRDI.

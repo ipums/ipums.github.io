@@ -4,10 +4,6 @@ status: publish
 published: true
 title: Data Products
 author: isrdi-it
-date: '2014-07-28 22:50:38 -0500'
-date_gmt: '2014-07-28 22:50:38 -0500'
-categories: []
-tags: []
 permalink: /about/data-products/
 ---
 
