@@ -36,16 +36,16 @@
   url: "/about/about-mpc-it/"
   side: left
   dropdown:
-  - title: "About MPC IT"
+  - title: "About ISRDI IT"
     url: "/about/about-mpc-it/"
   - title: "Meet the Team"
     url: "/meet-the-team/"
-  - title: "About the MPC"
-    url: "/about/about-the-mpc/"
+  - title: "About ISRDI and IPUMS"
+    url: "/about/about-ipums/"
   - title: "Our Data Products"
     url: "/about/data-products/"
 
-- title: "Working @ MPC"
+- title: "Working @ ISRDI IT"
   url: "/working-mpc/career-opportunities/"
   side: left
   dropdown:

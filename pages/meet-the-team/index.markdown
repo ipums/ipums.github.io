@@ -3,11 +3,7 @@ layout: page
 status: publish
 published: true
 title: Meet the Team
-author: mpcit
-date: '2015-01-07 08:24:33 -0600'
-date_gmt: '2015-01-07 14:24:33 -0600'
-categories: []
-tags: []
+author: isrdi-it
 permalink: /meet-the-team/
 ---
 

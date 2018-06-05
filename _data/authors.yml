@@ -1,11 +1,11 @@
 # Author details
-# 
-# 1. Edit information below 
+#
+# 1. Edit information below
 # 2. Change author in default settings in config.yml
 # Resource › http://blog.sorryapp.com/blogging-with-jekyll/2014/02/06/adding-authors-to-your-jekyll-site.html
 fran:
  name: 'Fran Fabrizio'
- 
+
 gottreu:
  name: 'Brian Gottreu'
 
@@ -14,7 +14,7 @@ ccd:
 
 marcus:
     name: 'Marcus Peterson'
-    
+
 jayandra:
     name: 'Jayandra Pokharel'
 
@@ -23,19 +23,19 @@ ftrabucc:
 
 delbert:
     name: 'Dan Elbert'
-    
+
 jerdmann:
     name: 'Jesse Erdmann'
 
 jakew:
     name: 'Jake Wellington'
-    
+
 benklaas:
     name: 'Ben Klaas'
 
 ajokela:
     name: 'Alex Jokela'
-    
+
 mpcit:
     name: "MPC IT"
 
@@ -44,3 +44,6 @@ jdomingo:
 
 gfellis:
     name: 'Greg Freedman Ellis'
+
+isrdi-it:
+    name: "ISRDI IT"
