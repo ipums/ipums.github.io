@@ -276,16 +276,16 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-table1 = pq.read_table('usa_00065.parquet', columns=['PERWT','YEAR', 'OCC2010', 'TRANWORK'])
+table1 = pq.read_table('usa_00065.parquet', columns=['PERWT','YEAR', 'OCC2010', 'TRANWORK'],nthreads=4)
 df = table1.to_pandas()
 filtered = df[(df.YEAR==2016) & (df.TRANWORK>0)]
-pd.crosstab((filtered.OCC2010>=1000) &(filtered.OCC2010<1100) ,
+results=pd.crosstab((filtered.OCC2010>=1000) &(filtered.OCC2010<1100) ,
 	filtered.TRANWORK==40,
 	filtered.PERWT,
 	aggfunc=sum)
 
 # print out or further process resulting cross-tab table
-
+print results
 ```
 
 Here you can see that the pyarrow.parquet library provides a `to_pandas()` method, which converts the parquet data to a Pandas dataframe. After that, the script is just pure Pandas, which may be familiar to any data scientist used to working in Python.
@@ -293,6 +293,12 @@ Here you can see that the pyarrow.parquet library provides a `to_pandas()` metho
 Timing this, we see it takes just a few seconds longer than the C++ version:
 
 	$  time python prog_bikers.py
+	
+	
+	TRANWORK      False   True
+	OCC2010
+	False     145593645  824999
+	True        3983940   36719
 
 	real    0m5.877s
 	user    0m0.590s
@@ -300,7 +306,7 @@ Timing this, we see it takes just a few seconds longer than the C++ version:
 
 Not as good as the C++ and `q` combo, but pretty good. Part of the extra time is due to starting up Python itself. In general, the data reads should be just as fast as with a C++ program. Data read in from Parquet is stored using the Arrow in-memory data storage library mentioned above.
 
-Now what if you want to convert our original CSV with PyArrow and save as Parquet? It's quite easy, though not as efficient as the custom C++ solution. You simply load a CSV into a Pandas data frame, then save the data frame as Parquet (which internally gets represented in Arrow format.)
+Now what if you want to convert our original CSV with PyArrow and save as Parquet? It's quite easy, though not as efficient as the custom C++ solution "make-parquet", especially in terms of memory."  You simply load a CSV into a Pandas data frame, then save the data frame as Parquet (which internally gets represented in Arrow format.)
 
 ```python
 import pandas as pd
@@ -308,14 +314,25 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 df = pd.read_csv('usa_00065.csv')
-# Convenience shortcut:
-#df.to_parquet('usa_00065.from_pyarrow.parquet')
-
-# Call parquet converter directly:
-pq.write_table(df, 'usa_00065.from_pyarrow.parquet',compression='snappy')
+print "Loaded csv"
+df.to_parquet('usa_00065.from_pyarrow.parquet', flavor='Spark')
 ```
+(we'll call this 'convert_to_parquet.py')
 
-The default behavior of this tiny script will be to load all the CSV data into a data frame and infer the types of each column before saving as Parquet, which is very handy but slightly expensive time-wise. Optionally you can read the CSV in by chunks , but you risk mis=-typing some columns with a few strange cases. See the Pandas <a href="http://pandas.pydata.org/pandas-docs/stable/io.html"> user guide.</a>
+The default behavior of this tiny script will be to load all the CSV data into a data frame and infer the types of each column before saving as Parquet, which is very handy but slightly expensive with respect to time and memory use. Optionally you can read the CSV in by chunks , but you risk mis-typing some columns with a few strange cases. See the Pandas <a href="http://pandas.pydata.org/pandas-docs/stable/io.html"> user guide.</a>
+
+Just to give you a notion of how fast Pandas + PyArrow can be (fast):
+
+	$ time python convert_to_parquet.py
+	
+
+	sys:1: DtypeWarning: Columns (58,76) have mixed types. Specify dtype option on import or set low_memory=False.
+
+	real    3m16.278s
+	user    1m27.734s
+	sys     1m29.703s
+
+Notice the column type errors: This is a drawback of auto type inference. You can scan the entire CSV, but I can't even show you the time difference; my computer ran out of RAM and swapped. I gave up after half an hour. Never fear though, if you're serious about importing a particular schema you can specify all the column types when importing into Pandas and avoid this costly step.
 
 If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier. 
 
@@ -326,6 +343,8 @@ table1 = pq.read_table('usa_00065.parquet',
 	nthreads=4,
 	columns=['PERWT','YEAR', 'OCC2010', 'TRANWORK'])
 ```
+
+With a dataset the size of our example (17 million rows, 82 columns) we get only a 25% speedup because a lot of time is spend moving data around in memory and  doing I/O; the meoverhead dominates;  However with a dataset one hundred times as large you'd see nearly a 4x speedup.
 
 To go beyond this limited (but important) optimization and harness all your cores and larger data while staying in Python check out  <a href="http://dask.pydata.org/en/latest/"> Dask.</a> And if you want to scale up your Pandas programs without making code changes take a look at <a href="https://rise.cs.berkeley.edu/blog/pandas-on-ray/"> Pandas on Ray.</a>
 
