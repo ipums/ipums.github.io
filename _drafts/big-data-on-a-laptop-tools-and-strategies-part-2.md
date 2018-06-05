@@ -306,7 +306,7 @@ Timing this, we see it takes just a few seconds longer than the C++ version:
 
 Not as good as the C++ and `q` combo, but pretty good. Part of the extra time is due to starting up Python itself. In general, the data reads should be just as fast as with a C++ program. Data read in from Parquet is stored using the Arrow in-memory data storage library mentioned above.
 
-Now what if you want to convert our original CSV with PyArrow and save as Parquet? It's quite easy, though not as efficient as the custom C++ solution "make-parquet", especially in terms of memory."  You simply load a CSV into a Pandas data frame, then save the data frame as Parquet (which internally gets represented in Arrow format.)
+Now what if you want to convert our original CSV with PyArrow and save as Parquet? It's quite easy, though not as efficient as the custom C++ solution "make-parquet" in terms of memory required."  You simply load a CSV into a Pandas data frame, then save the data frame as Parquet (which internally gets represented in Arrow format.)
 
 ```python
 import pandas as pd
@@ -344,7 +344,7 @@ table1 = pq.read_table('usa_00065.parquet',
 	columns=['PERWT','YEAR', 'OCC2010', 'TRANWORK'])
 ```
 
-With a dataset the size of our example (17 million rows, 82 columns) we get only a 25% speedup because a lot of time is spend moving data around in memory and  doing I/O; the meoverhead dominates;  However with a dataset one hundred times as large you'd see nearly a 4x speedup.
+With a dataset the size of our example (17 million rows, 82 columns) we get only a 25% speedup because a lot of time is spend moving data around in memory and  doing I/O; the me overhead dominates;  However with a dataset one hundred times as large you'd see nearly a 4x speedup.
 
 To go beyond this limited (but important) optimization and harness all your cores and larger data while staying in Python check out  <a href="http://dask.pydata.org/en/latest/"> Dask.</a> And if you want to scale up your Pandas programs without making code changes take a look at <a href="https://rise.cs.berkeley.edu/blog/pandas-on-ray/"> Pandas on Ray.</a>
 
