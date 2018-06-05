@@ -258,9 +258,9 @@ To be clear, all we've seen so far are some interesting coorelations; we could i
 
 As promised, it's time to discuss how we can do the same thing in Python as I showed above in C++.
 
-Before we can talk about PyArrow, I should mention what Arrow is first. Apache developed Parquet to be a columnar storage format. Concurrently, they developed a product called Arrow which is a cross-language platform for columnar in-memory data. Parquet and Arrow are meant to work together to create a highly performant and efficient data layer.
+Before we can talk about PyArrow, I should mention what Arrow is first. Apache developed Parquet to be a columnar storage format. Concurrently, they developed a product called Arrow which is a cross-language platform for columnar in-memory data. Parquet and Arrow are meant to work together to create a highly performant and efficient data layer. Arrow by itself can power in-memory analytics software, see the Arrow  <a href="http://arrow.apache.org"> home page</a> for more information.
 
-The Python binding to Parquet and Arrow is known as PyArrow. With PyArrow, you can write Python code to interact with Parquet-formatted data, and as an added benefit, quickly convert Parquet data to and from Python's Pandas dataframes. <a href="https://pandas.pydata.org/">Pandas</a> came about as a method to manipulate tabular data in Python. It tries to smooth the data import / export process and provide an API for working with spreadsheet data programmatically in Python. It's essentially an alternate approach to the problem the `q` utility tries to solve, though Pandas does much more as well.
+The Python binding to Parquet and Arrow is known as PyArrow. With PyArrow, you can write Python code to interact with Parquet-formatted data, and as an added benefit, quickly convert Parquet data to and from Python's Pandas dataframes. <a href="https://pandas.pydata.org/">Pandas</a> came about as a method to manipulate tabular data in Python. It tries to smooth the data import / export process and provide an API for working with spreadsheet data programmatically in Python. It's essentially an alternate approach to the problem the `q` utility tries to solve, though Pandas does much more.
 
 Chances are if you're working in Python with a lot of data, you already know of Pandas, but if not, it's a great resource! However, large datasets have long been <a href="http://wesmckinney.com/blog/apache-arrow-pandas-internals/">problematic</a> with Pandas due to inefficient memory use, and reading large data could be faster than it is with Pandas. That's where PyArrow enters the picture. <a href="https://arrow.apache.org/docs/python/index.html">PyArrow</a> is based on the "parquet-cpp" library and in fact PyArrow is one of the reasons the "parquet-cpp" project was developed in the first place and has reached its current state of maturity.
 
@@ -300,13 +300,40 @@ Timing this, we see it takes just a few seconds longer than the C++ version:
 
 Not as good as the C++ and `q` combo, but pretty good. Part of the extra time is due to starting up Python itself. In general, the data reads should be just as fast as with a C++ program. Data read in from Parquet is stored using the Arrow in-memory data storage library mentioned above.
 
-If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier. You could also convert CSV data to Parquet with Python, though it won't be quite as efficient as the method I showed above with custom C++ code.
+Now what if you want to convert our original CSV with PyArrow and save as Parquet? It's quite easy, though not as efficient as the custom C++ solution. You simply load a CSV into a Pandas data frame, then save the data frame as Parquet (which internally gets represented in Arrow format.)
+
+```python
+import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
+
+df = pd.read_csv('usa_00065.csv')
+# Convenience shortcut:
+#df.to_parquet('usa_00065.from_pyarrow.parquet')
+
+# Call parquet converter directly:
+pq.write_table(df, 'usa_00065.from_pyarrow.parquet',compression='snappy')
+```
+
+The default behavior of this tiny script will be to load all the CSV data into a data frame and infer the types of each column before saving as Parquet, which is very handy but slightly expensive time-wise. Optionally you can read the CSV in by chunks , but you risk mis=-typing some columns with a few strange cases. See the Pandas <a href="http://pandas.pydata.org/pandas-docs/stable/io.html"> user guide.</a>
+
+If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier. 
+
+Finally, when reading Parquet with PyArrow you can use more than one thread to read columns and decompress their data in parallel:
+
+```python
+table1 = pq.read_table('usa_00065.parquet', 
+	nthreads=4,
+	columns=['PERWT','YEAR', 'OCC2010', 'TRANWORK'])
+```
+
+To go beyond this limited (but important) optimization and harness all your cores and larger data while staying in Python check out  <a href="http://dask.pydata.org/en/latest/"> Dask.</a> And if you want to scale up your Pandas programs without making code changes take a look at <a href="https://rise.cs.berkeley.edu/blog/pandas-on-ray/"> Pandas on Ray.</a>
 
 # Conclusion of Part 2
 
 Although Parquet was originally developed for use with parallel processing frameworks like Hadoop and Spark, today we've seen how this handy columnar storage format can also make single-computer big data computation a lot faster and more scalable with just a bit of code.
 
-The `tabulate_pq` C++ utility and the Python PyArrow examples above are just proofs of concept. You could make something that supports more variables or adds in more powerful aggregate functions like medians -- tabulate_pq only does sum(). And most importantly, these examples are all still just single-threaded programs. Since all modern computers ship with multiple compute cores, multi-threaded approaches can unlock even more of the potential and performance of your little laptop or desktop to work on big data. We'll explore that concept in Part 3 of this series.
+The `tabulate_pq` C++ utility and the Python PyArrow examples above are just proofs of concept. You could make something that supports more variables or adds in more powerful aggregate functions like medians -- tabulate_pq only does sum(). And most importantly, these examples are all still just single-threaded programs, aside from the PyArrow multi-threaded read. Since all modern computers ship with multiple compute cores, multi-threaded approaches can unlock even more of the potential and performance of your little laptop or desktop to work on big data. We'll explore that concept in Part 3 of this series.
 
 
 ## Notes on Parquet-cpp and the Arrow API
