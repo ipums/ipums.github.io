@@ -2,8 +2,8 @@
 layout: page
 status: publish
 published: true
-title: MPC IT On Tour
-author: mpcit
+title: ISRDI IT On Tour
+author: isrdi-it
 permalink: /ontour/
 show_meta: false
 comments: false

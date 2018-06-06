@@ -3,11 +3,7 @@ layout: page
 status: publish
 published: true
 title: Data Products
-author: mpcit
-date: '2014-07-28 22:50:38 -0500'
-date_gmt: '2014-07-28 22:50:38 -0500'
-categories: []
-tags: []
+author: isrdi-it
 permalink: /about/data-products/
 ---
 
@@ -25,7 +21,7 @@ Complete-count data from 1800s censuses of Canada, Great Britain, Germany, Icela
 
 ![NHGIS]({{site.urlimg}}/logoNHGIS.png)[National Historical Geographic Information System](http://www.nhgis.org){:.font-size-h3 .l15}
 Tabular U.S. census data and GIS boundary files from 1790 to the present.
- 
+
 ![IHIS]({{site.urlimg}}/logoIHIS.png)[Integrated Health Interview Series](http://www.ihis.us){:.font-size-h3 .l15}
 Annual harmonized data on people in the U.S. National Health Interview Survey from the 1960s to the present.
 
