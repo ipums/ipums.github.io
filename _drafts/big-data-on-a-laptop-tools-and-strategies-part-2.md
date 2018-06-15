@@ -98,9 +98,9 @@ _Note: if C++ isn't your thing, hang tight. I'll eventually explain how to do th
     1970,1,131963200
     .....
 
-Here we have a YEAR variable (representing census year) and an OWNERSHP variable which has three possible values for the person's home ownership status: 0 = N/A, 1 = owned, and 2 = rented. Here in `tabulate_pq`'s CSV output we can see that for example that in 1960, 112 million people lived in a home they owned.
+Here we have a YEAR variable (representing census year) and an OWNERSHP variable which has three possible values for the person's home ownership status: 0 = N/A, 1 = owned, and 2 = rented. Here in `tabulate_pq`'s CSV output we can see that for example that in 1960, 112 million people lived in a home owned by themselves or a relative.
 
-This is a useful utility in it's own right, but remember that we were doing this so that we could get back to CSV input for our `q` CSV querying program.
+This is a useful utility in it's own right, but remember that we were doing this so that we could get back to CSV input for our `q` CSV querying program, as well as reduce overall volume of data fed into "Q".
 
 ## q Revisited
 
@@ -216,7 +216,7 @@ We pipe the table made by `q` to gnuplot for graphing. Our command makes this gr
 
 <a href="/images/count_bikers_walkers_by_income.png"><img src="/images/count_bikers_walkers_by_income.png" alt="Graph of biker and walker population by income" width="800" height="600" /></a>
 
-Income in thousands is on the X-axis, numbers of human-powered commuters is on the Y-axis. Pretty much looks like an income distribution; of course the vast majority of anybody doing most things is on the lower income side (by a lot.) We're not learning much yet. Instead we should compare percent of bikers and walkers within each income bracket. There may be many fewer people biking who earn $150,000, but what's the ratio of drivers to walkers and bikers at each income bracket? I'm cutting off the income at $400,000; there are too few cases in the sample to get much accuracy higher at higher income levels.
+Income in thousands is on the X-axis, numbers of human-powered commuters is on the Y-axis. Pretty much looks like an income distribution; of course the vast majority of anybody doing most things is on the lower income side (by a lot.) We're not learning much yet. Instead we should compare percent of bikers and walkers within each income bracket. There may be many fewer people biking who earn $150,000, but what's the ratio of drivers to walkers and bikers at each income bracket? I'm cutting off the income at $400,000; there are too few cases in the sample to get much accuracy at higher income levels.
 
 	$ time ./tabulate_pq usa_00065.parquet PERWT YEAR TRANWORK INCTOT |
 	q -d, -H -O  "select  ((inctot/20000) * 20000)/1000 as income_thousands,sum(case when tranwork in (40,50) then TOTAL else 0 end) * 100.0 / sum(TOTAL)   as bike_or_walk \
@@ -250,9 +250,9 @@ Returning to our original inquiry about biking to work -- are tech workers speci
 
 <a href="/images/percent_bikers_by_income.png"><img src="/images/percent_bikers_by_income.png" alt="Graph of percent bikers by income" width="800" height="600" /></a>
 
-So it appears biking increases a lot as income rises, and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably, walking among low income people drops off sharply as income increases. Overall, we can see the higher rate of biking among tech workers is in line with everyone else earning similar incomes ($70,000 to $160,000).
+So it appears biking increases a lot as income rises, and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably, walking among low income people drops off sharply as income increases, while biking goes in the other direction. Overall, we can see the higher rate of biking among tech workers is in line with everyone else earning similar incomes ($70,000 to $160,000).
 
-To be clear, all we've seen so far are some interesting coorelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. The point here is that this sort of tool chain makes it easy to iterate quickly, testing different hypotheses and rapidly analyzing the data from multiple angles as we refine our inquiry.
+To be clear, all we've seen so far are some interesting corelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. The point here is that this sort of tool chain makes it easy to iterate quickly, testing different hypotheses and rapidly analyzing the data from multiple angles as we refine our inquiry. 
 
 # Parquet with Python: PyArrow
 
@@ -360,10 +360,96 @@ The `tabulate_pq` C++ utility and the Python PyArrow examples above are just pro
 
 The parquet-cpp library has a low-level API, which is what I used to build "tabulate-pq" and "make-parquet". There's a higher level API that could be used to write a tool similar to "tabulate-pq", and it includes support for the Arrow in-memory data storage library.
 
-Among other things Arrow makes dealing with different column types dynamically in C++ easier and it allows passing data around wihtout excessive copying, saving memory and time.
+Among other things Arrow makes dealing with different column types dynamically in C++ easier and it allows passing data around without excessive copying, saving memory and time.
 
-The APIs for Arrow and Parquet are defined in files included by https://github.com/apache/parquet-cpp/src/parquet/api/*.h, and ../src/parquet/arrow/*.h.  For documentation of the API see the /tools/ and /examples directories. There are two programs in the examples, one demonstrating use of Arrow and Parquet together and a similar example program implemented with  the low-level Parquet API.
 
+The Arrow and Parquet low-level and high-level APIs are defined in the http://github.com/apache/parquet-cpp library.
+For documentation of the API see the /tools/ and /examples directories. There are two programs in the examples, one demonstrating use of Arrow and Parquet together and a similar example program implemented with  the low-level Parquet API.
+
+#### Low-level interface to Parquet
+
+When I began writing C++ tools to handle Parquet formatted data the low-level API was the only interface to the library, so that's what I used to make "make-parquet." 
+
+In essence the parquet-cpp library gives you:
+* parquet types to group together into a schema
+* parquet::FileReader
+* parquet::FileWriter
+* parquet::RowGroupReader
+* parquet::RowGroup?Writer
+* parquet::ColumnReader
+* parquet::ColumnWriter
+
+You call  <code> ColumnReader::ReadBatch()</code> and <code> ColumnWriter::WriteBatch()</code> to actually move data in and out of Parquet files; compression gets handled by the library as well as buffering.
+
+Once you've extracted data from a data source, say a CSV or fixed width text file, The core of the "make-parquet" program looks like:
+
+```c++
+
+// Handles int32 and string types; you could extend to handle floats and larger ints. by
+// adding and handling additional types of buffers.
+//
+// The new high level interface supports a varient type that would allow you to pass all data
+// buffers as a single argument...
+//
+// To avoid one argument per data type, you could instead defer  conversion from raw string 
+// data until right before sending to  WriteBatch(). However  this means that buffering a single 
+// untyped, optimaly sized row group in RAM requires much more space; perhaps four to five times as much.
+//  You'd soon run out of memory before running out of CPU cores on most systems...
+// 
+// The perfect solution in terms of RAM would be to know in advance exactly how many row groups you will
+// consume and their sizes, removing the need to buffer at all; but that would necessitate scanning the 
+// input data in advance to compute row group sizes,  which is time- consuming on its own. This is all a 
+// result of needing to set the row group size before writing to the row group.
+static void write_to_parquet(
+	const std::map<int, std::vector<std::string>> & string_buffers,
+	const std::map<int, std::vector<int32_t>> & int_buffers,
+	std::shared_ptr<parquet::ParquetFileWriter> file_writer,
+	int row_group_size,
+	const std::vector<VarPtr> & output_schema){
+
+  // Create a row group in the parquet file, The row group size should be rather large
+  // for good performance, so that row_group_size * columns == 1GB
+    parquet::RowGroupWriter* rg_writer =
+        file_writer->AppendRowGroup(row_group_size);
+
+	// Need to loop through columns in order; order of the output_schema matters therefore.
+	for (int  col_num=0;col_num<output_schema.size();col_num++){
+		// Grab the description of a column
+		auto var = output_schema[col_num];
+
+		// Figure out the type of data and where to get it from
+		if (var->type ==parquet_type::_int ){
+			auto column_writer=
+        		static_cast<parquet::Int32Writer*>(rg_writer->NextColumn());
+	        	auto & data_to_write = int_buffers.at(col_num);		
+			column_writer->WriteBatch(
+				data_to_write.size(), nullptr, nullptr, data_to_write.data());
+		}else if (var->type == parquet_type::_string){
+			// This is how UTF-8 strings are handled at the low level
+			auto & data_to_write =string_buffers.at(col_num);
+			auto column_writer = static_cast<parquet::ByteArrayWriter*>(rg_writer->NextColumn());
+			for(const std::string & item:data_to_write){
+				parquet::ByteArray value;
+				int16_t definition_level = 1;
+				value.ptr = reinterpret_cast<const uint8_t*>(item.c_str());
+				value.len = var->width;
+				column_writer->WriteBatch(1, &definition_level, nullptr, &value);
+			}
+		}else{
+			cerr << "Type " << var->type_name << " not supported." << endl;
+			exit(1);
+		}
+	}
+}
+
+```
+
+
+
+	
+
+
+### Arrow
 
 Arrow features data structures called Array that hold  columns of same-type data, filled by a "builder" of a given type:
 ```c++
