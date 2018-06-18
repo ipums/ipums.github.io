@@ -102,9 +102,6 @@ _Note: if C++ isn't your thing, hang tight. I'll eventually explain how to do th
 
 Here we have a YEAR variable (representing census year) and an OWNERSHP variable which has three possible values for the person's home ownership status: 0 = N/A, 1 = owned, and 2 = rented. Here in `tabulate_pq`'s CSV output we can see that for example that in 1960, 112 million people lived in a home owned by themselves or a relative.
 
-<<<<<<< HEAD
-This is a useful utility in it's own right, but remember that we were doing this so that we could get back to CSV input for our `q` CSV querying program, as well as reduce overall volume of data fed into "Q".
-=======
 There's more to `tabulate_pq` than we show here in this code snippet, but to give you an idea of how tabulate_pq leverages the parquet-cpp library, here's a sample of the core of the program:
 
 ```c++
@@ -155,7 +152,6 @@ There's more to `tabulate_pq` than we show here in this code snippet, but to giv
 ```
 
 `tabulate_pq` is a useful utility in it's own right, but remember that we were doing this so that we could get back to CSV input for our `q` CSV querying program.
->>>>>>> editing colin's part 2
 
 ## q Revisited
 
@@ -307,7 +303,7 @@ Returning to our original inquiry about biking to work -- are tech workers speci
 
 So it appears biking increases a lot as income rises, and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably, walking among low income people drops off sharply as income increases, while biking goes in the other direction. Overall, we can see the higher rate of biking among tech workers is in line with everyone else earning similar incomes ($70,000 to $160,000).
 
-To be clear, all we've seen so far are some interesting corelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. The point here is that this sort of tool chain makes it easy to iterate quickly, testing different hypotheses and rapidly analyzing the data from multiple angles as we refine our inquiry. 
+To be clear, all we've seen so far are some interesting corelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. The point here is that this sort of tool chain makes it easy to iterate quickly, testing different hypotheses and rapidly analyzing the data from multiple angles as we refine our inquiry.
 
 # Parquet with Python: PyArrow
 
@@ -434,7 +430,7 @@ For documentation of the API see the /tools/ and /examples directories. There ar
 
 #### Low-level interface to Parquet
 
-When I began writing C++ tools to handle Parquet formatted data the low-level API was the only interface to the library, so that's what I used to make "make-parquet." 
+When I began writing C++ tools to handle Parquet formatted data the low-level API was the only interface to the library, so that's what I used to make "make-parquet."
 
 In essence the parquet-cpp library gives you:
 * parquet types to group together into a schema
@@ -457,14 +453,14 @@ Once you've extracted data from a data source, say a CSV or fixed width text fil
 // The new high level interface supports a varient type that would allow you to pass all data
 // buffers as a single argument...
 //
-// To avoid one argument per data type, you could instead defer  conversion from raw string 
-// data until right before sending to  WriteBatch(). However  this means that buffering a single 
+// To avoid one argument per data type, you could instead defer  conversion from raw string
+// data until right before sending to  WriteBatch(). However  this means that buffering a single
 // untyped, optimaly sized row group in RAM requires much more space; perhaps four to five times as much.
 //  You'd soon run out of memory before running out of CPU cores on most systems...
-// 
+//
 // The perfect solution in terms of RAM would be to know in advance exactly how many row groups you will
-// consume and their sizes, removing the need to buffer at all; but that would necessitate scanning the 
-// input data in advance to compute row group sizes,  which is time- consuming on its own. This is all a 
+// consume and their sizes, removing the need to buffer at all; but that would necessitate scanning the
+// input data in advance to compute row group sizes,  which is time- consuming on its own. This is all a
 // result of needing to set the row group size before writing to the row group.
 static void write_to_parquet(
 	const std::map<int, std::vector<std::string>> & string_buffers,
@@ -487,7 +483,7 @@ static void write_to_parquet(
 		if (var->type ==parquet_type::_int ){
 			auto column_writer=
         		static_cast<parquet::Int32Writer*>(rg_writer->NextColumn());
-	        	auto & data_to_write = int_buffers.at(col_num);		
+	        	auto & data_to_write = int_buffers.at(col_num);
 			column_writer->WriteBatch(
 				data_to_write.size(), nullptr, nullptr, data_to_write.data());
 		}else if (var->type == parquet_type::_string){
@@ -512,7 +508,7 @@ static void write_to_parquet(
 
 
 
-	
+
 
 
 ### Arrow
