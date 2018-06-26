@@ -27,7 +27,9 @@ Recall that we were working with a large commuting patterns dataset with 82 vari
 
 Columnar file formats address this use case head-on by organizing data into columns rather than rows. Such a structure makes reading in only requested data fast. In simple terms at the low level, a reader seeks to the start of a column's worth of data in the data file, then reads until the indicated end location of that column in the file. Columns of data not requested never get read, saving time. To make reads even faster, and to save space on disk, columnar formats typically use data compression on a per-column basis, which often makes the compression algorithms more effective than with row-based data while preserving relatively high-speed decompression.
 
-[Parquet](https://parquet.apache.org/documentation/latest/) is a columnar format for data used in Apache products like Spark, Drill and many others. It compresses to impressively high ratios while enabling super fast analytic queries. In many cases you win both in huge storage savings and dramatically lower query times. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files.
+[Parquet](https://parquet.apache.org/documentation/latest/) is a columnar storage format for data used in Apache products like Spark, Drill and many others. It compresses to impressively high ratios while enabling super fast analytic queries. In many cases you win both in huge storage savings and dramatically lower query times. For the following examples consider Parquet files as extremely high performance, strongly typed versions of CSV files.
+
+It's also helpful to be aware of Apache Arrow. Apache developed Parquet to be a columnar storage format. Concurrently, they developed a product called Arrow which is a cross-language platform for columnar in-memory data. Parquet and Arrow are meant to work together to create a highly performant and efficient data layer. (Aside: Arrow by itself can power in-memory analytics software, see the Arrow <a href="http://arrow.apache.org"> home page</a> for more information.) You'll see Parquet and Arrow working together in our examples today.
 
 Here I'll demonstrate use of the Parquet data format in a command-line tools setting. While typically coupled with big data tools, you can also use Parquet libraries with your own code to build a command-line data analysis workflow. While we saw in Part 1 that the size of my example dataset is just on the edge of what's possible to fit in a typical laptop's memory, you still benefit with performance and space savings by converting to Parquet. If the data were ten times larger (easily possible if all available IPUMS U.S. Census data were used) a columnar, compressed format like Parquet would be absolutely necessary to work with it on a laptop or desktop.
 
@@ -176,7 +178,56 @@ _Note: if C++ isn't your thing, hang tight. I'll eventually explain how to do th
 
 Here we have a YEAR variable (representing census year) and an OWNERSHP variable which has three possible values for the person's home ownership status: 0 = N/A, 1 = owned, and 2 = rented. Here in `tabulate_pq`'s CSV output we can see that for example that in 1960, 112 million people lived in a home owned by themselves or a relative.
 
-This is a useful utility in it's own right, but remember that we were doing this so that we could get back to CSV input for our `q` CSV querying program, as well as reduce overall volume of data fed into "Q".
+There's more to `tabulate_pq` than we show here in this code snippet, but to give you an idea of how tabulate_pq leverages the parquet-cpp library, here's a sample of the core of the program:
+
+```c++
+	// Suppose we can determine the column indices to
+	// extract by matching column names in the schema
+	// with their positions....
+	vector<int> columns_to_tabulate = get_from_schema("{"PERWT",AGE","MARST"});
+
+	// Can extract columns in parallel
+	reader->set_num_threads(4);
+
+	int rg = reader->num_row_groups();
+
+	// You can read into a table just a group of rows
+	// rather than the entire Parquet file...
+	for(int group_num=0;group_num<rg;group_num++){
+		std::shared_ptr<arrow::Table> table;
+		reader->ReadRowGroup(rg, columns_to_tabulate, &table);
+		auto rows = table->num_rows();
+
+		vector<const int*> raw_data;
+
+		// We pull out a list of pointers to raw data so that
+		// we can produce an arbitrary length record as long as
+		// the data type is known up-front. This way we can support
+		// tabulating one, two, three, four or even more columns.
+		for(int c=0;c<columns_from_schema.size();c++){
+			auto column_data =  std::static_pointer_cast<arrow::Int32Array>(
+				table->column(c)->data()->chunk(0));
+			raw_data.push_back(column_data->raw_values());
+		}
+
+		// There is an experimental API in the works to automate conversion
+		// from columnar to record layouts, but for now it's manual ...
+		 for(int row_num=0;row_num<rows;row_num++){
+		 	vector<int32_t> record;
+		 	for (int c=0;c<columns_to_tabulate.size();c++){
+		 		auto datum = raw_data[c][row_num];
+		 		record.push_back(datum);
+		 	}
+		 	// First column is assumed to be weight, the rest get crossed
+		 	// with each other and the counts weighted.
+		 	add_to_tabulation(record);
+		}
+
+	}
+
+```
+
+`tabulate_pq` is a useful utility in it's own right, but remember that we were doing this so that we could get back to CSV input for our `q` CSV querying program.
 
 ## q Revisited
 
@@ -238,8 +289,8 @@ Now that we have a fast way to query the data, it's easier to iterate over our d
 	when TRANWORK=50 or TRANWORK=70 then 'walk_or_home' \
 	else 'other' end as travel \
 	from - \
-	where YEAR=2016 and TRANWORK > 0 and OCC2010 < 9900 \
-	group by travel,programmer"
+	where YEAR=2016 and TRANWORK>0 and OCC2010 < 9900 \
+	group by travel,programmer
 
 	**  Diagnostic output of tabulate_pq **
 
@@ -334,8 +385,6 @@ To be clear, all we've seen so far are some interesting corelations; we could in
 
 As promised, it's time to discuss how we can do the same thing in Python as I showed above in C++.
 
-Before we can talk about PyArrow, I should mention what Arrow is first. Apache developed Parquet to be a columnar storage format. Concurrently, they developed a product called Arrow which is a cross-language platform for columnar in-memory data. Parquet and Arrow are meant to work together to create a highly performant and efficient data layer. Arrow by itself can power in-memory analytics software, see the Arrow  <a href="http://arrow.apache.org"> home page</a> for more information.
-
 The Python binding to Parquet and Arrow is known as PyArrow. With PyArrow, you can write Python code to interact with Parquet-formatted data, and as an added benefit, quickly convert Parquet data to and from Python's Pandas dataframes. <a href="https://pandas.pydata.org/">Pandas</a> came about as a method to manipulate tabular data in Python. It tries to smooth the data import / export process and provide an API for working with spreadsheet data programmatically in Python. It's essentially an alternate approach to the problem the `q` utility tries to solve, though Pandas does much more.
 
 Chances are if you're working in Python with a lot of data, you already know of Pandas, but if not, it's a great resource! However, large datasets have long been <a href="http://wesmckinney.com/blog/apache-arrow-pandas-internals/">problematic</a> with Pandas due to inefficient memory use, and reading large data could be faster than it is with Pandas. That's where PyArrow enters the picture. <a href="https://arrow.apache.org/docs/python/index.html">PyArrow</a> is based on the "parquet-cpp" library and in fact PyArrow is one of the reasons the "parquet-cpp" project was developed in the first place and has reached its current state of maturity.
@@ -429,6 +478,19 @@ To go beyond this limited (but important) optimization and harness all your core
 Although Parquet was originally developed for use with parallel processing frameworks like Hadoop and Spark, today we've seen how this handy columnar storage format can also make single-computer big data computation a lot faster and more scalable with just a bit of code.
 
 The `tabulate_pq` C++ utility and the Python PyArrow examples above are just proofs of concept. You could make something that supports more variables or adds in more powerful aggregate functions like medians -- tabulate_pq only does sum(). And most importantly, these examples are all still just single-threaded programs, aside from the PyArrow multi-threaded read. Since all modern computers ship with multiple compute cores, multi-threaded approaches can unlock even more of the potential and performance of your little laptop or desktop to work on big data. We'll explore that concept in Part 3 of this series.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Notes on Parquet-cpp and the Arrow API
@@ -632,7 +694,6 @@ The core of a  very simple memory efficient tabulator:
 	// Can extract columns in parallel
 	reader->set_num_threads(4);
 
-
 	int rg = reader->num_row_groups();
 
 	// You can read into a table just a group of rows
@@ -655,7 +716,7 @@ The core of a  very simple memory efficient tabulator:
 		}
 
 		// There is an experimental API in the works to automate conversion
-		// from columnar to record layouts,  but for now it's manual ...
+		// from columnar to record layouts, but for now it's manual ...
 		 for(int row_num=0;row_num<rows;row_num++){
 		 	vector<int32_t> record;
 		 	for (int c=0;c<columns_to_tabulate.size();c++){
