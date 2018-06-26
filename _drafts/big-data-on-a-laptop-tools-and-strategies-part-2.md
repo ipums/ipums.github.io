@@ -41,6 +41,82 @@ Memory use by parquet-cpp will be exactly proportional to the number of columns 
 
 The first thing we need is a way to create Parquet data. To create Parquet-formatted data, you can write your own utility using one of these Parquet language libraries. C++ will be most efficient both with memory and CPU usage but perhaps another language will be more convenient for an off-the-shelf solution. For work here at IPUMS I have written a stand-alone tool, `make-parquet`, in C++ for converting either CSV or fixed-width data (another of the IPUMS data formats) to Parquet format. It's very fast and minimizes memory use; you can easily run it on your laptop.
 
+Here's a bit of what the `make-parquet` program looks like. (Later I'll show how this could be done in Python instead.) When I began writing C++ tools to handle Parquet-formatted data the low-level API was the only interface to the library, so that's what I used to make "make-parquet."
+
+In essence the parquet-cpp library gives you:
+* parquet types to group together into a schema
+* parquet::FileReader
+* parquet::FileWriter
+* parquet::RowGroupReader
+* parquet::RowGroupWriter
+* parquet::ColumnReader
+* parquet::ColumnWriter
+
+You call <code>ColumnReader::ReadBatch()</code> and <code>ColumnWriter::WriteBatch()</code> to actually move data in and out of Parquet files; compression gets handled by the library as well as buffering. Once you've extracted data from a data source, say a CSV or fixed width text file, The core of the "make-parquet" program looks like:
+
+```c++
+
+// Handles int32 and string types; you could extend to handle floats and larger ints. by
+// adding and handling additional types of buffers.
+//
+// The new high level interface supports a variant type that would allow you to pass all data
+// buffers as a single argument...
+//
+// To avoid one argument per data type, you could instead defer conversion from raw string
+// data until right before sending to WriteBatch(). However this means that buffering a single
+// untyped, optimally-sized row group in RAM requires much more space; perhaps four to five times as much.
+// You'd soon run out of memory before running out of CPU cores on most systems...
+//
+// The perfect solution in terms of RAM would be to know in advance exactly how many row groups you will
+// consume and their sizes, removing the need to buffer at all; but that would necessitate scanning the
+// input data in advance to compute row group sizes, which is time-consuming on its own. This is all a
+// result of needing to set the row group size before writing to the row group.
+static void write_to_parquet(
+	const std::map<int, std::vector<std::string>> & string_buffers,
+	const std::map<int, std::vector<int32_t>> & int_buffers,
+	std::shared_ptr<parquet::ParquetFileWriter> file_writer,
+	int row_group_size,
+	const std::vector<VarPtr> & output_schema){
+
+  // Create a row group in the parquet file, The row group size should be rather large
+  // for good performance, so that row_group_size * columns == 1GB
+    parquet::RowGroupWriter* rg_writer =
+        file_writer->AppendRowGroup(row_group_size);
+
+	// Need to loop through columns in order; order of the output_schema matters therefore.
+	for (int  col_num=0;col_num<output_schema.size();col_num++){
+		// Grab the description of a column
+		auto var = output_schema[col_num];
+
+		// Figure out the type of data and where to get it from
+		if (var->type ==parquet_type::_int ){
+			auto column_writer=
+        		static_cast<parquet::Int32Writer*>(rg_writer->NextColumn());
+	        	auto & data_to_write = int_buffers.at(col_num);
+			column_writer->WriteBatch(
+				data_to_write.size(), nullptr, nullptr, data_to_write.data());
+		}else if (var->type == parquet_type::_string){
+			// This is how UTF-8 strings are handled at the low level
+			auto & data_to_write =string_buffers.at(col_num);
+			auto column_writer = static_cast<parquet::ByteArrayWriter*>(rg_writer->NextColumn());
+			for(const std::string & item:data_to_write){
+				parquet::ByteArray value;
+				int16_t definition_level = 1;
+				value.ptr = reinterpret_cast<const uint8_t*>(item.c_str());
+				value.len = var->width;
+				column_writer->WriteBatch(1, &definition_level, nullptr, &value);
+			}
+		}else{
+			cerr << "Type " << var->type_name << " not supported." << endl;
+			exit(1);
+		}
+	}
+}
+
+```
+
+You can see this is definitely a low-level API. The newer high-level API would make this process much friendlier. Nevertheless, it may be helpful to see how the data is converted to Parquet.
+
 The conversion process takes around five minutes with my `make-parquet` utility for the example `usa_00065.csv` dataset.
 
 Here's the dataset from the last section before and after converting to Parquet:
@@ -162,7 +238,7 @@ Now that we have a fast way to query the data, it's easier to iterate over our d
 	when TRANWORK=50 or TRANWORK=70 then 'walk_or_home' \
 	else 'other' end as travel \
 	from - \
-	where YEAR=2016 and TRANWORK>0 and OCC2010<9900 \
+	where YEAR=2016 and TRANWORK > 0 and OCC2010 < 9900 \
 	group by travel,programmer"
 
 	**  Diagnostic output of tabulate_pq **
@@ -205,12 +281,12 @@ You can control the output format, labels, graph styles and really anything abou
 	$./tabulate_pq usa_00065.parquet PERWT YEAR TRANWORK INCTOT |
 	q -d, -H -O  "select ((inctot/25000)*25000 / 1000) || 'K'  as income, sum(total) as biker_walkers \
 	from - \
-	where YEAR=2016 and tranwork in(40,50) and INCTOT>0 and inctot<990000 \
+	where YEAR=2016 and tranwork in(40,50) and INCTOT>0 and inctot < 990000 \
 	group by inctot/25000 \
 	order by inctot/25000 desc"  |
 	gnuplot -e "set terminal png;set style data lines;\
 	set datafile separator comma;\
-	plot '<cat' title columnheader linewidth 5" > count_bikers_walkers_by_income.png
+	plot '< cat' title columnheader linewidth 5" > count_bikers_walkers_by_income.png
 
 We pipe the table made by `q` to gnuplot for graphing. Our command makes this graph:
 
@@ -221,12 +297,12 @@ Income in thousands is on the X-axis, numbers of human-powered commuters is on t
 	$ time ./tabulate_pq usa_00065.parquet PERWT YEAR TRANWORK INCTOT |
 	q -d, -H -O  "select  ((inctot/20000) * 20000)/1000 as income_thousands,sum(case when tranwork in (40,50) then TOTAL else 0 end) * 100.0 / sum(TOTAL)   as bike_or_walk \
 	from - \
-	where YEAR=2016 and INCTOT>0 and inctot<400000 \
+	where YEAR=2016 and INCTOT>0 and inctot < 400000 \
 	group by inctot/20000 \
 	order by inctot/20000 desc" |
 	gnuplot -e "set terminal png;set style data lines;\
 	set datafile separator comma; \
-	plot '<cat' title columnheader linewidth 5" > percent_bikers_walkers_by_income.png
+	plot '< cat' title columnheader linewidth 5" > percent_bikers_walkers_by_income.png
 
 	real    0m5.051s
 	user    0m5.031s
@@ -241,18 +317,18 @@ Returning to our original inquiry about biking to work -- are tech workers speci
 	$ ./tabulate_pq usa_00065.parquet PERWT YEAR TRANWORK INCTOT |
 	q -d, -H -O  "select  ((inctot/20000) * 20000)/1000 as income_thousands,sum(case when tranwork in (40) then TOTAL else 0 end) * 100.0 / sum(TOTAL)   as biking  \
 	from - \
-	where YEAR=2016 and INCTOT>0 and inctot<400000 \
+	where YEAR=2016 and INCTOT>0 and inctot < 400000 \
 	group by inctot/20000 \
 	order by inctot/20000 desc" |
 	gnuplot -e "set terminal png;set style data lines;\
 	set datafile separator comma; \
-	plot '<cat' title columnheader linewidth 5" > percent_bikers_by_income.png
+	plot '< cat' title columnheader linewidth 5" > percent_bikers_by_income.png
 
 <a href="/images/percent_bikers_by_income.png"><img src="/images/percent_bikers_by_income.png" alt="Graph of percent bikers by income" width="800" height="600" /></a>
 
 So it appears biking increases a lot as income rises, and it's interesting to note the two spikes on both graphs of bikers and walkers and bikers. Notably, walking among low income people drops off sharply as income increases, while biking goes in the other direction. Overall, we can see the higher rate of biking among tech workers is in line with everyone else earning similar incomes ($70,000 to $160,000).
 
-To be clear, all we've seen so far are some interesting corelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. The point here is that this sort of tool chain makes it easy to iterate quickly, testing different hypotheses and rapidly analyzing the data from multiple angles as we refine our inquiry. 
+To be clear, all we've seen so far are some interesting corelations; we could include a number of additional variables to tease out connections between occupation, income and lifestyles. The point here is that this sort of tool chain makes it easy to iterate quickly, testing different hypotheses and rapidly analyzing the data from multiple angles as we refine our inquiry.
 
 # Parquet with Python: PyArrow
 
@@ -293,8 +369,8 @@ Here you can see that the pyarrow.parquet library provides a `to_pandas()` metho
 Timing this, we see it takes just a few seconds longer than the C++ version:
 
 	$  time python prog_bikers.py
-	
-	
+
+
 	TRANWORK      False   True
 	OCC2010
 	False     145593645  824999
@@ -324,7 +400,7 @@ The default behavior of this tiny script will be to load all the CSV data into a
 Just to give you a notion of how fast Pandas + PyArrow can be (fast):
 
 	$ time python convert_to_parquet.py
-	
+
 
 	sys:1: DtypeWarning: Columns (58,76) have mixed types. Specify dtype option on import or set low_memory=False.
 
@@ -334,12 +410,12 @@ Just to give you a notion of how fast Pandas + PyArrow can be (fast):
 
 Notice the column type errors: This is a drawback of auto type inference. You can scan the entire CSV, but I can't even show you the time difference; my computer ran out of RAM and swapped. I gave up after half an hour. Never fear though, if you're serious about importing a particular schema you can specify all the column types when importing into Pandas and avoid this costly step.
 
-If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier. 
+If you're comfortable with Pandas you could use a Pandas + PyArrow Python script as part of a data analysis pipeline, sending the results to GnuPlot as I showed earlier.
 
 Finally, when reading Parquet with PyArrow you can use more than one thread to read columns and decompress their data in parallel:
 
 ```python
-table1 = pq.read_table('usa_00065.parquet', 
+table1 = pq.read_table('usa_00065.parquet',
 	nthreads=4,
 	columns=['PERWT','YEAR', 'OCC2010', 'TRANWORK'])
 ```
@@ -368,7 +444,7 @@ For documentation of the API see the /tools/ and /examples directories. There ar
 
 #### Low-level interface to Parquet
 
-When I began writing C++ tools to handle Parquet formatted data the low-level API was the only interface to the library, so that's what I used to make "make-parquet." 
+When I began writing C++ tools to handle Parquet formatted data the low-level API was the only interface to the library, so that's what I used to make "make-parquet."
 
 In essence the parquet-cpp library gives you:
 * parquet types to group together into a schema
@@ -391,14 +467,14 @@ Once you've extracted data from a data source, say a CSV or fixed width text fil
 // The new high level interface supports a varient type that would allow you to pass all data
 // buffers as a single argument...
 //
-// To avoid one argument per data type, you could instead defer  conversion from raw string 
-// data until right before sending to  WriteBatch(). However  this means that buffering a single 
+// To avoid one argument per data type, you could instead defer  conversion from raw string
+// data until right before sending to  WriteBatch(). However  this means that buffering a single
 // untyped, optimaly sized row group in RAM requires much more space; perhaps four to five times as much.
 //  You'd soon run out of memory before running out of CPU cores on most systems...
-// 
+//
 // The perfect solution in terms of RAM would be to know in advance exactly how many row groups you will
-// consume and their sizes, removing the need to buffer at all; but that would necessitate scanning the 
-// input data in advance to compute row group sizes,  which is time- consuming on its own. This is all a 
+// consume and their sizes, removing the need to buffer at all; but that would necessitate scanning the
+// input data in advance to compute row group sizes,  which is time- consuming on its own. This is all a
 // result of needing to set the row group size before writing to the row group.
 static void write_to_parquet(
 	const std::map<int, std::vector<std::string>> & string_buffers,
@@ -421,7 +497,7 @@ static void write_to_parquet(
 		if (var->type ==parquet_type::_int ){
 			auto column_writer=
         		static_cast<parquet::Int32Writer*>(rg_writer->NextColumn());
-	        	auto & data_to_write = int_buffers.at(col_num);		
+	        	auto & data_to_write = int_buffers.at(col_num);
 			column_writer->WriteBatch(
 				data_to_write.size(), nullptr, nullptr, data_to_write.data());
 		}else if (var->type == parquet_type::_string){
@@ -446,7 +522,7 @@ static void write_to_parquet(
 
 
 
-	
+
 
 
 ### Arrow
@@ -455,16 +531,16 @@ Arrow features data structures called Array that hold  columns of same-type data
 ```c++
 	arrow::Int64Builder i64builder;
 	i64builder.Append({1, 2, 3, 4});
-	
+
 	std::shared_ptr<arrow::Array> i64array;
 	i64builder.Finish(&i64array);
-	
+
 	arrow::StringBuilder strbuilder;
 	strbuilder.append("one");
 	strbuilder.append("two");
 	strbuilder.append("three");
 	strbuilder.append("four");
-	
+
 	std::shared_ptr<arrow::Array> strarray;
 	strbuilder.finish(&strarray);
 ```
@@ -474,16 +550,16 @@ You make Arrow "tables" by combining an Arrow schema object with Arrow data:
 ```c++
 	// Make the schema by supplying fields, each field needs a name and type:
 	auto schema = arrow::schema(
-	      {arrow::field("int", arrow::int64()), 
+	      {arrow::field("int", arrow::int64()),
 	      arrow::field("str", arrow::utf8())});
 
-	// The data table needs the schema and the data. The data is from the 
+	// The data table needs the schema and the data. The data is from the
 	// two arrow::Array objects, and they must be in the same order as the
 	// fields in the schema.
 	auto data_table = arrow::Table::Make(schema, {i64array, strarray});
 ```
 
-You can save Arrow tables into Parquet files (see the example programs with parquet-cpp.) 
+You can save Arrow tables into Parquet files (see the example programs with parquet-cpp.)
 
 To read selected columns into Arrow Arrays, an ability crucial for a tool like "tabulate-pq", you can use the Arrow wrapping of the Parquet API:
 
@@ -491,32 +567,32 @@ To read selected columns into Arrow Arrays, an ability crucial for a tool like "
 	std::shared_ptr<arrow::io::ReadableFile> infile;
 	arrow::io::ReadableFile::Open(
 	      "parquet-arrow-example.parquet", arrow::default_memory_pool(), &infile);
-	      
+
 	 // Attach an  arrow::io::ReadableFile to a Parquet file reader:
-	std::unique_ptr<parquet::arrow::FileReader> reader;	      
+	std::unique_ptr<parquet::arrow::FileReader> reader;
 	parquet::arrow::OpenFile(infile, arrow::default_memory_pool(), &reader);
-	
+
 	// Here we can make an Arrow Array object without knowing
 	// the type of data it will hold.
 	std::shared_ptr<arrow::Array> array;
-	
+
 	// Read the zeroth column; you read columns by position in the schema.
 	reader->ReadColumn(0, &array);
 
-	  arrow::PrettyPrint(*array, 4, &std::cout);	
+	  arrow::PrettyPrint(*array, 4, &std::cout);
 ```
 
 The concept of row groups is important; if you're memory constrained you may need to read in one row group worth of a column at a time (these are known as column chuncks.) This way you can read in part of a column, deal with the data by performing some reduce operation and dispose of the memory before moving on to the next row group.
 
 ```c++
-	// The setup goes exactly as before but we call the RowGroup() method, passing in the row group number.  
+	// The setup goes exactly as before but we call the RowGroup() method, passing in the row group number.
 	//   You can chain the return of RowGroup() and call Column(), passing in the column number you want,
 	// and call the Read() method on the returned Column object.
-	
+
 	// (just for instance)
 	int column_number = 8;
 	int row_group_number = 3;
-	
+
 	reader->RowGroup(row_group_number)->Column(column_number)->Read(&array);
 ```
 
@@ -527,57 +603,57 @@ You can use the arrow::Table class to read in columns in one call (and in parall
 
 	// Assuming we have set up the reader as in previous snippets...
 	reader->set_num_threads(4);
-	
+
 	std::shared_ptr<arrow::Table> table;
-	
+
 	// Read a selected set of columns into the table
 	// assuming we know what those columns are...
 	auto selected_columns = {5,9,23,28};
 	reader->ReadTable(selected_columns, &table);
-	
-	// Now the table has data for the selected columns	
+
+	// Now the table has data for the selected columns
 	for(auto c=0;c<selected_columns.size();c++){
 		auto this_column = table->column(c);
 		std::cout << "name: " << this_column->name() << "\n";
-			
+
 	}
-	
+
 ```
 
 
 The core of a  very simple memory efficient tabulator:
 
 ```c++
-	// Suppose we can determine the column indices to 
-	// extract by matching column names in the schema 
-	// with their positions....	
+	// Suppose we can determine the column indices to
+	// extract by matching column names in the schema
+	// with their positions....
 	vector<int> columns_to_tabulate = get_from_schema("{"PERWT",AGE","MARST"});
-	
+
 	// Can extract columns in parallel
 	reader->set_num_threads(4);
 
 
 	int rg = reader->num_row_groups();
-	
-	// You can read into a table just a group of rows 
+
+	// You can read into a table just a group of rows
 	// rather than the entire Parquet file...
 	for(int group_num=0;group_num<rg;group_num++){
 		std::shared_ptr<arrow::Table> table;
 		reader->ReadRowGroup(rg, columns_to_tabulate, &table);
 		auto rows = table->num_rows();
-		
+
 		vector<const int*> raw_data;
-		
+
 		// We pull out a list of pointers to raw data so that
-		// we can produce an arbitrary length record as long as 
+		// we can produce an arbitrary length record as long as
 		// the data type is known up-front. This way we can support
 		// tabulating one, two, three, four or even more columns.
-		for(int c=0;c<columns_from_schema.size();c++){			
+		for(int c=0;c<columns_from_schema.size();c++){
 			auto column_data =  std::static_pointer_cast<arrow::Int32Array>(
 				table->column(c)->data()->chunk(0));
 			raw_data.push_back(column_data->raw_values());
 		}
-					
+
 		// There is an experimental API in the works to automate conversion
 		// from columnar to record layouts,  but for now it's manual ...
 		 for(int row_num=0;row_num<rows;row_num++){
@@ -588,18 +664,9 @@ The core of a  very simple memory efficient tabulator:
 		 	}
 		 	// First column is assumed to be weight, the rest get crossed
 		 	// with each other and the counts weighted.
-		 	add_to_tabulation(record);		 			
+		 	add_to_tabulation(record);
 		}
-		
+
 	}
 
 ```
-
-
-
-
-
-
-
-
-
