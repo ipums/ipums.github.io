@@ -2,13 +2,16 @@
 layout: page
 status: publish
 published: true
-title: Career Opportunities
+title: Career Opportunities with ISRDI IT
 author: isrdi-it
 permalink: /working-mpc/career-opportunities/
 ---
-<a href="/images/u-of-m-fense-flowers.jpg"><img class="size-medium wp-image-292 alignright" src="/images/u-of-m-fense-flowers-300x201.jpg" alt="u-of-m-fence-flowers" width="300" height="201" /></a>
 
-There are no job openings with ISRDI IT at this time. Thanks for your interest!
+We currently have the following job opportunities:
+
+## Data Engineer
+
+We're seeking a data engineer to join our team and work on some large scale census data linking projects! More information about this opportunity, including application instructions, is available [on the the U's job board](http://z.umn.edu/dataengineer2018).
 
 ---
 
