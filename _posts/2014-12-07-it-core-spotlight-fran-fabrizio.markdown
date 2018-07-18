@@ -20,13 +20,13 @@ tags: []
 
 <b>What's the coolest thing you've gotten to work on at the MPC?  </b>
 
-Building the team.  When I arrived here, the MPC IT core was 11 people.  We're now on our way to 23, and I've had the privilege of hiring 12 of the current members of the team (soon to be 17).  Team building is incredibly challenging, but ultimately fulfilling as well.
+Building the team. Team building is incredibly challenging, but ultimately incredibly fulfilling as well.
 
 <b>If you were a programming language, what would it be? Why?</b>
 
-Perl.  It wasn't my first programming language, but it was the first language I truly loved.  It's messy but practical.  It doesn't concern itself much with appearances - it just gets stuff done.  It has chameleon-like ability to morph itself into the tool you need at that moment.  This seems to me to be a pretty decent approach to life.
+Perl. It wasn't my first programming language, but it was the first language I truly loved.  It's messy but practical. It doesn't concern itself much with appearances - it just gets stuff done. It has chameleon-like ability to morph itself into the tool you need at that moment. This seems to me to be a pretty decent approach to life.
 
-<b>When you're not wrangling data at the MPC, what other things keep you busy?  </b>Mainly, my 4-year-old son - I'm pretty sure some sort of fusion reactor at his core is responsible for his ridiculous level of energy at all times.  I also am getting more into biking (Minneapolis rubbing off on me, I guess) - I bought my first "real" bike last year and I've been trying to make the 11-mile commute to work as often as I can.  I catch up with hockey late at night with the DVR.
+<b>When you're not wrangling data at the MPC, what other things keep you busy? </b>Mainly, my son - I'm pretty sure some sort of fusion reactor at his core is responsible for his ridiculous level of energy at all times. I also am getting more into biking (Minneapolis rubbing off on me, I guess) - I bought my first "real" bike last year and I've been trying to make the 11-mile commute to work as often as I can. I catch up with hockey late at night with the DVR.
 
 <b>What was the last thing you presented on / wrote about?</b>
 
