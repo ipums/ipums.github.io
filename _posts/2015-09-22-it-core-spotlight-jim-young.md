@@ -6,6 +6,8 @@ teaser: Meet Jim Young, who joined us this year on a part-time basis as a way to
 categories: Team
 ---
 
+Spotlight Date: {{ page.date | date: '%B %d, %Y'}}
+
 ![Jim]({{site.urlimg}}/jim-young-luminary.jpg){: .meetteam .imgleft .r15 .pr20}
 
 * **Hometown:** Born and raised in Minneapolis, MN

@@ -6,6 +6,8 @@ teaser: Meet Colin, the longest tenured member of the IT Core.
 categories: Team
 ---
 
+Spotlight Date: {{ page.date | date: '%B %d, %Y'}}
+
 ![Colin]({{site.urlimg}}/colin.jpg){:.imgleft .r15 .pr20 style="float:left"}
 
 * **Hometown:** Manhattan, KS

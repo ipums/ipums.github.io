@@ -12,6 +12,9 @@ date_gmt: '2014-12-07 15:11:07 -0600'
 categories: Team
 tags: []
 ---
+
+Spotlight Date: {{ page.date | date: '%B %d, %Y'}}
+
 <strong><a href="/images/fran-corn.jpg"><img class=" size-medium wp-image-407 alignright" src="/images/fran-corn-300x208.jpg" alt="fran-corn" width="300" height="208" /></a>Name:  </strong>Fran Fabrizio
 <strong>Role: </strong>IT Director
 <strong>Project: </strong>All of them?

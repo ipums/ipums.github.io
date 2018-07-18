@@ -13,6 +13,9 @@ date_gmt: '2015-03-16 20:28:58 -0500'
 categories: Team
 tags: []
 ---
+
+Spotlight Date: {{ page.date | date: '%B %d, %Y'}}
+
 <strong><a href="/images/jason_goray.jpg"><img class=" size-medium wp-image-624 alignright" src="/images/jason_goray-225x300.jpg" alt="jason_goray" width="225" height="300" /></a>Project:</strong> All (more or less) MPC web facing projects
 <strong>Favorite Dev Tool:</strong> MacBook Pro
 <strong>Fun Fact:</strong> Despite what it says in Zen and the Art of Motorcycle Maintenance, Ph&aelig;drus does not mean "wolf".
@@ -21,15 +24,13 @@ tags: []
 </b>
 It was sort of a weird set of turns.
 
-<ul>
-<li>During my senior year of college, I really wanted my own computer - specifically a mac quadra AV, but I couldn't afford one.  A professor who knew of my dilemma offered me a used NeXT computer.  At the time, I just thought it was kind of like a mac but cheaper - the fact that it came with a laser printer and color monitor, ran UNIX, and included the complete works of Shakespeare and Mathematica was kind of awesome but little did I know how awesome.</li>
-<li>A while later, a company wanted to rent the laser printer from me (NeXT laser printers were rather unique and a bit rare) to run reports.  In the process of negotiating that, they gave me an internship using a markup language called SQRL to wrap SQL queries in display postscript to make pretty reports.  It wasn't the physics I went to college for, but I enjoyed the combination of design and programming as well as the supply of Jolt cola.  I also made as much as an intern as I would have started out at had I completed grad school in physics, so that was nice too.  Eventually, that turned into a fulltime job.</li>
-<li>In &lsquo;95 or &lsquo;96, the company got a connection to the internet and while I had some experience with gopher, IRC, and usenet before, the program OmniWeb gave me my first glimpse of the World Wide Web.</li>
-<li>A couple of minutes later, I discovered "view source" and lost about a week of productivity figuring out how to do everything I could with it.  My first home page was&hellip; well, I'm glad no one archived it.  <blink> was not the worst aspect of it.</li>
-<li>A couple of weeks later, when our main client needed someone to make some web pages for some of their clients (a Gatorade marketing promo and the NHL site), my supervisor noted that I'd spent some "R&amp;D" time on HTML and threw me into the deep end.</li>
-<li>A couple of years later, we got a real designer and he and I teamed up to build a solid front end design and development team.</li>
-<li>A couple of decades later, here I am.</li>
-</ul>
+* During my senior year of college, I really wanted my own computer - specifically a mac quadra AV, but I couldn't afford one.  A professor who knew of my dilemma offered me a used NeXT computer.  At the time, I just thought it was kind of like a mac but cheaper - the fact that it came with a laser printer and color monitor, ran UNIX, and included the complete works of Shakespeare and Mathematica was kind of awesome but little did I know how awesome.
+* A while later, a company wanted to rent the laser printer from me (NeXT laser printers were rather unique and a bit rare) to run reports.  In the process of negotiating that, they gave me an internship using a markup language called SQRL to wrap SQL queries in display postscript to make pretty reports.  It wasn't the physics I went to college for, but I enjoyed the combination of design and programming as well as the supply of Jolt cola.  I also made as much as an intern as I would have started out at had I completed grad school in physics, so that was nice too.  Eventually, that turned into a fulltime job.
+* In &lsquo;95 or &lsquo;96, the company got a connection to the internet and while I had some experience with gopher, IRC, and usenet before, the program OmniWeb gave me my first glimpse of the World Wide Web.
+* A couple of minutes later, I discovered "view source" and lost about a week of productivity figuring out how to do everything I could with it.  My first home page was&hellip; well, I'm glad no one archived it.  &lt;blink&gt; was not the worst aspect of it.
+* A couple of weeks later, when our main client needed someone to make some web pages for some of their clients (a Gatorade marketing promo and the NHL site), my supervisor noted that I'd spent some "R&amp;D" time on HTML and threw me into the deep end.
+* A couple of years later, we got a real designer and he and I teamed up to build a solid front end design and development team.
+* A couple of decades later, here I am.
 
 <b>What brought you to the MPC?</b><strong><strong> </strong></strong>
 

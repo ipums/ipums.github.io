@@ -12,6 +12,8 @@ date_gmt: '2015-01-07 15:13:46 -0600'
 categories: Team
 tags: []
 ---
+Spotlight Date: {{ page.date | date: '%B %d, %Y'}}
+
 <strong>Role:</strong> Data Delivery<strong><a href="/images/ben-tacotuesday.jpg"><img class=" size-medium wp-image-417 alignright" src="/images/ben-tacotuesday-300x223.jpg" alt="ben-tacotuesday" width="300" height="223" /></a></strong>
 <strong>Product:</strong> I get to work on many MPC products, but primarily on integrated microdata ones (IPUMS). My role is to work closely with researchers here to help them have the tools they need to process population data and metadata.
 <strong>Favorite Dev Tool:</strong> I love dev tools, so I can't pick just one: The Command Line, Linux, Vim, iPython Notebook, Perl, Terminator, Firebug. Considering how much I listen to music while coding, I might also list Spotify.
