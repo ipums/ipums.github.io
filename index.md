@@ -12,7 +12,7 @@ header:
 widget-1:
     title: "WE'RE HIRING!"
     url: 'working-mpc/career-opportunities/'
-    text: 'ISRDI is currently seeking a Linux sysadmin!'
+    text: 'ISRDI is currently seeking a Data Engineer!'
 widget-2:
     title: "ISRDI IT On Tour"
     url: 'ontour/'
