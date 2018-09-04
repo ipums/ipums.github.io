@@ -33,9 +33,9 @@ Spark was written in Scala -- a JVM language -- and provides a Java API in addit
 
 Spark supports "Spark SQL", and user defined functions callable from Spark SQL, so you can rely on your SQL skills if that makes the most sense.  Spark provides other ways to manipulate data as well. 
 
-The primary data abstraction in Spark is the  RDD (resilient Distributed Datasets.)  An RDD distributes data across nodes in a Spark cluster so that  a Spark application can access the data in parallel, running on multiple cores and machines. You can transform or take actions on RDDs: a transformation returns a new RDD(they are immutible)  resulting from applying some function to it; actions load, save or print the RDD. An RDD can get created from loading data from all sorts of external data sources, structured or unstructured: JSON, text, CSV, Parquet; you can programmatically create RDDs as well.
+The primary data abstraction in Spark is the  RDD (resilient Distributed Datasets.)  An RDD distributes data across nodes in a Spark cluster so that  a Spark application can access the data in parallel, running on multiple cores and machines. You can transform or take actions on RDDs: a transformation returns a new RDD(they are immutable)  resulting from applying some function to it; actions load, save or print the RDD. An RDD can get created from loading data from all sorts of external data sources, structured or unstructured: JSON, text, CSV, Parquet; you can programmatically create RDDs as well.
 
-DataFrame is a higher level API for presenting data in a table-like form . Like RDDs DataFrames are immutible and distributed. The DataFrame API is part of the Dataset API  which collects data into rows of structured or unstructured data; there's a strongly typed data API available in Scala and Java called "Dataset" and also the "DataFrame" API available in all supported languages. Results of Spark SQL queries can be returned and further processed using the DataFrame API.
+DataFrame is a higher level API for presenting data in a table-like form . Like RDDs DataFrames are immutable and distributed. The DataFrame API is part of the Dataset API  which collects data into rows of structured or unstructured data; there's a strongly typed data API available in Scala and Java called "Dataset" and also the "DataFrame" API available in all supported languages. Results of Spark SQL queries can be returned and further processed using the DataFrame API.
 
 ### Running Spark on Your Laptop
 
@@ -43,7 +43,7 @@ You can set up Spark on Linux by downloading it and ensuring you have Java 8. If
 
 If you use Spark to perform  a simple aggregation on relatively large data with many columns you will notice slightly worse performance compared to directly using Parquet with C++ or with the PyArrow library. However, using Spark for these sorts of queries is pretty easy and you could develop an application you want to eventually put on a powerful cluster.  And, of course, you get full SQL query support, and if you want to code your application in Java or Scala, Spark is the obvious choice.
 
-Unlike the previous Parquet examples with PyArrow, you can use a multicore system for more than just reading columns in parallel: You can take full advantage of all the cores on your machine for computation. Anything you script with the Spark API will make use of all cores it's allowed to by its configuration (you can configure Spark to limit the number of cores and amount of memory used per worker.)  For instance you could run a map-reduce job using all four or eight cores on your local computer. Assuming you have enough RAM to hold the data involved in the computation you'll see a big speed-up. You could turn around and immediately use the result of the map-reduce job in another data processing stage, as the data will be in memory if there's room.
+Unlike the previous Parquet examples with PyArrow, you can use a multi core system for more than just reading columns in parallel: You can take full advantage of all the cores on your machine for computation. Anything you script with the Spark API will make use of all cores it's allowed to by its configuration (you can configure Spark to limit the number of cores and amount of memory used per worker.)  For instance you could run a map-reduce job using all four or eight cores on your local computer. Assuming you have enough RAM to hold the data involved in the computation you'll see a big speed-up. You could turn around and immediately use the result of the map-reduce job in another data processing stage, as the data will be in memory if there's room.
 
 Spark imposes a bit of overhead due to its need to coordinate multiple nodes; in "local" mode this overhead is small. By the time you need to reach for a Spark cluster the overhead, given the size of the data, should not matter, except when sub-second response times are critical to your application. In that case you'll need to craft the external data files for best performance (see the "Spark Friendly Parquet" section) as well as picking the right configuration for Spark. 
 
@@ -76,7 +76,7 @@ Otherwise, if you downloaded Spark from spark.apache.org, go to  the 'bin' direc
 
 Once you get your PySpark shell up, you  can read Parquet data directly (it is the default format for Spark SQL, though others are possible) and get the result as a DataFrame. 
 
-The "extract65.parquet" dataset is the same one I used in the previous "Big Data..." post: It contains individual person records from samples of the U.S. Census for years 1960-2016  and has columns ffull of IPUMS variables concerning commuting, work, industry and home ownership.
+The "extract65.parquet" dataset is the same one I used in the previous "Big Data..." post: It contains individual person records from samples of the U.S. Census for years 1960-2016  and has columns full of IPUMS variables concerning commuting, work, industry and home ownership.
 
 	$ pyspark
 	
@@ -120,11 +120,11 @@ See the query results:
 	
 The "TRANWORK" variable holds responses to the question of  how many minutes it typically takes someone to travel to work; for total travel time you could roughly double these numbers. I have divided by 60 to give hours spent on a work-day commuting (to) work.
 
-That's a lot of time spent in traffic. Seems like a waste of time, though if you're a podcaster or audio book publisher, it looks like an opportunity.
+That's a lot of time spent in traffic. Seems like a waste of time, though if you're a pod caster or audio book publisher, it looks like an opportunity.
 
-Americans spent roughly 120 million hours per workday going to and from work! They aren't getting paid for  that time. A quick check on the <a href="https://data.bls.gov/timeseries/CES0500000003"> BLS data</a> for earnings shows a bit more than $25 per hour in 2016, giving approximately  three billion per workday or  $750 billion per year assuming 250 days working per person. 
+Americans spent roughly 120 million hours per workday going to and from work! They aren't getting paid for  that time. A quick check on the <a href="https://data.bls.gov/time series/CES0500000003"> BLS data</a> for earnings shows a bit more than $25 per hour in 2016, giving approximately  three billion per workday or  $750 billion per year assuming 250 days working per person. 
 
- To find a more accurate number we should  adjust for  systematic differences between commute time and income.  This would require computing an hourly wage per person to produce a new variable, We could call it "COMMUTE_COST."  I'll leave that as an excercise for the reader.
+ To find a more accurate number we should  adjust for  systematic differences between commute time and income.  This would require computing an hourly wage per person to produce a new variable, We could call it "COMMUTE_COST."  I'll leave that as an exercise for the reader.
 
  Now let's suppose you want to hand off a very simple subset of the "extract65" dataset. It needs only people over age 50, their state of residence and their travel time to work. You'll need to include the PERWT variable to calculate numbers matching the U.S. population. 
  
@@ -244,7 +244,7 @@ In the case of ClickHOuse you get a relatively conventional relational database 
 
 ### Yandex ClickHouse
 
-Yandex -- the "Google of Russia" --  has open sourced their column store database and it's <a href="https://www.percona.com/blog/2017/03/17/column-store-database-benchmarks-mariadb-columnstore-vs-clickhouse-vs-apache-spark/"> quite impressive.</a>  Think of ClickHouse as a standard relational SQL database but tuned for analytic queries. In the linked benchmarks ?ClickHouse is compared with Maria DB Column Store and Spark with Parquet formatted data.
+Yandex -- the "Google of Russia" --  has open sourced their column store database and it's <a href="https://www.percona.com/blog/2017/03/17/column-store-database-benchmarks-mariadb-column store-vs-clickhouse-vs-apache-spark/"> quite impressive.</a>  Think of ClickHouse as a standard relational SQL database but tuned for analytic queries. In the linked benchmarks ?ClickHouse is compared with Maria DB Column Store and Spark with Parquet formatted data.
 
 The quick start <a href="https://clickhouse.yandex/"> guide.</a> is on the main page and shows how to install. Yandex offers Debian packages for Ubuntu so you can use "apt-get" to install, or you can use Docker images on other operating systems.
 
@@ -261,7 +261,7 @@ There's one more type of software out there which I'd consider the  expert power
 
 The "Q"  language is a humane coating of syntactic sugar for the "K" language; "J" is similar to "K". Both are descendents of APL. KDB and JDB are column oriented databases; unlike Parquet format they allow very fast appends / inserts, while keeping very fast query times and compact size. JDB supports a fairly friendly query language, though it's not SQL. The actual J and K languages are, like APL, extremely terse with single ASCII symbols used as keywords.
 
-KDB was designed to function as efficiently as possible on time series data speciffically tfor finance. Think of ticker data streaming into a database where you want to apply a model to the  most up-to-date information. Recently it is gaining use in <a href="https://news.efinancialcareers.com/us-en/284145/kdbq-banking-alternatives"> other fields as well.</a>
+KDB was designed to function as efficiently as possible on time series data specifically for finance. Think of ticker data streaming into a database where you want to apply a model to the  most up-to-date information. Recently it is gaining use in <a href="https://news.efinancialcareers.com/us-en/284145/kdbq-banking-alternatives"> other fields as well.</a>
 
 If you need the absolute maximum query speed against a constantly updated database -- which Parquet and similar formats don't enable -- you need "K" and KDB+. There's a free non-commercial 32 bit version; the "J" and JDB combination is free, but it doesn't scale as well.
 
