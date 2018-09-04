@@ -29,7 +29,7 @@ You can start Spark in "local" mode requiring next to no configuration. You can 
 
 ### The Spark API, Very Briefly
 
-Spark was written in Scala -- a JVM language -- and provides a Java API in addition to the Scala API. There's also an extensive Python API, but a few things were missing from it until recent versions of Spark. With the most recent versions of Spark there's a first class Python API and you may write fully featured Spark programs in Python now as well as Java and Scala. The main disadvantage to Python is simply poor performance as a language compared to Java and Scala.
+Spark was written in Scala -- a JVM language -- and provides a Java API in addition to the Scala API. There's also an extensive Python API, but a few things were missing from it until recent versions of Spark. With the most recent versions of Spark there's a first class Python API and you may write fully featured Spark programs in Python now as well as Java and Scala. The main disadvantage to Python is simply poor performance as a language compared to Java and Scala. In many cases, where Python acts mainly as glue code, the difference is negligible since most data processing load  gets handled by the Spark libraries, not Python.
 
 Spark supports "Spark SQL", and user defined functions callable from Spark SQL, so you can rely on your SQL skills if that makes the most sense.  Spark provides other ways to manipulate data as well. 
 
@@ -41,13 +41,13 @@ DataFrame is a higher level API for presenting data in a table-like form . Like 
 
 You can set up Spark on Linux by downloading it and ensuring you have Java 8. If you're on Windows 10 I recommend using WSL (Windows Subsystem for Linux.) You can install Java there and PySpark (as I'll show soon.) Spark has native Windows support as well. Nothing wrong with using Windows except that most examples you'll find use Linux.
 
-If you do a simple aggregation on relatively large data you will notice slightly worse performance compared to directly using Parquet with C++ or with the PyArrow library. However, using Spark for these sorts of queries is pretty easy and you could develop an application you want to eventually put on a powerful cluster.  And, of course, you get full SQL query support, and if you want to code your application in Java or Scala, Spark is the obvious choice.
+If you use Spark to perform  a simple aggregation on relatively large data with many columns you will notice slightly worse performance compared to directly using Parquet with C++ or with the PyArrow library. However, using Spark for these sorts of queries is pretty easy and you could develop an application you want to eventually put on a powerful cluster.  And, of course, you get full SQL query support, and if you want to code your application in Java or Scala, Spark is the obvious choice.
 
-Unlike the previous Parquet examples with PyArrow however, if you have more than one core you can take full advantage of all the cores on your machine for computation in addition to reading data from Parquet: Anything you script with the Spark API will make use of all cores it's allowed to by its configuration. For instance you could run a map-reduce job using all four or eight cores on your local computer.
+Unlike the previous Parquet examples with PyArrow, you can use a multicore system for more than just reading columns in parallel: You can take full advantage of all the cores on your machine for computation. Anything you script with the Spark API will make use of all cores it's allowed to by its configuration (you can configure Spark to limit the number of cores and amount of memory used per worker.)  For instance you could run a map-reduce job using all four or eight cores on your local computer. Assuming you have enough RAM to hold the data involved in the computation you'll see a big speed-up. You could turn around and immediately use the result of the map-reduce job in another data processing stage, as the data will be in memory if there's room.
 
-Spark imposes a bit of overhead due to its need to coordinate multiple nodes; in "local" mode this overhead is smaller. By the time you need to reach for a Spark cluster the overhead, given the size of the data, should not matter, except when sub-second response times are critical to your application. In that case you'll need to craft the external data files for best performance (see the "Spark Friendly Parquet" section) as well as picking the right configuration for Spark. 
+Spark imposes a bit of overhead due to its need to coordinate multiple nodes; in "local" mode this overhead is small. By the time you need to reach for a Spark cluster the overhead, given the size of the data, should not matter, except when sub-second response times are critical to your application. In that case you'll need to craft the external data files for best performance (see the "Spark Friendly Parquet" section) as well as picking the right configuration for Spark. 
 
-In general, Spark is not meant  to serve real-time queries. I'll briefly discuss two solutions  for serving up  extremely fast queries that will work on your laptop as well as larger scale hardware at the end of this post.
+In general, Spark is not meant  to serve real-time queries, though it comes close and is good enough for many uses. I'll briefly discuss two solutions  for serving up  extremely fast queries that will work on your laptop as well as larger scale hardware at the end of this post.
 
 
 ## Quick Setup 
@@ -70,7 +70,7 @@ Alternatively, if you want to work only in Python you may install with 'pip':
 pip install pyspark
 ```
 
-Then you can run 'pyspark' and begin an interactive session. Beware if you already have a SPARK_HOME set; PySpark will try to use that version of Spark.
+Then you can run 'pyspark' and begin an interactive session. Beware if you already have a SPARK_HOME set; PySpark will try to use that version of Spark instead of the version it downloaded as part of PySpark.
 
 Otherwise, if you downloaded Spark from spark.apache.org, go to  the 'bin' directory in your Spark installation and run the 'pyspark.sh' program located there. 
 
@@ -124,7 +124,7 @@ That's a lot of time spent in traffic. Seems like a waste of time, though if you
 
 Americans spent roughly 120 million hours per workday going to and from work! They aren't getting paid for  that time. A quick check on the <a href="https://data.bls.gov/timeseries/CES0500000003"> BLS data</a> for earnings shows a bit more than $25 per hour in 2016, giving approximately  three billion per workday or  $750 billion per year assuming 250 days working per person. 
 
- To find a more accurate number we should  adjust for  systematic differences between commute time and income.  This would require computing an hourly wage per person to produce a new variable, We could call it "COMMUTE_COST." 
+ To find a more accurate number we should  adjust for  systematic differences between commute time and income.  This would require computing an hourly wage per person to produce a new variable, We could call it "COMMUTE_COST."  I'll leave that as an excercise for the reader.
 
  Now let's suppose you want to hand off a very simple subset of the "extract65" dataset. It needs only people over age 50, their state of residence and their travel time to work. You'll need to include the PERWT variable to calculate numbers matching the U.S. population. 
  
@@ -136,7 +136,6 @@ Now that we have just the data we want, convert to a different format:
 	
 	>> df_over_50.write.csv("over_50")
 
-	
 The ability to read and write many formats is extremely useful.
 
 There's a ton to learn, so check out the PySpark <a href="https://spark.apache.org/docs/latest/api/python/index.html"> documentation. </a>
@@ -144,13 +143,15 @@ There's a ton to learn, so check out the PySpark <a href="https://spark.apache.o
 
 ## Scripting Spark in Ruby
 
+Ruby isn't directly supported by Spark but thanks to the JRuby project you have access to an interactive shell (REPL) for Ruby that also gives you access to compiled Java classes. 
+
 I used JRuby to create a small interactive Spark environment. JRuby can use Java classes directly, so all I had to do was instantiate Spark Java classes in JRuby and use the Java API from Ruby's "irb" REPL. What I'm doing here is calling the Java API for Spark; JRuby is simply a convenient way to script the use of the Java API so I don't have to compile Java programs every time I make a change. You should be able to achieve a similar setup with any interpreted JVM language such as Clojure. 
 
 The following example code   shows how you could start up Spark and make an ad-hoc query from JRuby, and then work with the Java DataFrame API interactively to do similar tasks to what we did with Python.
 
 ### Spark JRuby example
 
-There are two basic approaches you can take
+There are two basic approaches you can take if you wish to run a Spark job from an officially unsupported language:
 
 1. Write a small Java  class to issue Spark SQL queries and pre-determined actions on RDDs and DataFrame instances; this allows you to skip importing all the Spark JAR files directly in your JRuby program. Probably the right approach to take if your app  requirements are known and you don't need interactive access to Spark through JRuby. 
 2. Simply import all necessary Spark Java libraries into your JRuby program. Then you can load your code in "jirb" and interact with Spark.
@@ -160,7 +161,6 @@ Here I'm using a Spark "helper" library. All it does is put all the Spark librar
 ```ruby
 
 require 'spark_env_helper'
-
 
 
 
@@ -174,7 +174,7 @@ df = $spark.sql("select int(sum(TRANTIME*PERWT)/60) as hours_commuting
 df.show
 ```
 
-Before starting an interactive session you may wish to reduce Spark's default log level, otherwise you'll get a large amount of informational messages. Change the first setting in the /conf/log4j.properties from INFO,console to WARN (see the comments.)
+Before starting an interactive session you may wish to reduce Spark's default log level, otherwise you'll get a large amount of informational messages. Change the first setting in the /conf/log4j.properties from INFO,console to WARN (see the comments.) Spark will read the "log4j.properties" file in the "conf" directory located in the directory pointed to by your SPARK_HOME environment variable. If you're iteratively developing a performance critical task you should consider leaving the logging level on "INFO" because you can gain a lot of insight into how Spark distributes work and what resources Spark is using.
 
 The interactive session would look like
 
@@ -214,11 +214,46 @@ However, the Spark Parquet reader has other strengths. By breaking up the Parque
 
 With PyArrow you can save Parquet as "spark" type Parquet data; when constructing it manually, ensure "block groups" are around 1GB in size and consult Spark documentation for supported column data types. Sizes of "row groups"  need to be larger than the HDFS block size; this is 128mb by default but it's recommended to use larger HDFS block sizes for Spark and Hadoop.
 
+To calculate a good row group size first compute the approximate size of each row in the Parquet file by taking the data types of each column into account.
+
+For instance given the schema:
+
+	col1:int32, col2:int32, col3:int64, col4:double ......
+
+Compute the size in bytes:
+		
+	row_size =  4 + 4 + 8 + 8 + ....
+
+Then divide your target row group size by the row size in bytes:
+
+	rows_in_group = 1000000 / row_size
+
+
+##  Spark Next Steps
+
+*  Learn about submitting jobs to a Spark cluster with "spark-submit"
+* Learn about configuring Spark to run  on a cluster
+* Explore Spark tools beyond Spark SQL: <a href="https://spark.apache.org/mllib/"> Mllib</a> for machine learning,  and <a href="https://spark.apache.org/streaming/"> Spark Streaming</a> for incorporating streams of data (Kafka, ZeroMQ, Twitter, others) into your Spark workflow.
+
+
 #  Extreme Column Store Solutions
 
-These  two  products are designed for the fastest possible queries on analytic workloads. 
+The  following two  products are designed for the fastest possible queries on analytic workloads and support streaming data sources. 
+
+In the case of ClickHOuse you get a relatively conventional relational database interface without the multistage data processing tools of Spark; in the case of KDB you get a powerful but unconventional programming language to manipulate and access your data.
 
 ### Yandex ClickHouse
+
+Yandex -- the "Google of Russia" --  has open sourced their column store database and it's <a href="https://www.percona.com/blog/2017/03/17/column-store-database-benchmarks-mariadb-columnstore-vs-clickhouse-vs-apache-spark/"> quite impressive.</a>  Think of ClickHouse as a standard relational SQL database but tuned for analytic queries. In the linked benchmarks ?ClickHouse is compared with Maria DB Column Store and Spark with Parquet formatted data.
+
+The quick start <a href="https://clickhouse.yandex/"> guide.</a> is on the main page and shows how to install. Yandex offers Debian packages for Ubuntu so you can use "apt-get" to install, or you can use Docker images on other operating systems.
+
+ClickHouse can be run as a database server similar to any conventional DBMS like MySql or Postgres.  It supports bulk loading data into tables  from many data formats; it's actually the most convenient bulk loading system I've run across. See all <a href"https://clickhouse.yandex/docs/en/interfaces/formats/"> supported formats.</a>
+
+You can productively run ClickHouse on a single machine -- it's designed to use hardware very efficiently -- but it scales easily to multiple servers for more resiliency and performance.
+
+For a quick introduction to loading, querying and deploying the server, just read the <a href="https://clickhouse.yandex/tutorial.html"> tutorial.</a>
+
 
 ### Q and KDB
 
@@ -226,4 +261,8 @@ There's one more type of software out there which I'd consider the  expert power
 
 The "Q"  language is a humane coating of syntactic sugar for the "K" language; "J" is similar to "K". Both are descendents of APL. KDB and JDB are column oriented databases; unlike Parquet format they allow very fast appends / inserts, while keeping very fast query times and compact size. JDB supports a fairly friendly query language, though it's not SQL. The actual J and K languages are, like APL, extremely terse with single ASCII symbols used as keywords.
 
+KDB was designed to function as efficiently as possible on time series data speciffically tfor finance. Think of ticker data streaming into a database where you want to apply a model to the  most up-to-date information. Recently it is gaining use in <a href="https://news.efinancialcareers.com/us-en/284145/kdbq-banking-alternatives"> other fields as well.</a>
+
 If you need the absolute maximum query speed against a constantly updated database -- which Parquet and similar formats don't enable -- you need "K" and KDB+. There's a free non-commercial 32 bit version; the "J" and JDB combination is free, but it doesn't scale as well.
+
+Find video presentations <a href="https://www.youtube.com/channel/UCQmlgr0gb7eGiDAm9-FQkVQ"> here</a> and a basic <a href="https://code.kx.com/q/learn/"> Getting Started </a> tutorial. For a quick but impressive tour, check out <a href="https://code.kx.com/q4m3/1_Q_Shock_and_Awe/"> Q Shock and Awe.</a>
