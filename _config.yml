@@ -27,7 +27,7 @@ description: "The team and tech behind the world's largest demographic databases
 
 # This URL is the main adresse. Don't include a slash at the end.
 #
-url: "http://tech.popdata.org"
+url: "https://tech.popdata.org"
 baseurl: ""
 
 # This is for the editing function in _/includes/improve_content.html
@@ -40,7 +40,7 @@ improve_content: https://github.com/mnpopcenter/mnpopcenter.github.io/edit/gh-pa
 # Example: <img src="{{ site.urlimg }}/{{ post.image.title }}">
 # Markdown-Example for posts ![Image Text]({{ site.urlimg }}/image.jpg)
 #
-urlimg: "http://tech.popdata.org/images/"
+urlimg: "https://tech.popdata.org/images/"
 
 # Logo size is 600x80 pixels
 # Fran says logo isn't quite that size, actually...
