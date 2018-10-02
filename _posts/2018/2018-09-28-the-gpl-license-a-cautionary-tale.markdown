@@ -63,7 +63,7 @@ It gets even stranger when you dig into the FSF's answer to th FAQ question: [Wh
 >
 >By contrast, pipes, sockets and command-line arguments are communication mechanisms normally used between two separate programs. So when they are used for communication, the modules normally are separate programs. But if the semantics of the communication are intimate enough, exchanging complex internal data structures, that too could be a basis to consider the two parts as combined into a larger program.
 
-The interesting part of this question and answer is not whether we're distributing an aggreate or not (we'll talk about distribution more soon), but rather the insight this answer offers into what FSF considers to be a single program. They come back to "if the semantics of the communication are intimate enough", but also assert "this is a legal question, which ultimately judges will decide."
+The interesting part of this answer is not whether we're distributing an aggreate or not, but rather the insight this answer offers into what FSF considers to be a single program. They come back to "if the semantics of the communication are intimate enough", but also assert "this is a legal question, which ultimately judges will decide."
 
 However, I think it's fair to conclude at this point that in the opinion of the FSF, they want what we're doing to be bound by GPL. Our ipumsr library doesn't work without significant interaction with readr, so therefore in their eyes we've created a combined work.
 
