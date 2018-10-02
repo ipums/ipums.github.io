@@ -1,15 +1,23 @@
 ---
-title: "The GPL license: A Cautionary Tale"
+title: "The GPL License and Linking: Still Unclear After 30 Years"
 date: "2018-09-28 21:34"
 ---
 
 It all started with an simple idea from my colleague who maintains our [ipumsr R package](https://cran.r-project.org/web/packages/ipumsr/index.html), which we released on CRAN under the Mozilla Public License v2. His idea was "I'd like to modify the [readr package from CRAN](https://cran.r-project.org/web/packages/readr/index.html) to deal with hierarchical data so I can use it in ipumsr, but it has a GPLv3 license."
 
-From there, it got anything but simple.
+From there, it got anything but simple - we unwittingly waded into a decades-old debate.
 
-There are two key properties of the GPL that are critical to this discussion. Ther first is that it's a very "sticky" or "viral" license - it's what is known as a _strong copyleft_ license, which means that all derived works of the GPL'ed work must also be distributed under GPL. The second is that the GPL requires that the source code be freely available to anyone who wants it. Combined, these properties mean that you cannot use GPL code in any software system you intend to distribute (even as a cloud-based software as a service) unless you are willing to give your source code away under a GPL license too.
+# Understanding Why GPL Exists
 
-In contrast, our ipumsr package is released as MPLv2, which is the preferred license we use at IPUMS when releasing open source code. MPL is a _weak copyleft_ license, which means that if you modify the MPL code, you need to make those modifications available, but if you simply use our code you're not required to also make your own code available under MPL. We chose MPL because it strikes a good balance between keeping our own work freely available while not restricting what people can do with their software just because they find our library useful. In other words, we don't want to impose our licensing philosophy on other people beyond our own code.
+It's useful to spend a few minutes getting some background context on the GNU General Public License (GPL).
+
+Richard Stallman, author of the GPL and founder of the Free Software Foundation, wrote the first version of the Emacs text editor in 1975 and made the source freely available. In 1982, James Gosling wrote the first C version of Emacs. For a while, Gosling made the source code of his version freely available too, and Stallman subsequently used it in 1985 to create GNU Emacs. Later Gosling sold the rights to Gosling Emacs to UniPress, which then told Stallman to stop distributing the source code. Stallman was forced to comply. After that experience, he set out to create a license to ensure that would never happen again. He wanted to preserve access to the source code of any derivative software that benefited from free software.
+
+There are two key properties Stallman put into the GPL that are critical to this discussion. The first is that it's a very "sticky" or "viral" license. The GPL is what is known as a _strong copyleft_ license, which means that all derived works of the GPL'ed work must also be licensed under GPL if distributed. The second is that the GPL requires that the source code be freely available to anyone who wants it. Combined, these properties mean that you cannot use GPL code in any software system you intend to distribute (even as a cloud-based software as a service) unless you are willing to give your source code away under a GPL license too.
+
+# IPUMS, We Have a Problem
+
+In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2), which is the preferred license we use at IPUMS when releasing open source code. MPL is a _weak copyleft_ license, which means that if you modify MPL'ed code, you DO need to make those modifications available, but you're not required to also make your code that simply uses the MPL'ed code available under MPL. We chose MPL because it strikes a good balance between keeping our own work, including improvements to it, freely available while not restricting what people can do with their own software just because they find our library useful. In other words, we don't want to impose our licensing philosophy on other people beyond our own code.
 
 Sometimes the GPL sort of restriction and "viral license propagation" is what you want, but it's not what we want, so my colleague knew we had an issue to solve. He had some ideas about how to work around that and comply with GPL, and he was coming to me for a second opinion.
 
@@ -35,19 +43,19 @@ Let's first examine what the GPLv3 license itself has to say about this. The rel
 
 "Corresponding Source for a work means all the source code needed to...run the object code... Corresponding Source includes...the source code for shared libararies and dynamically linked subprograms that the work is specifically designed to require." Well, that sure makes it sound like if ipumsr imports readr, it has created a larger derivative work of readr.
 
-The (https://www.gnu.org/licenses/gpl-faq.html#GPLStaticVsDynamic)[GPL FAQ] confirms this strict interpretation:
+The [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html#GPLStaticVsDynamic) confirms this strict interpretation:
 
 >Linking a GPL covered work statically or dynamically with other modules is making a combined work based on the GPL covered work. Thus, the terms and conditions of the GNU General Public License cover the whole combination.
 
-I suppose the FSF's position isn't that surprising. Richard Stallman invented the GPL in 1989. Stallman is one of the world's foremost "Free as in Free Speech" free software proponents. Agree with his viewpoint or not, it makes perfect sense that his intent would be that anyone who uses GPL'ed code to build a software system should have to release their source code back to the world.
+I suppose this isn't that surprising. The GPL license was invented by Richard Stallman in 1989 (and is under the umbrella of the Free Software Foundation, the nonprofit he founder). Stallman is one of the world's foremost "Free as in Free Speech" free software proponents. Agree with his viewpoint or not, it starts to makes sense that his intent would be that anyone who uses GPL'ed code to build a derived software system should have to release their source code back to the world, and that his interpretation of what makes a derived system would be fairly broad.
 
-The FAQ goes on to say:
+On that latter point, the FAQ goes on to say:
 
 >If the main program dynamically links plug-ins, and they make function calls to each other and share data structures, we believe they form a single combined program, which must be treated as an extension of both the main program and the plug-ins. If the main program dynamically links plug-ins, but the communication between them is limited to invoking the ‘main’ function of the plug-in with some options and waiting for it to return, that is a borderline case.
 
-Now we're getting oddly situational about what does and does not constitute a combined work. That last bit about "only invoking main" is a bit confusing in how that would apply to the readr-ipumsr relationship. readr has a function to read a csv file. The file is an option to that function. Is that use case covered under this exception? Or because the function is returning a data structure which ipumsr is going to interact with, are we indeed creating a combined work? Not very clarifying.
+Now we're getting oddly situational about what does and does not constitute a combined work. That last bit about "only invoking main" is a bit confusing in how that would apply to the readr-hipread-ipumsr relationship. readr has a function to read a csv file which is used by hipread which is in turn used by ipumsr. The file to read is an option to that function. Is that use case covered under this exception? Or because the function is returning a data structure which ipumsr is going to interact with, are we indeed creating a combined work? Not very clarifying.
 
-It gets even stranger when you dig into the FSF's answer to this FAQ question: _What is the difference between an “aggregate” and other kinds of “modified versions”?_
+It gets even stranger when you dig into the FSF's answer to th FAQ question: [What is the difference between an “aggregate” and other kinds of “modified versions”?](https://www.gnu.org/licenses/gpl-faq.html#MereAggregation)
 
 >An “aggregate” consists of a number of separate programs, distributed together on the same CD-ROM or other media. The GPL permits you to create and distribute an aggregate, even when the licenses of the other software are nonfree or GPL-incompatible. The only condition is that you cannot release the aggregate under a license that prohibits users from exercising rights that each program's individual license would grant them.
 >
@@ -57,40 +65,38 @@ It gets even stranger when you dig into the FSF's answer to this FAQ question: _
 >
 >By contrast, pipes, sockets and command-line arguments are communication mechanisms normally used between two separate programs. So when they are used for communication, the modules normally are separate programs. But if the semantics of the communication are intimate enough, exchanging complex internal data structures, that too could be a basis to consider the two parts as combined into a larger program.
 
-The interesting part of this answer is not whether we've distributing an aggreate or not (we'll talk about distribution more soon), but the insight this answer offers into what FSF considers to be a single program. They come back to "if the semantics of the communication are intimate enough", but also assert "this is a legal question, which ultimately judges will decide."
+The interesting part of this question and answer is not whether we're distributing an aggreate or not (we'll talk about distribution more soon), but rather the insight this answer offers into what FSF considers to be a single program. They come back to "if the semantics of the communication are intimate enough", but also assert "this is a legal question, which ultimately judges will decide."
 
 However, I think it's fair to conclude at this point that in the opinion of the FSF, they want what we're doing to be bound by GPL. Our ipumsr library doesn't work without significant interaction with readr, so therefore in their eyes we've created a combined work.
 
-But what do others think? (reference Larry and others who fall in the "linking doesn't count" camp.)
+For a counterpoint, we can turn to Lawrence Lessig, general counsel of the Open Source Initiative. He wrote a concise article on his opinion of what constitutes a derivative work in 2003. His key conclusion is:
 
-Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforcibility of the GPL as the FSF wants it to be.
+>The meaning of derivative work will not be broadened to include software created by linking to library programs that were designed and intended to be used as library programs. When a company releases a scientific subroutine library, or a library of objects, for example, people who merely use the library, unmodified, perhaps without even looking at the source code, are not thereby creating derivative works of the library.
 
-# Are We Actually Distributing the GPLed Library?
+and he goes on to assert why he feels this is important:
 
-The second core question we need to explore is "Are we distributing any GPL code?"
+>You should care about this issue to encourage that free and open-source software be created without scaring proprietary software users away. We need to make sure that companies know, with some degree of certainty, when they've created a derivative work and when they haven't.
 
-The reason that's an important question is because lost in all of this thus far is the fact that copyleft only refers to the **distribution** of GPLed code. I can take all the GPLed code I want and build a completely proprietary system, as long as I'm the only one using it. So, are we distributing GPLed code?
+Malcolm Bain, a Barcelona lawyer, [explored this topic in depth](http://www.ifosslr.org/ojs/ifosslr/article/download/44/74) in a 2011 white paper, but frustratingly concludes, more or less, "it's unclear".
 
-With a language like R that has a central package repository, when someone downloads ipumsr from CRAN they're not downloading readr with ipumsr. Rather, ipumsr has a dependency on readr, and _the end user_ is the one who needs to satisfy that dependency by downloading readr. So, in one sense, it's the end user that's creating the derivative work by downloading GPL code onto their system to work with our MPL code.
+This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. And you can find plenty who say no, it doesnt. Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforcibility of the GPL as the FSF wants it to be.
 
-If that interpretation is valid, then we would not be considered to be distributing the GPLed library at all, and this whole copyleft business doesn't apply to us.
+In the meantime, this has set up a potentially huge issue in the R community - spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed libary makes code GPL-exposed, there's going to be an awful lot of scrambling in the R community.
 
-Even if this interpretation is valid, this isn't terribly fair to our users. After all, they're taking ipumsr and working it into _their_ code, so now _their_ code could be considered a larger combined work subject to GPL (depending on if and how they want to redistribute it) even though readr is two steps removed from their code. Boo. We ought to be able to do better than that.
+# LGPL: A Failed Attempt to Address This Problem
 
-There's not a lot of discussion out there around how GPL is meant to apply in a world with centralized package repositories and tools which assemble dependencies on the fly on the end user's system. GPL came into being when that was not a very common paradigm, and it hasn't really been discussed as a potential loophole that I've seen, but it's a topic that seems worthy of exploring further.
+By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subseuently released the first version of the GNU Libary General Public License, now known as the Lesser General Public License (LGPL) as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
 
-# Open Source Libraries and the GPL Don't Mix Well: Enter LGPL
+The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code, you give that modification back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." If someone writes a library and wants to ensure that the source code for modified versions of that library remain available, but does not care to require everyone using their library to have to make their own source code freely available, then the LGPL was designed for them.
 
-As we've now seen, the GPL can make writing and sharing libraries very confusing. This is partially because the GPL was written in a time when it was common to take all of the code your program needed, including libraries, compile it up as a single binary file, and ship it out on CDs, often as commercial software, without the source. Richard Stallman and the FSF wanted to prevent their code being used in that way. They wanted to keep the source code of any derivative software that benefited from free software freely available itself. In that context, the GPL makes a lot of sense.
+Unfortunately, the Free Software Foundation also [says to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the cool free functionality.
 
-It makes a lot less sense in the "open source is everywhere, interpreted language dominated, package repository driven, write something useful and throw it up on GitHub, take each other's libraries and build useful things any way you want" world that we live in today.
+For a license that's supposed to promote freedom, that seems rather restrictive.
 
-In fact, the need for something different was realized by the FSF way back in 1991, when they released the first version of the GNU Libary General Public License, now known as the Lesser General Public License, or LGPL. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
+Why so many libraries in the CRAN choose to use GPL instead of LGPL is curious to me, when LGPL would be so much less restrictive in terms of how their library could be used. If a library author's goal is to give a library to the world for it to benefit from no strings attached, then the GPL is not a good choice and LGPL would be much better.
 
-The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code, you give that modification back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." This license was envisioned for exactly the use case we have. If someone writes a library and wants to ensure that the source code for modified versions of that library remain available, but does not care to require everyone using their library to have to make their own source code freely available, then the LGPL was designed for them.
+The GPL is about enforcing the philosophy of the FSF strongly on others. That's a valid approach, but one with a lot of consequences. It's giving -less- freedom to the recipient and is restricting the use cases for which your code can be used. If you don't feel strongly about free software as a philosophical movement but rather tend to consider open source software from the more pragmatic, "good way to build good software" point of view, then the GPL is not the license for you.
 
-Why so many libraries in the CRAN choose to use GPL instead of LGPL is curious to me, when LGPL would be so much less restrictive in terms of how their library could be used. If a library author's goal is to give a library to the world for it to benefit from, no strings attached, then the GPL is not a good choice and LGPL would be much better. The GPL is really about enforcing the "free as in free speech" philosophy of the FSF pretty strongly on others. That's a totally valid approach, but one with a lot of consequences. It's giving -less- freedom to the recipient and is restricting the use cases for which your code can be used. If you don't feel strongly about free software as a philosophical movement, but rather tend to consider open source software from the more pragmatic, "good way to build good software" point of view, then the GPL is not the license for you.
+# So... What Do We Do?
 
-# What Do We Do?
-
-Certainly, the R community is full of examples of non-GPL libaries that depend on GPL libraries. Whether that's because those library authors are using the "simply using a library isn't creating a combined work" interpretation, or the "not distributing" interpretation, or that they're simply unaware of the licensing issue altogether, I don't know (though I suspect it's mostly the latter.)
+XXX TO BE COMPLETED XXX
