@@ -89,7 +89,7 @@ By 1991, shortly after the GPL was created, people started to realize that while
 
 The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code, you give that modification back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." If someone writes a library and wants to ensure that the source code for modified versions of that library remain available, but does not care to require everyone using their library to have to make their own source code freely available, then the LGPL was designed for them.
 
-Unfortunately, the Free Software Foundation also [says to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the cool free functionality.
+Unfortunately, the Free Software Foundation also [says to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the library functionality.
 
 For a license that's supposed to promote freedom, that seems rather restrictive.
 
