@@ -67,6 +67,8 @@ The interesting part of this answer is not whether we're distributing an aggreat
 
 However, I think it's fair to conclude at this point that in the opinion of the FSF, they want what we're doing to be bound by GPL. Our ipumsr library doesn't work without significant interaction with readr, so therefore in their eyes we've created a combined work.
 
+# Is the FSF Position Enforceable? 
+
 For a counterpoint, we can turn to Lawrence Lessig, general counsel of the Open Source Initiative. He wrote a concise article on his opinion of what constitutes a derivative work in 2003. His key conclusion is:
 
 >The meaning of derivative work will not be broadened to include software created by linking to library programs that were designed and intended to be used as library programs. When a company releases a scientific subroutine library, or a library of objects, for example, people who merely use the library, unmodified, perhaps without even looking at the source code, are not thereby creating derivative works of the library.
