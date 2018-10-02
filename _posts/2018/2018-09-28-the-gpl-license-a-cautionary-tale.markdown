@@ -81,8 +81,6 @@ Malcolm Bain, a Barcelona lawyer, [explored this topic in depth](http://www.ifos
 
 This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. And you can find plenty who say no, it doesnt. Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforcibility of the GPL as the FSF wants it to be.
 
-In the meantime, this has set up a potentially huge issue in the R community - spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed libary makes code GPL-exposed, there's going to be an awful lot of scrambling in the R community.
-
 # LGPL: A Failed Attempt to Address This Problem
 
 By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subseuently released the first version of the GNU Libary General Public License, now known as the Lesser General Public License (LGPL), as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
@@ -93,10 +91,14 @@ Unfortunately, the Free Software Foundation also [says to NOT use LGPL for libra
 
 For a license that's supposed to promote freedom, that seems rather restrictive.
 
-Why so many libraries in the CRAN choose to use GPL instead of LGPL is curious to me, when LGPL would be so much less restrictive in terms of how their library could be used. If a library author's goal is to give a library to the world for it to benefit from no strings attached, then the GPL is not a good choice and LGPL would be much better.
+# Where Are We Now?
+
+Why so many libraries in the CRAN choose to use GPL instead of LGPL is curious to me, when LGPL would be so much less restrictive in terms of how their library could be used. If a library author's goal is to give a library to the world for it to benefit from no strings attached, then the GPL is not a good choice and a weak copyleft or even permissive license would be much better.
 
 The GPL is about enforcing the philosophy of the FSF strongly on others. That's a valid approach, but one with a lot of consequences. It's giving -less- freedom to the recipient and is restricting the use cases for which your code can be used. If you don't feel strongly about free software as a philosophical movement but rather tend to consider open source software from the more pragmatic, "good way to build good software" point of view, then the GPL is not the license for you.
 
-# So... What Do We Do?
+As for the R community, this issue has set up a potentially huge problem. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed libary makes code GPL-exposed, there's going to be an awful lot of scrambling in the R community.
+
+# So... What Do We Do for Our Problem?
 
 XXX TO BE COMPLETED XXX
