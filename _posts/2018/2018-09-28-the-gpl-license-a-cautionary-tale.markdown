@@ -47,7 +47,7 @@ The [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html#GPLStaticVsDynamic) conf
 
 >Linking a GPL covered work statically or dynamically with other modules is making a combined work based on the GPL covered work. Thus, the terms and conditions of the GNU General Public License cover the whole combination.
 
-I suppose this isn't that surprising. The GPL license was invented by Richard Stallman in 1989 (and is under the umbrella of the Free Software Foundation, the nonprofit he founder). Stallman is one of the world's foremost "Free as in Free Speech" free software proponents. Agree with his viewpoint or not, it starts to makes sense that his intent would be that anyone who uses GPL'ed code to build a derived software system should have to release their source code back to the world, and that his interpretation of what makes a derived system would be fairly broad.
+I suppose this isn't that surprising. Stallman is one of the world's foremost "Free as in Free Speech" free software proponents. Agree with his viewpoint or not, it makes sense that his intent would be that anyone who uses GPL'ed code to build a derived software system should have to release their source code back to the world, and that his interpretation of what makes a derived system would be fairly broad.
 
 On that latter point, the FAQ goes on to say:
 
