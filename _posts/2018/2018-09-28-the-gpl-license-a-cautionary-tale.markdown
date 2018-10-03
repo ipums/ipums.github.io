@@ -1,9 +1,10 @@
 ---
 title: "The GPL License and Linking: Still Unclear After 30 Years"
 date: "2018-09-28 21:34"
+teaser: "The prevalence of GPL licensing for R libraries in CRAN, the challenge that creates for users, and the reckoning that the R community might not see coming."
 ---
 
-It all started with an simple idea from my colleague who maintains our [ipumsr R package](https://cran.r-project.org/web/packages/ipumsr/index.html), which we released on CRAN under the Mozilla Public License v2. His idea was "I'd like to modify the [readr package from CRAN](https://cran.r-project.org/web/packages/readr/index.html) to deal with hierarchical data so I can use it in ipumsr, but it has a GPLv3 license."
+It all started with an simple idea from my colleague who maintains our [ipumsr R package](https://cran.r-project.org/web/packages/ipumsr/index.html), which we released on CRAN under the Mozilla Public License v2. His idea was "I'd like to fork the [readr package from CRAN](https://cran.r-project.org/web/packages/readr/index.html) and add functionality to deal with hierarchical data so I can use it in ipumsr. But readr has a GPLv3 license."
 
 From there, it got anything but simple - we unwittingly waded into a decades-old debate.
 
@@ -35,7 +36,7 @@ When we started researching our proposed solution to see if it met all licensing
 
 **It seems that there's quite a bit of debate around whether or not simply _using_ a GPL'ed library (e.g. via an `import` or `use` statement) in your code constitutes creating a derived work and therefore subjects your code to the GPL license!**
 
-At first, this seemed like it couldn't possibly be true. But the more we researched it, the more confusing it became.
+Just _using_ hipread in ipumsr might require ipumsr to be released under GPL? Yikes. And the more we researched it, the more confusing it became.
 
 Let's first examine what the GPLv3 license itself has to say about this. The relevant section is titled "Corresponding Source" in the license text:
 
@@ -81,24 +82,42 @@ Malcolm Bain, a Barcelona lawyer, [explored this topic in depth](http://www.ifos
 
 This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. And you can find plenty who say no, it doesnt. Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforcibility of the GPL as the FSF wants it to be.
 
-# LGPL: A Failed Attempt to Address This Problem
+# LGPL: A Failed(?) Attempt to Address This Problem
 
 By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subseuently released the first version of the GNU Libary General Public License, now known as the Lesser General Public License (LGPL), as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
 
 The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code, you give that modification back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." If someone writes a library and wants to ensure that the source code for modified versions of that library remain available, but does not care to require everyone using their library to have to make their own source code freely available, then the LGPL was designed for them.
 
-Unfortunately, the Free Software Foundation also [says to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the library functionality.
+Unfortunately, the Free Software Foundation doesn't seem to like their own LGPL license much. They specifically [encourage folks to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the library functionality.
 
-For a license that's supposed to promote freedom, that seems rather restrictive.
+As a result, LGPL hasn't had that much uptake. According to [this study](https://resources.whitesourcesoftware.com/blog-whitesource/top-10-open-source-software-licenses-of-2016-and-key-trends), as of 2016 LGPL was 6% of the open source license "market", whereas GPL(v2 and v3) was 34%.
 
-# Where Are We Now?
+# So... What Do We Do for Our ipumsr Problem?
 
-Why so many libraries in the CRAN choose to use GPL instead of LGPL is curious to me, when LGPL would be so much less restrictive in terms of how their library could be used. If a library author's goal is to give a library to the world for it to benefit from no strings attached, then the GPL is not a good choice and a weak copyleft or even permissive license would be much better.
+It seems we're left with three less-than-ideal choices:
 
-The GPL is about enforcing the philosophy of the FSF strongly on others. That's a valid approach, but one with a lot of consequences. It's giving -less- freedom to the recipient and is restricting the use cases for which your code can be used. If you don't feel strongly about free software as a philosophical movement but rather tend to consider open source software from the more pragmatic, "good way to build good software" point of view, then the GPL is not the license for you.
+1. Release ipumsr under the GPL, which goes against our desire to let anyone benefit from ipumsr, whether that's free software that prefers to use a different license than GPL, or commercial software, or whatever.
+1. Jump in with many, many others in the R community (and elsewhere) and use GPL'ed libraries in our non-GPL'ed code, and wait for the legal community to clarify the issue, if ever.
+1. Write our own library that provides the same functionality as readr and license it as we wish.
 
-As for the R community, this issue has set up a potentially huge problem. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed libary makes code GPL-exposed, there's going to be an awful lot of scrambling in the R community.
+The goal we're trying to achieve here is to simply make IPUMS data easier to use for R users. We don't charge for IPUMS data, and if you know anything about our mission, we strongly believe in keeping data free. We're not going to profit in any way from incorporating readr in our library.
 
-# So... What Do We Do for Our Problem?
+It's true that someone downstream may take ipumsr and use it in a way that they profit from it. I don't know how the authors of readr would feel about that. At IPUMS, we'd be ok with that. If they modified our library, we'd want those modifications to be released back to the public, and the MPLv2 license that we use formalizes that wish. But their own code that simply uses our library? That's for them to decide.
 
-XXX TO BE COMPLETED XXX
+So, we're going with option 2. It doesn't feel great, but we're going with the option that feels most pragmatic and is in the spirit with being as helpful as we can to the R community. If the enforcibility of the GPL on code that simply uses a library is ever sorted out (and it's been 30 years, so we're not holding our breath) we will of course adjust accordingly, but until then, we're just happy that our library will be available for others to use with few strings attached. 
+
+And on a pragmatic note, ipumsr already imports multiple GPL'ed packages before this issue every came onto our radar, so we're not creating any additional exposure we didn't already have. That shows our prior ignorance on this topic. But it's also completely inline with what hundreds if not thousands of other CRAN packages are doing today, so perhaps our ignorance can be forgiven?
+
+# What About the R Community at Large?
+
+In full disclosure, I am not a member of the R community. I've never written R code beyond a few tutorials I did to get the flavor of it. But as an IT Director that's trying to provide guidance to our organization about how we can share our code with the world in the most usable way, the GPL is a big mess that I would prefer to avoid altogether, at least until the linking issue is sorted out.
+
+And yet, the R community seems to prefer GPL as one of its favored licenses. If this is due to the community being especially principled about free software, I absolutely respect that. If, on the other hand, this propagation of GPL to so many libraries is simply due to folks being unaware of the implications, perhaps it's time for a reckoning around this topic.
+
+Regardless of the motivations for using GPL for so many libraries, the R community definitely has a potential looming disaster around the GPL linking issue. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed libary makes code GPL-exposed, there's going to be an awful lot of scrambling that would need to happen.
+
+As it turns out, I don't need to merely wonder about the community's intentions. The R Consortium [conducted a survey](https://www.r-consortium.org/blog/2018/04/12/package-licensing-would-the-r-community-like-some-help-feedback-from-the-trenches) last year on this topic. Here's some of what they found:
+* 60% of respondents want other software developers to be able to use their package(s) without imposing license requirements on the software that uses their package (via API), with only 15% disagreeing.
+* The most popular license used among respondents is ‘GPL-3’ at 35% with ‘GPL-2 | GPL-3’ a close second at 34%, and ‘GPL-2’ next at 24%.
+
+Those two findings confirm that there is indeed a lot of confusion about licensing in the R community. Perhaps it is time for that reckoning after all.
