@@ -62,7 +62,7 @@ On that latter point, the FAQ goes on to say:
 
 Now we're getting oddly situational about what does and does not constitute a combined work. That last bit about "only invoking main" is a bit confusing in how that would apply to the readr-hipread-ipumsr relationship. readr has a function to read a csv file which is used by hipread which is in turn used by ipumsr. The file to read is an option to that function. Is that use case covered under this exception? Or because the function is returning a data structure which ipumsr is going to interact with, are we indeed creating a combined work? Not very clarifying.
 
-It gets even stranger when you dig into the FSF's answer to th FAQ question: [What is the difference between an “aggregate” and other kinds of “modified versions”?](https://www.gnu.org/licenses/gpl-faq.html#MereAggregation)
+It gets even stranger when you dig into the FSF's answer to this FAQ question: [What is the difference between an “aggregate” and other kinds of “modified versions”?](https://www.gnu.org/licenses/gpl-faq.html#MereAggregation)
 
 >Where's the line between two separate programs, and one program with two parts? This is a legal question, which ultimately judges will decide. We believe that a proper criterion depends both on the mechanism of communication (exec, pipes, rpc, function calls within a shared address space, etc.) and the semantics of the communication (what kinds of information are interchanged).
 >
