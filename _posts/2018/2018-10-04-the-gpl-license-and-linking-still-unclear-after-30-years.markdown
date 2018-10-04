@@ -34,7 +34,7 @@ Sometimes the GPL sort of restriction and "viral license propagation" of a stron
 
 # Let's Create an Intermediary
 
-Our idea was that we would create a third package, "hipread" (hierarchical ipums reader). hipread would be a fork of readr, which we would then modify to add the hierarchical support. We would release hipread as GPL, which is naturally required since we would take GPL readr code and modified it to make hipread.
+Our idea was that we would create a third package, "hipread" (hierarchical ipums reader). hipread would be a fork of readr, which we would then modify to add the hierarchical support. We would release hipread as GPL, which is naturally required since we would take GPL readr code and modify it to make hipread.
 
 Essentially, hipread would be a small wrapper/extension of readr, we'd release it as GPL, we'd use that library in our ipumsr library, and we're all good. Right?
 
