@@ -47,7 +47,7 @@ Let's first examine what the GPLv3 license itself has to say about this. The rel
 
 >The “Corresponding Source” for a work in object code form means all the source code needed to generate, install, and (for an executable work) run the object code and to modify the work, including scripts to control those activities. However, it does not include the work's System Libraries, or general-purpose tools or generally available free programs which are used unmodified in performing those activities but which are not part of the work. For example, Corresponding Source includes interface definition files associated with source files for the work, and the source code for shared libraries and dynamically linked subprograms that the work is specifically designed to require, such as by intimate data communication or control flow between those subprograms and other parts of the work.
 
-"Corresponding Source for a work means all the source code needed to...run the object code... Corresponding Source includes...the source code for shared libararies and dynamically linked subprograms that the work is specifically designed to require." Well, that sure makes it sound like if ipumsr imports readr, it has created a larger derivative work of readr.
+"Corresponding Source for a work means all the source code needed to...run the object code... Corresponding Source includes...the source code for shared libraries and dynamically linked subprograms that the work is specifically designed to require." Well, that sure makes it sound like if ipumsr imports readr, it has created a larger derivative work of readr.
 
 The [GPL FAQ](https://www.gnu.org/licenses/gpl-faq.html#GPLStaticVsDynamic) confirms this strict interpretation:
 
@@ -69,7 +69,7 @@ It gets even stranger when you dig into the FSF's answer to this FAQ question: [
 >
 >By contrast, pipes, sockets and command-line arguments are communication mechanisms normally used between two separate programs. So when they are used for communication, the modules normally are separate programs. But if the semantics of the communication are intimate enough, exchanging complex internal data structures, that too could be a basis to consider the two parts as combined into a larger program.
 
-The interesting part of this answer is not whether we're distributing an aggreate or not, but rather the insight this answer offers into what FSF considers to be a single program. They come back to "if the semantics of the communication are intimate enough", but also assert "this is a legal question, which ultimately judges will decide."
+The interesting part of this answer is not whether we're distributing an aggregate or not, but rather the insight this answer offers into what FSF considers to be a single program. They come back to "if the semantics of the communication are intimate enough", but also assert "this is a legal question, which ultimately judges will decide."
 
 However, I think it's fair to conclude at this point that in the opinion of the FSF, they want what we're doing to be bound by GPL. Our ipumsr library doesn't work without significant interaction with readr, so therefore in their eyes we've created a combined work.
 
@@ -85,11 +85,11 @@ and he goes on to assert why he feels this is important:
 
 Malcolm Bain, a Barcelona lawyer, [explored this topic in depth](http://www.ifosslr.org/ojs/ifosslr/article/download/44/74) in a 2011 white paper, but frustratingly concludes, more or less, "it's unclear".
 
-This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. And you can find plenty who say no, it doesnt. Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforcibility of the GPL as the FSF wants it to be.
+This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. And you can find plenty who say "no, it doesn't". Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforceability of the GPL as the FSF wants it to be.
 
 # LGPL: A Failed(?) Attempt to Address This Problem
 
-By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subseuently released the first version of the GNU Libary General Public License, now known as the Lesser General Public License (LGPL), as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
+By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subsequently released the first version of the GNU Library General Public License, now known as the Lesser General Public License (LGPL), as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
 
 The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code, you give that modification back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." If someone writes a library and wants to ensure that the source code for modified versions of that library remain available, but does not care to require everyone using their library to have to make their own source code freely available, then the LGPL was designed for them.
 
@@ -109,7 +109,7 @@ The goal we're trying to achieve here is to simply make IPUMS data easier to use
 
 It's true that someone downstream may take ipumsr and use it in a way that they profit from it. I don't know how the authors of readr would feel about that. At IPUMS, we'd be ok with that. If they modified our library, we'd want those modifications to be released back to the public, and the MPLv2 license that we use formalizes that wish. But their own code that simply uses our library? That's for them to decide.
 
-So, we're going with option 2. It doesn't feel great, but we're going with the option that feels most pragmatic and is in the spirit with being as helpful as we can to the R community. If the enforcibility of the GPL on code that simply uses a library is ever sorted out (and it's been 30 years, so we're not holding our breath) we will of course adjust accordingly, but until then, we're just happy that our library will be available for others to use with few strings attached.
+So, we're going with option 2. It doesn't feel great, but we're going with the option that feels most pragmatic and is in the spirit with being as helpful as we can to the R community. If the enforceability of the GPL on code that simply uses a library is ever sorted out (and it's been 30 years, so we're not holding our breath) we will of course adjust accordingly, but until then, we're just happy that our library will be available for others to use with few strings attached.
 
 And on a pragmatic note, ipumsr already imports multiple GPL'ed packages before this issue every came onto our radar, so we're not creating any additional exposure we didn't already have. That shows our prior ignorance on this topic. But it's also completely inline with what hundreds if not thousands of other CRAN packages are doing today, so perhaps our ignorance can be forgiven?
 
@@ -119,7 +119,7 @@ In full disclosure, I am not a member of the R community. I've never written R c
 
 And yet, the R community seems to prefer GPL as one of its favored licenses. If this is due to the community being especially principled about free software, I absolutely respect that. If, on the other hand, this propagation of GPL to so many libraries is simply due to folks being unaware of the implications, perhaps it's time for a reckoning around this topic.
 
-Regardless of the motivations for using GPL for so many libraries, the R community definitely has a potential looming disaster around the GPL linking issue. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed libary makes code GPL-exposed, there's going to be an awful lot of scrambling that would need to happen.
+Regardless of the motivations for using GPL for so many libraries, the R community definitely has a potential looming disaster around the GPL linking issue. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed library makes code GPL-exposed, there's going to be an awful lot of scrambling that would need to happen.
 
 As it turns out, I don't need to merely wonder about the community's intentions. The R Consortium [conducted a survey](https://www.r-consortium.org/blog/2018/04/12/package-licensing-would-the-r-community-like-some-help-feedback-from-the-trenches) last year on this topic. Here's some of what they found:
 * 60% of respondents want other software developers to be able to use their package(s) without imposing license requirements on the software that uses their package (via API), with only 15% disagreeing.
