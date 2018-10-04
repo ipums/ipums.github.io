@@ -23,7 +23,7 @@ There are two key properties Stallman put into the GPL that are critical to this
 
 # IPUMS, We Have a Problem
 
-In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2), which is the [preferred license we use at IPUMS][] when releasing open source code. MPL is a _weak copyleft_ license, which means that if you modify MPL'ed code and distribute it, you need to make the source code for those modifications available, but you're not required to also make available your code that simply uses the MPL'ed code. We chose MPL because it strikes a good balance between keeping our own work, including improvements to it, freely available while not restricting what people can do with their own software just because they find our library useful. In other words, we don't want to impose our licensing philosophy on other people beyond our own code.
+In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2), which is the [preferred license we use at IPUMS][] when releasing open source code. MPL is a _weak copyleft_ license, which means that if you modify MPL'ed code and distribute it, you need to make the source code for those modifications available, but you're not required to also make available your code that simply uses the MPL'ed code. We chose MPL because it strikes a good balance between keeping our own work, including improvements to it, freely available while not restricting what people can do with their own software just because they find our library useful. In other words, we don't want to impose our licensing philosophy on other people beyond our own code.  We want to preserve _their_ freedoom to license _their_ code as they wish.
 
 [preferred license we use at IPUMS]: /open-sourcing-code-with-intention/
 
