@@ -107,6 +107,13 @@ Unfortunately, the Free Software Foundation doesn't seem to like their own LGPL 
 
 As a result, LGPL hasn't had that much uptake. According to [this study](https://resources.whitesourcesoftware.com/blog-whitesource/top-10-open-source-software-licenses-of-2016-and-key-trends), as of 2016 LGPL was 6% of the open source license "market", whereas GPL(v2 and v3) was 34%.
 
+```
+TO DO:  Is that a reasonable conclusion to draw from market share?
+        Would it be more appropriate to look at license usage across type
+        of software (e.g. applications vs libraries).  More specifically,
+        what is the usage of LGPL across open-source libraries?
+```
+
 # So... What Do We Do for Our ipumsr Problem?
 
 It seems we're left with three less-than-ideal choices:
