@@ -23,7 +23,7 @@ There are two key properties Stallman put into the GPL that are critical to this
 
 # IPUMS, We Have a Problem
 
-In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2), which is the preferred license we use at IPUMS when releasing open source code. MPL is a _weak copyleft_ license, which means that if you modify MPL'ed code, you DO need to make those modifications available, but you're not required to also make available your code that simply uses the MPL'ed code. We chose MPL because it strikes a good balance between keeping our own work, including improvements to it, freely available while not restricting what people can do with their own software just because they find our library useful. In other words, we don't want to impose our licensing philosophy on other people beyond our own code.
+In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2), which is the preferred license we use at IPUMS when releasing open source code. MPL is a _weak copyleft_ license, which means that if you modify MPL'ed code and distribute it, you need to make the source code for those modifications available, but you're not required to also make available your code that simply uses the MPL'ed code. We chose MPL because it strikes a good balance between keeping our own work, including improvements to it, freely available while not restricting what people can do with their own software just because they find our library useful. In other words, we don't want to impose our licensing philosophy on other people beyond our own code.
 
 Sometimes the GPL sort of restriction and "viral license propagation" is what you want, but it's not what we want, so my colleague knew we had an issue to solve. He had some ideas about how to work around that and comply with GPL, and he was coming to me for a second opinion.
 
@@ -89,9 +89,13 @@ This pattern of confusion is reflected across the internet as a whole. You can f
 
 # LGPL: A Failed(?) Attempt to Address This Problem
 
-By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subsequently released the first version of the GNU Library General Public License, now known as the Lesser General Public License (LGPL), as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a "weak copyleft" license and it's very similar to the MPL that we use in that regard.
+By 1991, shortly after the GPL was created, people started to realize that while the GPL is useful for protecting whole software applications, it created complications for library code. The FSF subsequently released the first version of the GNU Library General Public License, now known as the Lesser General Public License (LGPL), as a compromise between the _strong copyleft_ of the GPL and the permissive nature of licenses like the MIT license. The LGPL is a _weak copyleft_ license and it's very similar to the MPL that we use.
 
-The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code, you give that modification back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." If someone writes a library and wants to ensure that the source code for modified versions of that library remain available, but does not care to require everyone using their library to have to make their own source code freely available, then the LGPL was designed for them.
+The basic idea of a "weak copyleft" license is "I want to ensure that if you modify my code and distribute the modified code, then you give the source code for those modifications back to the world freely, but I really don't care to restrict how you can simply use my code as part of your larger system." If someone writes a library and wants to ensure:
+*  that the source code is available for modified copies of the library that are distributed, and
+*  that application developers using that library have the freedom to license their application code as they want,
+
+then the LGPL was designed for those library developers.
 
 Unfortunately, the Free Software Foundation doesn't seem to like their own LGPL license much. They specifically [encourage folks to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the library functionality.
 
@@ -107,7 +111,7 @@ It seems we're left with three less-than-ideal choices:
 
 The goal we're trying to achieve here is to simply make IPUMS data easier to use for R users. We don't charge for IPUMS data, and if you know anything about our mission, we strongly believe in keeping data free. We're not going to profit in any way from incorporating readr in our library.
 
-It's true that someone downstream may take ipumsr and use it in a way that they profit from it. I don't know how the authors of readr would feel about that. At IPUMS, we'd be ok with that. If they modified our library, we'd want those modifications to be released back to the public, and the MPLv2 license that we use formalizes that wish. But their own code that simply uses our library? That's for them to decide.
+It's true that someone downstream may take ipumsr and use it in a way that they profit from it. I don't know how the authors of readr would feel about that. At IPUMS, we'd be ok with that. If they distributed a modified version of our library, we'd want the source code for those modifications to be released back to the public, and the MPLv2 license that we use formalizes that wish. But their own code that simply uses our library? That's for them to decide.
 
 So, we're going with option 2. It doesn't feel great, but we're going with the option that feels most pragmatic and is in the spirit with being as helpful as we can to the R community. If the enforceability of the GPL on code that simply uses a library is ever sorted out (and it's been 30 years, so we're not holding our breath) we will of course adjust accordingly, but until then, we're just happy that our library will be available for others to use with few strings attached.
 
