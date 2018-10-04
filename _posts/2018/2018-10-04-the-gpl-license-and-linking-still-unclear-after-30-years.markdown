@@ -77,11 +77,7 @@ However, I think it's fair to conclude at this point that in the opinion of the 
 
 # Is the FSF Position Enforceable?
 
-For a counterpoint, we can turn to Lawrence Lessig, general counsel of the Open Source Initiative. He wrote a concise article on his opinion of what constitutes a derivative work in 2003. His key conclusion is:
-
-```
-TO DO: is there a link or at least a citation for this article?
-```
+For a counterpoint, we can turn to Larry Rosen, former general counsel of the Open Source Initiative. He wrote [a concise Linux Journal  article](https://www.linuxjournal.com/article/6366) on his opinion of what constitutes a derivative work in 2003. His key conclusion is:
 
 >The meaning of derivative work will not be broadened to include software created by linking to library programs that were designed and intended to be used as library programs. When a company releases a scientific subroutine library, or a library of objects, for example, people who merely use the library, unmodified, perhaps without even looking at the source code, are not thereby creating derivative works of the library.
 
@@ -103,16 +99,11 @@ The basic idea of a "weak copyleft" license is "I want to ensure that if you mod
 
 then the LGPL was designed for those library developers.
 
-Unfortunately, the Free Software Foundation doesn't seem to like their own LGPL license much. They specifically [encourage folks to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the library functionality.
+Unfortunately, the Free Software Foundation doesn't seem to like their own weak copyleft license much. In addition to intentionally labeling it "Lesser", they  specifically [encourage folks to NOT use LGPL for libraries](https://www.gnu.org/licenses/why-not-lgpl.en.html). They argue that doing so allows free libraries to be used in proprietary software, and that we shouldn't be giving proprietary software companies any more advantages. Rather, we should create unique functionality, release it as GPL, and force companies to release their code for free if they want to use the library functionality.
 
-As a result, LGPL hasn't had that much uptake. According to [this study](https://resources.whitesourcesoftware.com/blog-whitesource/top-10-open-source-software-licenses-of-2016-and-key-trends), as of 2016 LGPL was 6% of the open source license "market", whereas GPL(v2 and v3) was 34%.
+LGPL has remained much less common than the GPL. According to [this study](https://resources.whitesourcesoftware.com/blog-whitesource/top-10-open-source-software-licenses-of-2016-and-key-trends), as of 2016 LGPL was 6% of the open source license "market", whereas GPL(v2 and v3) was 34%.
 
-```
-TO DO:  Is that a reasonable conclusion to draw from market share?
-        Would it be more appropriate to look at license usage across type
-        of software (e.g. applications vs libraries).  More specifically,
-        what is the usage of LGPL across open-source libraries?
-```
+In any case, readr uses GPL, not LGPL, so LGPL can't help us with our ipumsr problem.
 
 # So... What Do We Do for Our ipumsr Problem?
 
@@ -132,11 +123,11 @@ And on a pragmatic note, ipumsr already imports multiple GPL'ed packages before 
 
 # What About the R Community at Large?
 
-In full disclosure, I am not a member of the R community. I've never written R code beyond a few tutorials I did to get the flavor of it. But as an IT Director that's trying to provide guidance to our organization about how we can share our code with the world in the most usable way, the GPL is a big mess that I would prefer to avoid altogether, at least until the linking issue is sorted out.
+In full disclosure, I am not a member of the R community. I've never written R code beyond a few tutorials I did to get the flavor of it. But as an IT Director who is trying to provide guidance to our organization about how we can share our code with the world in the most usable way, the GPL is a big mess that I would prefer to avoid altogether, at least until the linking issue is sorted out.
 
-And yet, the R community seems to prefer GPL as one of its favored licenses. If this is due to the community being especially principled about free software, I absolutely respect that. If, on the other hand, this propagation of GPL to so many libraries is simply due to folks being unaware of the implications, perhaps it's time for a reckoning around this topic.
+Usage of the GPL [has been in general decline](https://resources.whitesourcesoftware.com/blog-whitesource/open-source-licensing-trends-2017-vs-2016), at least partly because of this linking issue. And yet, the R community seems to prefer GPL as one of its favored licenses. If this is due to the community being especially principled about free software, I absolutely respect that. If, on the other hand, this propagation of GPL to so many libraries is simply due to folks being unaware of the implications, perhaps it's time for a reckoning around this topic.
 
-Regardless of the motivations for using GPL for so many libraries, the R community definitely has a potential looming disaster around the GPL linking issue. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed library makes code GPL-exposed, there's going to be an awful lot of scrambling that would need to happen.
+Putting aside for a moment the motivations for using GPL for so many libraries, the R community definitely has a potential looming disaster around the GPL linking issue. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed library requires that code to also be GPL'ed, there's going to be an awful lot of scrambling that would need to happen.
 
 As it turns out, I don't need to merely wonder about the community's intentions. The R Consortium [conducted a survey](https://www.r-consortium.org/blog/2018/04/12/package-licensing-would-the-r-community-like-some-help-feedback-from-the-trenches) last year on this topic. Here's some of what they found:
 * 60% of respondents want other software developers to be able to use their package(s) without imposing license requirements on the software that uses their package (via API), with only 15% disagreeing.
