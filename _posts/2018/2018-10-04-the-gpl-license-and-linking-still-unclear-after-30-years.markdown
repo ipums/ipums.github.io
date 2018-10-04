@@ -30,7 +30,7 @@ In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2)
 
 It's also worth noting the third major class of license, the _permissive_ license. The best known examples of a permissive license are probably the MIT and Apache licenses. The main idea of a permissive license is to place a few restrictions as possible on the use of the code (not even requiring that distributed modifications of the code also be released as open source). If you look at [the MIT license](https://opensource.org/licenses/MIT) for example, it essentially says only that you must keep the copyright notice present in the code, and that if you break anything you're on your own. That's it.
 
-Sometimes the GPL sort of restriction and "viral license propagation" os a strong copyleft license is what you want, but it's not what we want, so my colleague knew we had an issue to solve. He had some ideas about how to work around that and comply with GPL, and he was coming to me for a second opinion.
+Sometimes the GPL sort of restriction and "viral license propagation" of a strong copyleft license is what you want, but it's not what we want, so my colleague knew we had an issue to solve. He had some ideas about how to work around that and comply with GPL, and he was coming to me for a second opinion.
 
 # Let's Create an Intermediary
 
