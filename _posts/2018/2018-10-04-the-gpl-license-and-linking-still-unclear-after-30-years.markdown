@@ -1,6 +1,7 @@
 ---
 title: "The GPL License and Linking: Still Unclear After 30 Years"
 teaser: "The prevalence of GPL licensing for R libraries in CRAN, the challenge that creates for users, and the reckoning that the R community might not see coming."
+author: fran
 categories:
   - Code
   - DevCulture
