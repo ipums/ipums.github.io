@@ -27,7 +27,9 @@ In contrast, our ipumsr package is released as Mozilla Public License v2 (MPLv2)
 
 [preferred license we use at IPUMS]: /open-sourcing-code-with-intention/
 
-Sometimes the GPL sort of restriction and "viral license propagation" is what you want, but it's not what we want, so my colleague knew we had an issue to solve. He had some ideas about how to work around that and comply with GPL, and he was coming to me for a second opinion.
+It's also worth noting the third major class of license, the _permissive_ license. The best known examples of a permissive license are probably the MIT and Apache licenses. The main idea of a permissive license is to place a few restrictions as possible on the use of the code (not even requiring that distributed modifications of the code also be released as open source). If you look at [the MIT license](https://opensource.org/licenses/MIT) for example, it essentially says only that you must keep the copyright notice present in the code, and that if you break anything you're on your own. That's it.
+
+Sometimes the GPL sort of restriction and "viral license propagation" os a strong copyleft license is what you want, but it's not what we want, so my colleague knew we had an issue to solve. He had some ideas about how to work around that and comply with GPL, and he was coming to me for a second opinion.
 
 # Let's Create an Intermediary
 
@@ -125,7 +127,9 @@ And on a pragmatic note, ipumsr already imports multiple GPL'ed packages before 
 
 In full disclosure, I am not a member of the R community. I've never written R code beyond a few tutorials I did to get the flavor of it. But as an IT Director who is trying to provide guidance to our organization about how we can share our code with the world in the most usable way, the GPL is a big mess that I would prefer to avoid altogether, at least until the linking issue is sorted out.
 
-Usage of the GPL [has been in general decline](https://resources.whitesourcesoftware.com/blog-whitesource/open-source-licensing-trends-2017-vs-2016), at least partly because of this linking issue. And yet, the R community seems to prefer GPL as one of its favored licenses. If this is due to the community being especially principled about free software, I absolutely respect that. If, on the other hand, this propagation of GPL to so many libraries is simply due to folks being unaware of the implications, perhaps it's time for a reckoning around this topic.
+Usage of the GPL [has been in general decline](https://resources.whitesourcesoftware.com/blog-whitesource/open-source-licensing-trends-2017-vs-2016), along with the other copyleft licenses. In fact, between 2012 and 2018, permissive licenses overtook copyleft licenses as the most commonly used open source licenses.
+
+And yet, the R community seems to prefer GPL as one of its favored licenses. If this is due to the community being especially principled about free software, I absolutely respect that. If, on the other hand, this propagation of GPL to so many libraries is simply due to folks being unaware of the implications, perhaps it's time for a reckoning around this topic.
 
 Putting aside for a moment the motivations for using GPL for so many libraries, the R community definitely has a potential looming disaster around the GPL linking issue. Spend a few minutes clicking around R's CRAN package repository and see just how many non-GPL packages are importing GPL'ed packages. Just looking at packages which import readr, a random sampling showed almost half of them were distributed with licenses other than GPL. If a court ever were to rule that merely importing a GPL'ed library requires that code to also be GPL'ed, there's going to be an awful lot of scrambling that would need to happen.
 
