@@ -88,9 +88,13 @@ and he goes on to assert why he feels this is important:
 
 >You should care about this issue to encourage that free and open-source software be created without scaring proprietary software users away. We need to make sure that companies know, with some degree of certainty, when they've created a derivative work and when they haven't.
 
-Malcolm Bain, a Barcelona lawyer, [explored this topic in depth](http://www.ifosslr.org/ojs/ifosslr/article/download/44/74) in a 2011 white paper, but frustratingly concludes, more or less, "it's unclear".
+Rosen speaks in more depth about the topic as it specifically relates to the GPL in a 3-page white paper titled ["The Unreasonable Fear of Infection"](http://www.rosenlaw.com/html/GPL.pdf) and comes to the same strong conclusion that linking to GPL code is not enough to meet the definition of a derivative work.
 
-This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. And you can find plenty who say "no, it doesn't". Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforceability of the GPL as the FSF wants it to be.
+Malcolm Bain, a Barcelona lawyer, also [explored this topic in depth](http://www.ifosslr.org/ojs/ifosslr/article/download/44/74) in a 2011 white paper, but frustratingly concludes, more or less, "it's unclear".
+
+This pattern of confusion is reflected across the internet as a whole. You can find plenty of people who argue that using a library does expose your code to the GPL conditions. You can find plenty who say no, it doesn't.
+
+Ultimately, it has not been sorted out in a court yet, so there's no clear answer as to the enforceability of the GPL as the FSF wants it to be. In the meantime, lots of folks are [avoiding the GPL](https://www.apache.org/licenses/GPL-compatibility.html) because of this uncertainty.
 
 # LGPL: A Failed(?) Attempt to Address This Problem
 
