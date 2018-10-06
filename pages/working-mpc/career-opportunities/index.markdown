@@ -7,11 +7,7 @@ author: isrdi-it
 permalink: /working-mpc/career-opportunities/
 ---
 
-We currently have the following job opportunities:
-
-## Data Engineer
-
-We're seeking a data engineer to join our team and work on some large scale census data linking projects! More information about this opportunity, including application instructions, is available [on the the U's job board](http://z.umn.edu/dataengineer2018).
+We currently don't have any openings at ISRDI IT. 
 
 ---
 
