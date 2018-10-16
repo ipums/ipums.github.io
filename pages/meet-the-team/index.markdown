@@ -96,9 +96,9 @@ I am currently working on dropping a shiny new UI on our Terrapop product.
 ***
 
 ### Willy Lee
-Willy Lee started his web work while studying studio art at Carleton College. The web was something you could learn the entire body of knowledge in an afternoon at that time. He took his love of narrative and storytelling to this new medium and somehow stumbled upon a career. After a decade at the Minneapolis Institute of Arts doing all things web, he turned his focus to application performance. As the IT Ops Manager at the MPC, he and his team profile and monitor system performance and work with our programmers to find ways to deliver speed and reliability to our users.
+Willy Lee started web work while studying studio art at Carleton College. The web was something you could learn the entire body of knowledge in an afternoon at that time. Willy took this love of narrative and storytelling to the new medium and somehow stumbled upon a career. After a decade at the Minneapolis Institute of Arts doing all things web, Willy switched focus to application performance. As the IT Ops Manager at ISRDI, Willy and the team profile and monitor system performance and work with our programmers to find ways to deliver speed and reliability to our users.
 
-In his free time, Willy is a cycling advocate, election judge, outdoorsman, home chef, and enthusiastic diner. He lives in south Minneapolis with his spouse and three cats. He's always happy to talk about bikes, cats, food, cats, internet, cats, and internet optimization.
+In their free time, Willy is a cycling advocate, election judge, outdoorsman, home chef, and enthusiastic diner. Willy's always happy to talk about bikes, cats, food, cats, internet, cats, and internet optimization.
 
 <a title="Twitter" href="https://twitter.com/advicepig" target="\_blank"><img class="alignnone wp-image-361" src="{{ site.urlimg }}/twitter30x30.png" alt="twitter" width="30" height="30" /></a>   <a title="LinkedIn" href="https://www.linkedin.com/in/willylee" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>   <a title="Github" href="https://github.com/willylee"><img class="alignnone wp-image-363" src="{{ site.urlimg }}/github30x30.png" alt="github" width="30" height="30" /></a>
 
