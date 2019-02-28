@@ -1,6 +1,6 @@
 ---
 title: "GPL: Do We Need to Wait for the Courts?"
-teaser: "Is there be another way forward to resolve the ambiguity with GPL that doesn't involve the courts?"
+teaser: "Is there be another way forward to resolve the ambiguity with the GPL that doesn't involve the courts?"
 author: jdomingo
 categories:
   - Code
@@ -9,7 +9,7 @@ tags:
   - Open Source Licensing
 ---
 
-In the [previous post][], Fran, our IT director, shared the story of how we struggled with the ambiguity that came about from linking IPUMS software with GPL code.
+In the [previous post][], Fran, our IT director, shared the story of how we struggled with the ambiguity that arose from linking IPUMS software with GPL code.
 I participated in some of the discussions, and provided feedback on that post.
 I’m not an attorney, just a developer who’s had to wrestle with these issues throughout my career.
 
@@ -45,11 +45,11 @@ The very first sentence in the chapter acknowledges the multitude of questions a
 
 > A lot of the most difficult questions in free and open source software revolve around the GPL.
 
-Yet he continues the opening paragraph praising what GPL has accomplished:
+Yet he continues the opening paragraph praising what the GPL has accomplished:
 
 > The GPL has a lot of things going for it: it is the single most common open source software license, it has brought together a large and vibrant community of developers, and it is a brilliant hack, socially and legally.
 
-He continues, that despite its accomplishments, the GPL has exasperated not just open source programmers but legal professionals too:
+He continues, that despite its accomplishments, the GPL has exasperated not just open source programmers, like us here in ISRDI IT, but legal professionals too:
 
 > At the same time there is no single license that is more mistrusted or reviled than the GPL.
 > Many open source developers refuse to accept or release code under the GPL because it imposes restrictions at the same time that it grants freedoms.
@@ -111,9 +111,9 @@ Lindberg acknowledges that this long-running controversy has been very difficult
 
 > The controversy over linking and licensing… isn’t an issue that is easily resolved.
 > There are arguments and prominent open source experts on both sides of the divide.
-> For example, Eben Moglen (attorney for the FSF and founder of the Software Freedom Conservancy) and Lawrence Rosen (former general counsel and director of the OSI disagree on the scope of linking and licensing.
+> For example, Eben Moglen (attorney for the FSF and founder of the Software Freedom Conservancy) and Lawrence Rosen (former general counsel and director of the OSI[Open Source Initiative]) disagree on the scope of linking and licensing.
 
-He devotes a lot of the GPL chapter examining the details of the controversy.
+He devotes a lot of his GPL chapter examining the details of the controversy.
 He concludes the chapter with a Q&A section, with the intent of providing guidance.
 In one answer, he explains why his own interpretation of some linking scenarios differs from the GPL FAQ:
 
@@ -134,10 +134,10 @@ Could the FSF modify the GPL and its FAQ to fix the ambiguity?
 If they remove any confusing language that extends the definition of a derivative work, would the ambiguity be eliminated?
 
 What if instead, they simply state the conditions under which the license applies.
-So rather than trying to define linked programs as derivative works, the GPL simply stated that the act of linking with GPL code and distributing the linked program requires that the program be licensed under GPL.
+So rather than trying to define linked programs as derivative works, the GPL simply stated that the act of linking with GPL code and distributing the linked program requires that the program be licensed under the GPL.
 Avoid arguing whether the linked program is a derivative work or not.
 
-Imagine if FSF revised the GPL and its FAQ to eliminate all ambiguity without waiting for court action.
+Imagine if the FSF revised the GPL and its FAQ to eliminate all ambiguity without waiting for court action.
 This long overdue clarity -- simply stating unambiguously that the GPL applies when linking to GPL code -- would benefit the whole free and open source community.
 
 [^1]: It’s a well-written resource that I highly recommend for a open-source developer’s bookshelf.
