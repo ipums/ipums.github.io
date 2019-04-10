@@ -7,7 +7,7 @@ author: isrdi-it
 permalink: /working-mpc/career-opportunities/
 ---
 
-We currently don't have any openings at ISRDI IT. 
+We are currently seeking a Linux system administrator to join our IT Operations team. You can find details at [https://z.umn.edu/sysadmin2019](https://z.umn.edu/sysadmin2019). 
 
 ---
 

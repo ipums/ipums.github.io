@@ -1,3 +1,27 @@
+- date: 2019-05-06
+  title: SATURN
+  location: Pittsburgh, PA
+  link: https://resources.sei.cmu.edu/news-events/events/saturn/
+  text: Attending
+
+- date: 2019-05-01
+  title: PyCon
+  location: Cleveland, OH
+  link: https://us.pycon.org/2019/
+  text: Attending
+
+- date: 2019-04-30
+  title: DockerCon
+  location: San Francisco, CA
+  link: https://www.docker.com/dockercon/
+  text: Attending
+
+- date: 2019-04-30
+  title: RailsConf
+  location: Minneapolis, MN
+  link: https://railsconf.com/
+  text: Attending
+
 - date: 2018-09-20
   title: Elastic{on} Tour Minneapolis
   location: Minneapolis, MN
