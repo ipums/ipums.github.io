@@ -63,15 +63,6 @@ In his free time, Kevin teaches group fitness classes at the YWCA of Minneapolis
 
 ***
 
-### Alex Jokela
-<img class=" wp-image-393 size-thumbnail alignright" src="{{ site.urlimg }}/Jokela-Alex-e1420058478101-150x150.jpeg" alt="Jokela, Alex" width="150" height="150" />I am a thirty-something software engineer who programs (or has programmed &ndash; past tense) in languages with names like Java, Ruby, PHP, Python and a host of others. I enjoy programming/coding; it provides mental stimulation and also pays the bills.  I am also a computer science graduate student at the U.
-
-(Alex has also been <a title="IT Core Spotlight: Alex Jokela" href="/it-core-spotlight-alex-jokela/">Spotlighted</a>!)
-
-<a title="Twitter" href="http://twitter.com/alexjokela" target="\_blank"><img class="alignnone wp-image-361" src="{{ site.urlimg }}/twitter30x30.png" alt="twitter" width="30" height="30" /></a>  <a href="https://snowshoebees.com/"><img class="alignnone wp-image-364" src="{{ site.urlimg }}/blog30x30.png" alt="blog" width="30" height="30" /></a>
-
-***
-
 ### Ben Klaas
 <a href="{{ site.urlimg }}/ben-klaas-e1420575378509.jpg"><img class=" wp-image-421 size-thumbnail alignright" src="{{ site.urlimg }}/ben-klaas-e1420575378509-150x150.jpg" alt="ben-klaas" width="150" height="150" /></a>Ben began his career as an ecologist, studying pocket gophers on native grasslands. Data proved to be a second passion though, and he's been working in computing since the late 1990s on a wide variety of gadgets and gizmos: routers, satellite data, DSL hardware, streaming audio consumer electronics, phone and voicemail software, and now human population data.
 
