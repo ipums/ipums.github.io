@@ -13,44 +13,40 @@ In a perfect world the U.S. Census would have asked every  possible question of 
 
 In our universe, however, we must build the IPUMS websites with the census and survey data we actually have. You can request a customized IPUMS data extract from our site by requesting the datasets (Census year, survey year) and variables (questions) you need. In that perfect world, you'd simply select from a list of datasets and another list of variables. Finding what you wanted would be as simple as scrolling or searching. In the real world, not all questions were asked in every year. 
 
-Taking the naive approach to navigating the  variable availibility to get data would amount to picking and choosing what you wanted, downloading the result, and often ending up with a data extract full of missing data.  Instead of torturing our users like that, we provide an "availibility grid" when users select data. The grid shows the intersection of chosen variables with chosen datasets  so the users know ahead of time if  their desired question was asked in a particular year. The horizontal axis represents census years, the vertical is variables. You scan  a column to know what variables exist in a given year, and a row to see what years a variable exists in.
+Taking the naive approach to navigating the  variable availability to get data would amount to picking and choosing what you wanted, downloading the result, and often ending up with a data extract full of missing data.  Instead of torturing our users like that, we provide an "availability grid" when users select data. The grid shows the intersection of chosen variables with chosen datasets  so the users know ahead of time if  their desired question was asked in a particular year. The horizontal axis represents census years, the vertical is variables. You scan  a column to know what variables exist in a given year, and a row to see what years a variable exists in.
 
-__screen-shot of an availability grid with a few samples and variables __
+__Screenshot of an availability grid with a few samples and variables__
 
-
-
-![Selecting From a few Variables Among a few Years](/images/Screenshot_2019-10-03 IPUMS-USA vars by group disab.png)
-
-
-
+![Selecting From a few Variables Among a few Years](/images/dimensions-of-ipums-few-samples.png)
 
 So far, so good. But what if you need to look at a large set of years and variables simultaneously? The grid approach, in a literal sense, does not scale:
 
-__screen shot of a full grid __
+__Screenshot of a full availability grid__
 
-
-![Every Year With Many Variables in a Grid](/images/Screenshot_2019-10-03 IPUMS-USA vars by group demog.png)
+![Every Year With Many Variables in a Grid](/images/dimensions-of-ipums-full-samples.png)
 
 
 Other IPUMS extract services have the additional difficulty that some data products contain lots more questions than the U.S. Census, and sometimes many more datasets as well. So the dimensions of this style of grid can get out of hand very easily and a one size-fits-all solution may be hard to find. It's an interesting user interface design challenge. We try to encourage users to select a small set of datasets ("samples") up-front to limit the width of the x-axis.
 
-The rise of mobile computing with much smaller screen sizes makes the problem more acute. The <a href="usa.abacus.ipums.org">IPUMS Abacus</a> mobile realtime tabulation app had to dispense with a grid altogether and rely on an interactive data selection approach: You choose a year and immediately all topics and variables narrow down to what's available for that year. If you choose a topic and variable first, your choices of years narrows accordingly as well.   It's an elegant solution especially when few variables and years are involved, but the trial-and-error nature of the process could become cumbersome if a user could select dozens of variables and years. Fortunately for Abacus, tabulation naturally limits itself to a few variables at a time.
+The rise of mobile computing with much smaller screen sizes makes the problem more acute. The <a href="usa.abacus.ipums.org" target="_blank">IPUMS Abacus</a> mobile realtime tabulation app had to dispense with a grid altogether and rely on an interactive data selection approach: You choose a year and immediately all topics and variables narrow down to what's available for that year. If you choose a topic and variable first, your choices of years narrows accordingly as well.   It's an elegant solution especially when few variables and years are involved, but the trial-and-error nature of the process could become cumbersome if a user could select dozens of variables and years. Fortunately for Abacus, tabulation naturally limits itself to a few variables at a time.
+
+__Screenshot of IPUMS Abacus showing variables available for the 1940 Census sample__
+
+![Screenshot of IPUMS Abacus showing variables available for the 1940 Census sample](/images/dimensions-of-ipums-abacus-availability.png)
+
+The  data availability grid is foundational to the whole IPUMS concept: Integrating data across time and countries is an imperfect business. We make available data as comparable as possible but we can't conjure answers  out of thin air. (* But we do impute some variables when we have enough other information to allow it. See <a href="https://usa.ipums.org/usa-action/variables/IMPREL#description_section" target="_blank"> IMPREL</a>.) 
+
+The availability grid manifests itself at several layers of the IPUMS software, starting at the data integration / conversion layer, through the modeling of the metadata driving the website and ending in the UI for selecting data.
 
 
-The  data availibility grid is foundational to the whole IPUMS concept: Integrating data across time and countries is an imperfect business. We make available data as comparable as possible but we can't conjure answers  out of thin air. (* But we do impute some variables when we have enough other information to allow it. See <a href="https://usa.ipums.org/usa-action/variables/IMPREL#description_section"> IMPREL</a>.) 
+Let's take a bird's-eye view of variable availability across all years for all variables in IPUMS-USA which has U.S. Census data:
 
-The availibility grid manifests itself at several layers of the IPUMS software, starting at the data integration / conversion layer, through the modeling of the metadata driving the website and ending in the UI for selecting data.
+__IPUMS-USA Data availability Grid__
 
-
-Let's take a bird's-eye view of variable availibility across all years for all variables in IPUMS-USA which has U.S. Census data:
-
-__IPUMS-USA Data Availibility Grid__
-
-![USA image ](/images/available_data_for_live_usa.png)
+![USA image ](/images/dimensions-of-ipums-usa-availability.png)
 
 
-
-You see many gaps, with availibility increasing over time as automation of the Census took hold and more questions could be asked or inferred every year. The right-hand side has more coverage because we include the ACS (American Community Survey,) which contains many more questions than the Census. The thin dark vertical line  near the right-hand side represents the 2010 deceneal Census which had only a handful of questions, and no long form. 
+You see many gaps, with availability increasing over time as automation of the Census took hold and more questions could be asked or inferred every year. The right-hand side has more coverage because we include the ACS (American Community Survey,) which contains many more questions than the Census. The thin dark vertical line  near the right-hand side represents the 2010 decenneal Census which had only a handful of questions, and no long form. 
 
 The grid has too many points to actually label them; you'd need a software "microscope" to navigate this grid directly, zooming in on topics of interest, plucking records from the   pile near your area of interest.
 
@@ -64,26 +60,26 @@ Okay, don't get too excited. In our visualizations the "variable" dimension repr
 
 Let's look at some other data products:
 
-__The IPUMS-International Availibility Grid__
+__The IPUMS-International availability Grid__
 
-![ IPUMSI grid ](/images/available_data_for_live_ipumsi.png)
+![ IPUMSI grid ](/images/dimensions-of-ipums-international-availability.png)
 
-Here we see a fairly well populated bottom half of the grid with the top-half being quite sparse. Why? It's because the top half represents "source variables" which mirror the original census questions in each country for each year, and each of these questions is represented as a unique variable in our metadata model. This is so that users of international data can retrieve the original census questions if they want, in addition to the IPUMS hahrmonized  versions of the questions.
+Here we see a fairly well populated bottom half of the grid with the top-half being quite sparse. Why? It's because the top half represents "source variables" which mirror the original census questions in each country for each year, and each of these questions is represented as a unique variable in our metadata model. This is so that users of international data can retrieve the original census questions if they want, in addition to the IPUMS harmonized  versions of the questions.
 
 Now look at this survey data:
 
-__The Higher-Ed Survey Data Availibility Grid__
+__The Higher-Ed Survey Data availability Grid__
 
-![ Highered ](/images/available_data_for_live_highered.png)
+![ Highered ](/images/dimensions-of-ipums-highered-availability.png)
 
 Here we have a much smaller number of datasets and variables, and the survey appears to be quite consistent across time, which makes sense since it was designed to measure the same things each time the survey was taken, and there aren't many years in which the survey might have changed.
 
 On the other hand:
 
-__NHIS Health Interview Data Availibility Grid__
+__NHIS Health Interview Data availability Grid__
 
-![ NHIS  Grid](/images/available_data_for_live_nhis.png)
+![ NHIS  Grid](/images/dimensions-of-ipums-nhis-availability.png)
 
-The NHIS health survey has many many questions asked every year since 1963. As you can see though, some years had supplimental questionaires which cause the number of variables to balloon for some years.
+The NHIS health survey has had a vast number of questions asked every year since 1963. Some of these years had supplemental questionnaires, which consequently causes that years variable count to balloon.
 
 
