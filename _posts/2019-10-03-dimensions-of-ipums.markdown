@@ -8,11 +8,11 @@ tags:
 - UX
 ---
 
-The IPUMS   data products aim to make comparison  of Census and survey data across time and nations as easy as possible. The first step in effectively using IPUMS is to discover and request data that's available for the time and place you're interested in studying. The IPUMS data extraction websites give users an efficient method for finding  and requesting data from IPUMS. 
+The IPUMS   data products aim to make comparison  of Census and survey data across time and nations as easy as possible. The first step in effectively using IPUMS is to discover and request data that's available for the time and place you're interested in studying. The IPUMS data extraction websites give users an efficient method for finding  and requesting data from IPUMS: 
 
 "Efficiently requesting data"  presents some interesting user interface  challenges. In the rest of this article we'll  l take a visual, high-level view of the IPUMS metadata that drives the data extract system  and underpins   our data integration process.
 
-To start with, we'll  focus on the U.S. Census (IPUMS-USA) since most of us have some familiarity with a national Census. Most of the discussion also applies to other IPUMS data drawn from health and employment surveys.
+To start with, we'll  focus on the U.S. Census (IPUMS-USA) since most of us have some familiarity with a national Census. The discussion also applies to other IPUMS data drawn from health and employment surveys.
 
 ###  Why Data Discovery is Not Dead Simple
 
@@ -26,11 +26,16 @@ The U.S. Census changed throughout the history of the nation. Some questions got
 
 Taking the naive approach to requesting data from IPUMS would amount to picking and choosing what you wanted from static lists of datasets and questions, then downloading the result. Applied to IPUMS data,  this would often result in a data extract full of missing data. You might resort to reading documentation on each census question you want before requesting it,  to learn if it was asked in every year you want in your analysis. That could take a lot of time.
 
+Let's imagine you want to study the relationship between home values and  time spent commuting to work. You discover the IPUMS "VALUEH" variable (home value.) And you find the "TRANTIME" variablbe ("travel time to work one-way.) So this looks promising. "TRANTIME" was first asked in 1960, while VALUEH was in the Census in 1930, 1940, not in 1950, then in since 1960. That's good to know, you can't do an analysis using just the IPUMS data going back before 1960 then. Now, you may wish to add more variables to your analysis.
+
+A more difficult example: Say you learn about the "DURMARR" variable (Duration of marriage.) You can study qualities of lon gmarried people with this. Are their homes worth more than briefly married people of the same ages (probably?) Anyway you proceed to request "VALUEH", "DURMARR" and "AGE". Unfortunately you'll discover "DURMARR"  only exists in 1900, 1910 and 1950, all decades when "VALUEH" wasn't asked.
+
 ### Requesting Only Data That Exists
 
 Instead of tormenting our users like that, we provide an "availability grid" when users select data. The grid shows the cross-product of choosable variables from within a selected topic group, by chosen datasets  (or all datasets if none have yet been chosen.) We mark every cell in the grid -- every variable-dataset combination -- as available or not available. 
 
 This way,  the users know ahead of time if  their desired question was asked in a particular year. The horizontal axis represents census years, the vertical is variables. You scan  a column to know what variables exist in a given year, and a row to see what years a variable exists in.
+
 
 __Screenshot of an availability grid with a few samples and variables__
 
@@ -118,3 +123,8 @@ __NHIS Health Interview Data availability Grid__
 The NHIS health survey has had a vast number of questions asked every year since 1963. Some of these years had supplemental questionnaires, which consequently causes that years variable count to balloon. 
 
 
+### Conclusion
+
+The diagrams you've just seen give you a macro view of the territory the IPUMS extract system is designed to navigate.
+
+Even after integrating data over time we can't create (in most cases) responses to questions never asked.  For our users to effectively discover what data exists we employ  a combination of interactive search and documentation to navigate the available data.  
