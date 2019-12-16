@@ -1,8 +1,8 @@
 ---
 author: ccd
 title: 'Exploring the Weird World of IPUMS Data Availability'
-teaser: 'IPUMS aims to harmonize all the world's demographic data, but sometimes the data just isn't there, leaving us with
-interesting user experience challenges as we help users discover when data is and isn't available.'
+teaser: 'IPUMS aims to harmonize all the world's demographic data, but sometimes the data just isn\'t there, leaving us with
+interesting user experience challenges as we help users discover when data is and isn\'t available.'
 categories: 
 - Data
 tags:
