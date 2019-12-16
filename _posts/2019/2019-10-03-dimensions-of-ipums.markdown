@@ -26,7 +26,7 @@ The U.S. Census changed throughout the history of the nation. Some questions got
 
 Because of these changes in the U.S. Census over time, if IPUMS took the naive approach to requesting data -- simply picking and choosing what you wanted from static lists of datasets and questions -- then the resulting dataset would have lots of missing data in years where a chosen question was not asked. 
 
-Users could resort to reading documentation on each census question before requesting it, to learn if it was asked in every year you want in your analysis. That could take a lot of time.
+Users could resort to reading documentation on each census question before requesting it, to learn if it was asked in every year they want in their analysis. That could take a lot of time.
 
 Let's imagine you want to study the relationship between home values and time spent commuting to work. You discover the IPUMS "VALUEH" variable (home value.) And you find the "TRANTIME" variable ("travel time to work one-way.) So this looks promising. "TRANTIME" was first asked in 1960, while VALUEH was in the Census in 1930, 1940, not in 1950, then again every census since 1960. That's good to know - now we've determined that for this research question, the data is fully available since 1960. 
 
