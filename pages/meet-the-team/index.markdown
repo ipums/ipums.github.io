@@ -6,6 +6,13 @@ title: Meet the Team
 author: isrdi-it
 permalink: /meet-the-team/
 ---
+***
+
+### Li Dai
+
+Bio coming soon!
+
+***
 
 ### Colin Davis
 <a href="{{ site.urlimg }}/colin.jpg"><img class=" wp-image-422 size-thumbnail alignright" src="{{ site.urlimg }}/colin-150x150.jpg" alt="colin" width="150" height="150" /></a>Colin originally got interested in tech through game programming. He ended up working as a call center technician for Zeos/Micron in the mid 90s, during which he spoke to around eight thousand people, most of whom you could locate on an anger spectrum ranging from mildly put out to incoherent with rage. He left to begin a startup in the lead-up to the tech crash.
@@ -115,13 +122,9 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 
 ***
 
-### June Taylor
+### Kelly Thompson
 
-<a href="{{ site.urlimg }}june.jpg"><img class=" size-thumbnail wp-image-412 alignright" src="{{ site.urlimg }}/june-150x150.jpeg" alt="june" width="150" height="150" /></a>June works on the IT Operations team, providing technical development and support to the computing infrastructure used at the Institute. Prior to joining, June developed and supported electronic systems for medical research, wireless ISPs, petroleum supply chains, and a variety of other small businesses. In these areas, June honed skills with database administration, enterprise system integration, multiple programming languages, and operating in highly regulated and audited environments.
-
-When she’s not at work she enjoys playing with her kids, gardening, keeping backyard chickens, and woodworking.
-
-As a relatively new Minnesotan June is likely to take the last cookie on the plate, but is working to curb this behaviour.
+Bio coming soon!
 
 ***
 
