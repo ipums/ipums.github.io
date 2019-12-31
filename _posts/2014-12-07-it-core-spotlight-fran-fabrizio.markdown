@@ -15,11 +15,11 @@ tags: []
 
 Spotlight Date: {{ page.date | date: '%B %d, %Y'}}
 
-<strong><a href="/images/fran-corn.jpg"><img class=" size-medium wp-image-407 alignright" src="/images/fran-corn-300x208.jpg" alt="fran-corn" width="300" height="208" /></a>Name:  </strong>Fran Fabrizio
-<strong>Role: </strong>IT Director
-<strong>Project: </strong>All of them?
-<strong>Favorite Dev Tool:  </strong>Coffee
-<strong>Fun Fact:  </strong>Tallahassee is farther west than Detroit.  Oh, you mean about me?
+<strong><a href="/images/fran-corn.jpg"><img class=" size-medium wp-image-407 alignright" src="/images/fran-corn-300x208.jpg" alt="fran-corn" width="300" height="208" /></a>Name:  </strong>Fran Fabrizio<br>
+<strong>Role: </strong>IT Director<br>
+<strong>Project: </strong>All of them?<br>
+<strong>Favorite Dev Tool:  </strong>Coffee<br>
+<strong>Fun Fact:  </strong>Tallahassee is farther west than Detroit.  Oh, you mean about me?<p>
 
 <b>What's the coolest thing you've gotten to work on at the MPC?  </b>
 
