@@ -102,6 +102,12 @@ In their free time, Willy is a cycling advocate, election judge, outdoorsman, ho
 
 ***
 
+### Alex McWhinnie
+
+Bio coming soon!
+
+***
+
 ### Marcus Peterson
 <img class=" wp-image-395 size-thumbnail alignright" src="{{ site.urlimg }}/Peterson-Marcus-150x150.jpg" alt="Peterson, Marcus" width="150" height="150" />After many years of schooling in Civil Engineering, Marcus surprised his family, friends, and himself by taking a software development position at a Boston-area startup. A couple of jobs and a trip back to Minnesota later, he landed at the fledgling MPC in 2002, where he happily remains to this day.
 
