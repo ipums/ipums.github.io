@@ -13,7 +13,7 @@ tags:
 
 It's the time of year when people compile lists of things, so I thought I'd join the fray with a quick list of 10 things I've recently folded into my Python toolbox.
 
-## 1. Paint it Black
+## 1. Paint it [Black](https://black.readthedocs.io/en/stable/)
 
 As my co-worker Joe put it succinctly, "using [Black]([https://github.com/psf/black](https://github.com/psf/black)) is so freeing."
 
@@ -23,7 +23,7 @@ As my co-worker Joe put it succinctly, "using [Black]([https://github.com/psf/bl
 
 Well said. Since adopting [Black]([https://github.com/psf/black](https://github.com/psf/black)) in my workflow (and adopting automatic blackening as described in the next item), I don't really pay much attention to formatting any more. There's no need. 98% of what [Black]([https://github.com/psf/black](https://github.com/psf/black)) does looks great. The remaining 2% is passable, and if that 2% really grates at you because it isn't *just so*, consider re-evaluating what matters in code writing.
 
-## 2. Automatically Excecute Black and Flake8 Before Git Commits
+## 2. [Automatically Excecute Black and Flake8 Before Git Commits](https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/)
 
 [Black]([https://github.com/psf/black](https://github.com/psf/black)) (auto-formatting) and [Flake8](http://flake8.pycqa.org/en/latest/) (PEP8 linter) are great tools for writing clean code, but they only work if you use them. Using them manually: sure. Using them automatically: YES PLEASE!
 
