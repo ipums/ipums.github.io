@@ -58,12 +58,12 @@ Two invaluable resources for exploring stdlib:
 
 ## 7. VSCode + RemoteSSH + Python
 
-VSCode, the IDE for IDE haters. RemoteSSH and Python supercharge it.
+I will readily admit I am a caveman. I do a great deal of my code authoring via command-line vim. I typically debug with `print()` statements, which is literally called "caveman debugging". Lots of people are VSCode, the IDE for IDE haters. RemoteSSH and Python supercharge it.
 
 ## 8. [better_exceptions](https://github.com/Qix-/better-exceptions)
 Stack traces from raised exceptions are obviously a key command-line tool in debugging Python programs. With [better_exceptions](https://github.com/Qix-/better-exceptions), it gets even better.
  
- For example, here's a program intended to convert a list of fahrenheit temperatures to celsius temperatures, but there's a bug:
+ For example, here's a program intended to convert a list of Fahrenheit temperatures to Celsius temperatures, but there's a bug:
 
     gp1  ~$ cat buggy.py
     fahrenheit_temps = [
