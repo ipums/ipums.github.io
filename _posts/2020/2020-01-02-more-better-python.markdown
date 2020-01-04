@@ -91,9 +91,30 @@ So that's a simple example, but you (hopefully) are writing more complicated cod
 
 [better_exceptions](https://github.com/Qix-/better-exceptions) is also wonderful in that it is a "set it and forget it". Once you have it installed, you get a free lifetime subscription to [better_exceptions](https://github.com/Qix-/better-exceptions) in all the code you execute from the terminal.
 
-## 9. bpython
+## 9. [bpython](https://bpython-interpreter.org/)
 
-There's a better command-line REPL than iPython? YES!
+It's hard not to have a pretty strong bias for [iPython](http://ipython.org/). As a REPL, it is a dependable workhorse and huge step up from the default python interpreter. More importantly perhaps, it provides the principal kernel that powers Jupyter Notebooks, which have been a game changer for reproducible code workflows. I've been using [iPython](http://ipython.org/) for years. It's great.
+
+But...could there be a compelling alternative command-line REPL over [iPython](http://ipython.org/)? YES!
+
+From the [bpython about page](https://bpython-interpreter.org/about.html):
+
+> "bpython doesn't attempt to create anything new or groundbreaking, it
+> simply brings together a few neat ideas and focuses on practicality
+> and usefulness"
+
+Check out these features:
+-   In-line syntax highlighting
+-   Readline-like autocomplete with suggestions displayed as you type.
+-   Expected parameter list for any Python function.
+-   "Rewind" function to pop the last line of code from memory and re-evaluate.
+-   Send the code you've entered off to a pastebin.
+-   Save the code you've entered to a file.
+-   Auto-indentation.
+ 
+If that's not enough to sway you to give [bpython](https://bpython-interpreter.org/) a try, [check out these screenshots](https://bpython-interpreter.org/screenshots.html)
+
+[bpython](https://bpython-interpreter.org/) uses the curses library (which means no native Windows support) to do its magic, and as a result can provide a lot more interactivity than iPython can from a console. Give it a shot, my guess is you'll use it once or twice and it will win you over like it did me.
 
 ## 10. Attend PyCon
 
