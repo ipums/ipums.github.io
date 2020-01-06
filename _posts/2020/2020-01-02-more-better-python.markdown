@@ -25,7 +25,7 @@ Well said. Since adopting [Black]([https://github.com/psf/black](https://github.
 
 ## 2. [Automatically Excecute Black and Flake8 Before Git Commits](https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/)
 
-[Black]([https://github.com/psf/black](https://github.com/psf/black)) (auto-formatting) and [Flake8](http://flake8.pycqa.org/en/latest/) (PEP8 linter) are great tools for writing clean code, but they only work if you use them. Using them manually: sure. Using them automatically: YES PLEASE!
+[Black](https://github.com/psf/black) (auto-formatting) and [Flake8](http://flake8.pycqa.org/en/latest/) (PEP8 linter) are great tools for writing clean code, but they only work if you use them. Using them manually: sure. Using them automatically: YES PLEASE!
 
 There are a number of ways one might fashion a precommit git hook to do black and flake8 before allowing a commit, but I found [Precommits using Black and Flake8](https://ljvmiranda921.github.io/notebook/2018/06/21/precommits-using-black-and-flake8/) to be just the ticket. This is a *really* cool way of doing automatic execution of Black and Flake8 before a git commit, which for my (and maybe your!) purposes is *exactly* where I want those tools to do their magic.
 
@@ -117,7 +117,9 @@ If that's not enough to sway you to give [bpython](https://bpython-interpreter.o
 [bpython](https://bpython-interpreter.org/) uses the curses library (which means no native Windows support) to do its magic, and as a result can provide a lot more interactivity than iPython can from a console. Give it a shot, my guess is you'll use it once or twice and it will win you over like it did me.
 
 ## 10. Attend PyCon
+Maybe this should have been the first one in the list...PyCon is a GREAT way to get in touch with what's going on in the general Python community, and gets credit for a lot of the items listed above. For example, last year I both attended [a talk on Black by its author](https://youtu.be/esZLCuWs_2Y) and spoke on the conference room floor with Microsoft people about [Visual Studio Code](https://code.visualstudio.com/insiders/) and its new support for [remote ssh](https://code.visualstudio.com/docs/remote/ssh) and [Python](https://code.visualstudio.com/docs/python/python-tutorial). The conference is exceptionally well attended and organized and has something to offer across many perspectives and skill levels.
 
+If you can't make it, browse through some of the talks from [PyCon 2019](https://www.youtube.com/results?search_query=pycon%202019), there's some great ones in there.
 
 > Written with [StackEdit](https://stackedit.io/).
 
