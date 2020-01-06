@@ -9,7 +9,7 @@ tags:
 - IPUMS NHGIS
 ---
 
-Two years ago, IPUMS launched an ambitious plan to create an API Program and make IPUMS data available programmatically via API. Today, IPUMS is thrilled to announce that our IPUMS NHGIS Metadata and Data Extract APIs are leaving beta and [reaching the v1.0 milestone](https://forum.ipums.org/t/announcing-general-availability-of-nhgis-apis/3304)! This marks the first time that IPUMS data has ever been publicly [available programmatically via a non-beta API](https://developer.ipums.org). 
+More than two years ago, IPUMS launched an ambitious plan to create an API Program and make IPUMS data available programmatically via API. Today, IPUMS is thrilled to announce that our IPUMS NHGIS Metadata and Data Extract APIs are leaving beta and [reaching the v1.0 milestone](https://forum.ipums.org/t/announcing-general-availability-of-nhgis-apis/3304)! This marks the first time that IPUMS data has ever been publicly [available programmatically via a non-beta API](https://developer.ipums.org). 
 
 As we reach this important milestone, this is a great time to look back and reflect on our API journey as an organization. This post will take a look at some of the challenges we encountered as we built an API Program from scratch, and some of the decisions that helped get us here today.
 
