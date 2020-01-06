@@ -31,3 +31,8 @@ code {
     -ms-hyphens: none;
     hyphens: none;
 }
+
+img + em { 
+    display: block;
+    text-align: center;
+}

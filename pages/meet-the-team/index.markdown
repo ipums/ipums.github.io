@@ -129,8 +129,13 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 ***
 
 ### Kelly Thompson
+<img class="size-thumbnail alignright" src="{{ site.urlimg }}/Kelly-Thompson.jpg" alt="Kelly Thompson" width="150" height="150" />Kelly fell in love with all things data while completing a master's degree in Library and Information Science at the University of Iowa. Thanks to some great advice from a mentor, she began learning Python in 2012 to expand her skill set in working with messy legacy data.  Building on her 5+ years of experience as a Metadata Librarian in large academic libraries, Kelly is thrilled to have the opportunity to grow into a full-fledged software developer in her role as a Data Engineer at ISRDI.
 
-Bio coming soon!
+Kelly primarily works on software to link individuals across historical U.S. census data for the Multi-generational Longitudinal Panel (MLP) project.  This includes developing software for linking that encompasses data cleaning, transformation, and machine learning pipelines, as well as performance analysis.  She currently works mainly with Python, Spark, and Scala. Her advice to all aspiring data wranglers is "Learn SQL!"
+
+Away from the office, Kelly enjoys vegetable and flower gardening, vegetarian cooking, quilting, "slogging" (slow jogging), reading anything and everything, and spending time with her spouse. During tax season, she can be found volunteering as a VITA tax preparer.
+
+<a title="ORCID" href="https://orcid.org/0000-0002-3812-8910" target="\_blank"><img class="alignnone" src="{{ site.urlimg }}/ORCIDiD_icon24x24.gif" alt="ORCID" width="30" height="30" /></a>
 
 ***
 
