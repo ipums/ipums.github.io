@@ -59,6 +59,7 @@ With the [Napoleon](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/) Sp
        
     Returns:
         BufferedFileStorage: A buffered writable file descriptor
+
 Napoleon under the hood takes these legible docstrings and pre-processes them to ReStructuredText to be fed into Sphinx to create your API docs. My library documentation is so much easier to write now.
 
 ## 4. How to use [print()](https://realpython.com/python-print/). Wait, WAT?
