@@ -73,9 +73,9 @@ In his free time, Kevin teaches group fitness classes at the YWCA of Minneapolis
 ### Ben Klaas
 <a href="{{ site.urlimg }}/ben-klaas-e1420575378509.jpg"><img class=" wp-image-421 size-thumbnail alignright" src="{{ site.urlimg }}/ben-klaas-e1420575378509-150x150.jpg" alt="ben-klaas" width="150" height="150" /></a>Ben began his career as an ecologist, studying pocket gophers on native grasslands. Data proved to be a second passion though, and he's been working in computing since the late 1990s on a wide variety of gadgets and gizmos: routers, satellite data, DSL hardware, streaming audio consumer electronics, phone and voicemail software, and now human population data.
 
-Ben works closely with demographic researchers at MPC on a variety of its products: IPUMS-USA, IPUMS-International, NAPP, IDHS, CPS, IHIS, NHGIS and anywhere else he's needed. He's a Linux enthusiast and loves working in open source languages like Perl, Python, and Ruby.
+Ben works closely with demographic researchers at ISRDI on a variety of its products, particularly with IPUMS microdata. He's a Linux enthusiast and loves working in open source languages, and lately that means lots and lots of Python.
 
-Outside of his work at MPC, Ben is an avid cyclist, golfer, and birdwatcher. He is also the father to two lovely daughters. As of this writing, Ben has never been to outer space.
+Outside of his work at ISRDI, Ben is an avid cyclist, golfer, and birdwatcher. He is also the father to two lovely daughters. As of this writing, Ben has never been to outer space.
 
 (Ben has also been <a title="IT Core Spotlight: Ben Klaas" href="/it-core-spotlight-ben-klaas/">Spotlighted</a>!)
 
@@ -102,6 +102,12 @@ In their free time, Willy is a cycling advocate, election judge, outdoorsman, ho
 
 ***
 
+### Alex McWhinnie
+
+Bio coming soon!
+
+***
+
 ### Marcus Peterson
 <img class=" wp-image-395 size-thumbnail alignright" src="{{ site.urlimg }}/Peterson-Marcus-150x150.jpg" alt="Peterson, Marcus" width="150" height="150" />After many years of schooling in Civil Engineering, Marcus surprised his family, friends, and himself by taking a software development position at a Boston-area startup. A couple of jobs and a trip back to Minnesota later, he landed at the fledgling MPC in 2002, where he happily remains to this day.
 
@@ -123,8 +129,13 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 ***
 
 ### Kelly Thompson
+<img class="size-thumbnail alignright" src="{{ site.urlimg }}/Kelly-Thompson.jpg" alt="Kelly Thompson" width="150" height="150" />Kelly fell in love with all things data while completing a master's degree in Library and Information Science at the University of Iowa. Thanks to some great advice from a mentor, she began learning Python in 2012 to expand her skill set in working with messy legacy data.  Building on her 5+ years of experience as a Metadata Librarian in large academic libraries, Kelly is thrilled to have the opportunity to grow into a full-fledged software developer in her role as a Data Engineer at ISRDI.
 
-Bio coming soon!
+Kelly primarily works on software to link individuals across historical U.S. census data for the Multi-generational Longitudinal Panel (MLP) project.  This includes developing software for linking that encompasses data cleaning, transformation, and machine learning pipelines, as well as performance analysis.  She currently works mainly with Python, Spark, and Scala. Her advice to all aspiring data wranglers is "Learn SQL!"
+
+Away from the office, Kelly enjoys vegetable and flower gardening, vegetarian cooking, quilting, "slogging" (slow jogging), reading anything and everything, and spending time with her spouse. During tax season, she can be found volunteering as a VITA tax preparer.
+
+<a title="ORCID" href="https://orcid.org/0000-0002-3812-8910" target="\_blank"><img class="alignnone" src="{{ site.urlimg }}/ORCIDiD_icon24x24.gif" alt="ORCID" width="30" height="30" /></a>
 
 ***
 
