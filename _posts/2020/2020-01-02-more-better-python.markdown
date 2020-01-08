@@ -72,7 +72,7 @@ If you write command-line programs that push feedback to the console, you've und
 > Instantly make your loops show a smart progress meter - just wrap any iterable with  `tqdm(iterable)`, and you're done!
 
 Well, not quite. The only rub I have with TQDM is that the defaults for the progress bar are a bit of a mess. 
-![Screenshot of TQDM with TQDM defaults](https://benklaas.com/tqdm_defaults.png)
+![Screenshot of TQDM with TQDM defaults](/images/more_better_python/tqdm_defaults.png)
 When I use TQDM, the typical thing I'm processing is files, and the thing I want to see progress for is how far along I am in processing those files as well as the percentage completion. So I wrote this simple wrapper around TQDM that uses default values I'm happy with while still allowing the full power of customization by passing through arguments (or overriding those defaults) to `tqdm()`
 
     def progress_bar(iterable, **kwargs):                                                   
@@ -95,7 +95,7 @@ When I use TQDM, the typical thing I'm processing is files, and the thing I want
             kwargs[k] = defaults[k]                                                     
     return tqdm(iterable, **kwargs)                                                     
 This `progress_bar()` wrapper method can be invoked exactly as `tqdm()` is, with the default results being:
-![Screenshot of TQDM with TQDM defaults](https://benklaas.com/tqdm_sensible_defaults.png)
+![Screenshot of TQDM with TQDM defaults](/images/more_better_python/tqdm_sensible_defaults)
 Happy `progress_bar()`ing!
 
 ## 6. Python's stdlib has so. much. stuff.
@@ -137,9 +137,9 @@ Stack traces from raised exceptions are obviously a key command-line tool in deb
         celsius_temps.append(int((temp-32)-(5/9)))
 
 Running this program will result in a `TypeError` when it hits the string in the list:
-![Screenshot of exception without better_exceptions](https://benklaas.com/badexceptions.png)
+![Screenshot of exception without better_exceptions](/images/more_better_python/badexceptions.png)
 That's the stack trace without [better_exceptions](https://github.com/Qix-/better-exceptions). Now let's take a look at the same exception with [better_exceptions](https://github.com/Qix-/better-exceptions) installed:
-![Screenshot of exception with better_exceptions](https://benklaas.com/betterexceptions.png)
+![Screenshot of exception with better_exceptions](/images/more_better_python/betterexceptions.png)
 In the enhanced exception, [better_exceptions](https://github.com/Qix-/better-exceptions) improves on the standard stack trace by:
 
  1. Pointing directly at the part of the code that failed
