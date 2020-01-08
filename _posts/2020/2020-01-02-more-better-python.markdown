@@ -1,15 +1,20 @@
 
 author: benklaas
-title: '10 Small(ish) Things I've Recently Done To Be a Better Python Programmer'
+title: 'More Better Python: 10 Cool New (to me) Python Things I've Learned'
 teaser: 'One of the sublime pleasures of Python is discovering newer, better ways at doing Python. Here are 10 I've discovered recently.'
-categories: 
-- Python
-- Tips
+categories: Code
 tags:
 - Python
+- Tips
+- Black
+- TQDM
+- Flake8
+- Napoleon
+- VSCode
+- bpython
+- better_exceptions
+- PyCon
 ---
-
-# More Better Python
 
 It's the time of year when people compile lists of things, so I thought I'd join the fray with a list of 10 things I've recently folded into my own Python toolbox.
 
