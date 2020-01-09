@@ -53,10 +53,10 @@ MY EYES!
 With the [Napoleon](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/) Sphinx extension, I can write the above in Google-style docstrings (Numpy-style also supported) like so:
 
     Args:
-    path (str): The path of the file to wrap
-    field_storage (FileStorage): The :class:`FileStorage` instance to wrap
-    temporary (bool): Whether or not to delete the file when the File
-       instance is destructed
+        path (str): The path of the file to wrap
+        field_storage (FileStorage): The :class:`FileStorage` instance to wrap
+        temporary (bool): Whether or not to delete the file when the File
+           instance is destructed
        
     Returns:
         BufferedFileStorage: A buffered writable file descriptor
