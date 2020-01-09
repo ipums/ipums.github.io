@@ -48,6 +48,7 @@ There are a number of ways one might fashion a precommit git hook to do black an
     :type temporary: bool
     :returns: A buffered writable file descriptor
     :rtype: BufferedFileStorage
+
 MY EYES!
 With the [Napoleon](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/) Sphinx extension, I can write the above in Google-style docstrings (Numpy-style also supported) like so:
 
