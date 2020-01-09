@@ -149,8 +149,11 @@ Stack traces from raised exceptions are obviously a key tool in debugging Python
 
 Running this program will result in a `TypeError` when it hits the string in the list:
 ![Screenshot of exception without better_exceptions](/images/more_better_python/badexceptions.png)
+
 That's the stack trace without [better_exceptions](https://github.com/Qix-/better-exceptions). Now let's take a look at the same exception with [better_exceptions](https://github.com/Qix-/better-exceptions) installed:
+
 ![Screenshot of exception with better_exceptions](/images/more_better_python/betterexceptions.png)
+
 In the enhanced exception, [better_exceptions](https://github.com/Qix-/better-exceptions) improves on the standard stack trace by:
 
  1. Pointing directly at the part of the code that failed
