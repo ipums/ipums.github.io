@@ -68,7 +68,7 @@ Lindberg identifies two key issues that drive people’s strong opinions of the 
 > There is basically no argument that the GPL is a valid and enforceable license.
 > There is, however, a lot of confusion about when and where the GPL applies.
 
-That’s the confusion that Fran recounted in the previous post -- confusion that we spent a lot of time and effort struggling with.
+That’s the confusion that Fran recounted in the earlier post -- confusion that we spent a lot of time and effort struggling with.
 
 # “We Just Don’t Know”
 
