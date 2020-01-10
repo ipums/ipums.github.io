@@ -162,5 +162,6 @@ Now you have Jekyll and its dependencies installed.  To start the Jekyll server:
 
 1. Run the command `jekyll serve --config _config.yml,_config_dev.yml`
 1. The site should be viewable at http://127.0.0.1:4000
+1. If you have dated your post in the future, it won't be shown by default. To have the server show future posts, append the `--future` option to the command above.
 
 You can keep the server running, and it will automatically detect changes to files in the repository and rebuild the site accordingly.  At this point you can iterate over your blog post authoring using Method 2 above, and preview the site locally as you go.
