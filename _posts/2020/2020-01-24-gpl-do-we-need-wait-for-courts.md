@@ -1,6 +1,6 @@
 ---
 title: "GPL: Do We Need to Wait for the Courts?"
-teaser: "Is there be another way forward to resolve the ambiguity with the GPL that doesn't involve the courts?"
+teaser: "Is there another way to resolve the ambiguity with the GPL that doesn't involve the courts?"
 author: jdomingo
 categories:
   - Code
