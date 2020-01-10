@@ -7,7 +7,7 @@ author: isrdi-it
 permalink: /working-mpc/career-opportunities/
 ---
 
-We currently don't have any openings at ISRDI IT. 
+We are currently seeking a Software Developer to join our team. You can find details at [https://isrdi.umn.edu/employment](https://isrdi.umn.edu/employment). 
 
 ---
 
