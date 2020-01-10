@@ -9,11 +9,11 @@ tags:
   - Open Source Licensing
 ---
 
-In the [previous post][], Fran, our IT director, shared the story of how we struggled with the ambiguity that arose from linking IPUMS software with GPL code.
+In an [earlier post][], Fran, our IT director, shared the story of how we struggled with the ambiguity that arose from linking IPUMS software with GPL code.
 I participated in some of the discussions, and provided feedback on that post.
 I’m not an attorney, just a developer who’s had to wrestle with these issues throughout my career.
 
-[previous post]: https://tech.popdata.org/the-gpl-license-and-linking-still-unclear-after-30-years/
+[earlier post]: https://tech.popdata.org/the-gpl-license-and-linking-still-unclear-after-30-years/
 
 # Until the Court Decides
 
