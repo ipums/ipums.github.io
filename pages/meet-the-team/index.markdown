@@ -108,7 +108,7 @@ Alex McWhinnie started his career in Industrial design in Sydney, where he desig
 
 Outside of work, Alex likes cycling, traveling, sailboat racing, rock climbing, making wine, and trying to grow figs in Minnesota. 
 
-<a title="LinkedIn" href="https://www.linkedin.com/in/alexmcwhinnie" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>   <a title="Github" href="https://github.com/willylee"><img class="alignnone wp-image-363" src="{{ site.urlimg }}/github30x30.png" alt="github" width="30" height="30" /></a>
+<a title="LinkedIn" href="https://www.linkedin.com/in/alexmcwhinnie" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a> 
 
 ***
 
