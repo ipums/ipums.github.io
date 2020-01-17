@@ -6,6 +6,13 @@ title: Meet the Team
 author: isrdi-it
 permalink: /meet-the-team/
 ---
+***
+
+### Li Dai
+
+Bio coming soon!
+
+***
 
 ### Colin Davis
 <a href="{{ site.urlimg }}/colin.jpg"><img class=" wp-image-422 size-thumbnail alignright" src="{{ site.urlimg }}/colin-150x150.jpg" alt="colin" width="150" height="150" /></a>Colin originally got interested in tech through game programming. He ended up working as a call center technician for Zeos/Micron in the mid 90s, during which he spoke to around eight thousand people, most of whom you could locate on an anger spectrum ranging from mildly put out to incoherent with rage. He left to begin a startup in the lead-up to the tech crash.
@@ -63,21 +70,12 @@ In his free time, Kevin teaches group fitness classes at the YWCA of Minneapolis
 
 ***
 
-### Alex Jokela
-<img class=" wp-image-393 size-thumbnail alignright" src="{{ site.urlimg }}/Jokela-Alex-e1420058478101-150x150.jpeg" alt="Jokela, Alex" width="150" height="150" />I am a thirty-something software engineer who programs (or has programmed &ndash; past tense) in languages with names like Java, Ruby, PHP, Python and a host of others. I enjoy programming/coding; it provides mental stimulation and also pays the bills.  I am also a computer science graduate student at the U.
-
-(Alex has also been <a title="IT Core Spotlight: Alex Jokela" href="/it-core-spotlight-alex-jokela/">Spotlighted</a>!)
-
-<a title="Twitter" href="http://twitter.com/alexjokela" target="\_blank"><img class="alignnone wp-image-361" src="{{ site.urlimg }}/twitter30x30.png" alt="twitter" width="30" height="30" /></a>  <a href="https://snowshoebees.com/"><img class="alignnone wp-image-364" src="{{ site.urlimg }}/blog30x30.png" alt="blog" width="30" height="30" /></a>
-
-***
-
 ### Ben Klaas
 <a href="{{ site.urlimg }}/ben-klaas-e1420575378509.jpg"><img class=" wp-image-421 size-thumbnail alignright" src="{{ site.urlimg }}/ben-klaas-e1420575378509-150x150.jpg" alt="ben-klaas" width="150" height="150" /></a>Ben began his career as an ecologist, studying pocket gophers on native grasslands. Data proved to be a second passion though, and he's been working in computing since the late 1990s on a wide variety of gadgets and gizmos: routers, satellite data, DSL hardware, streaming audio consumer electronics, phone and voicemail software, and now human population data.
 
-Ben works closely with demographic researchers at MPC on a variety of its products: IPUMS-USA, IPUMS-International, NAPP, IDHS, CPS, IHIS, NHGIS and anywhere else he's needed. He's a Linux enthusiast and loves working in open source languages like Perl, Python, and Ruby.
+Ben works closely with demographic researchers at ISRDI on a variety of its products, particularly with IPUMS microdata. He's a Linux enthusiast and loves working in open source languages, and lately that means lots and lots of Python.
 
-Outside of his work at MPC, Ben is an avid cyclist, golfer, and birdwatcher. He is also the father to two lovely daughters. As of this writing, Ben has never been to outer space.
+Outside of his work at ISRDI, Ben is an avid cyclist, golfer, and birdwatcher. He is also the father to two lovely daughters. As of this writing, Ben has never been to outer space.
 
 (Ben has also been <a title="IT Core Spotlight: Ben Klaas" href="/it-core-spotlight-ben-klaas/">Spotlighted</a>!)
 
@@ -106,11 +104,11 @@ In their free time, Willy is a cycling advocate, election judge, outdoorsman, ho
 
 ### Alex McWhinnie
 
-Alex originally started out in Industrial design in Sydney, where he designed exciting objects such as a hinge, a pager, and a collection of spears. Shorlty thereafter, Alex transitioned to digital media, where he eventually found fullfillment in the budding field of user experience design. Alex spent 8 years working in Boston for MassArt, Suffolk University, and MIT, and joined the ISRDI team in 2015 as their lead user experience designer.
+Alex McWhinnie started out in Industrial design in Sydney, where he designed exciting objects such as a hinge, a pager, and a collection of spears. Shorlty thereafter, Alex transitioned to digital media, where he eventually found fullfillment in the budding field of user experience design. Alex spent 8 years working in Boston for MassArt, Suffolk University, and MIT, and joined the ISRDI team in 2015 as their lead user experience designer.
 
 Outside of work, Alex likes cycling, traveling, sailboat racing, rock climbing, making wine, and trying to grow figs in Minnesota. 
 
-<a title="LinkedIn" href="https://www.linkedin.com/in/alexmcwhinnie/" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>
+<a title="LinkedIn" href="https://www.linkedin.com/in/alexmcwhinnie" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>   <a title="Github" href="https://github.com/willylee"><img class="alignnone wp-image-363" src="{{ site.urlimg }}/github30x30.png" alt="github" width="30" height="30" /></a>
 
 ***
 
@@ -134,13 +132,14 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 
 ***
 
-### June Taylor
+### Kelly Thompson
+<img class="size-thumbnail alignright" src="{{ site.urlimg }}/Kelly-Thompson.jpg" alt="Kelly Thompson" width="150" height="150" />Kelly fell in love with all things data while completing a master's degree in Library and Information Science at the University of Iowa. Thanks to some great advice from a mentor, she began learning Python in 2012 to expand her skill set in working with messy legacy data.  Building on her 5+ years of experience as a Metadata Librarian in large academic libraries, Kelly is thrilled to have the opportunity to grow into a full-fledged software developer in her role as a Data Engineer at ISRDI.
 
-<a href="{{ site.urlimg }}june.jpg"><img class=" size-thumbnail wp-image-412 alignright" src="{{ site.urlimg }}/june-150x150.jpeg" alt="june" width="150" height="150" /></a>June works on the IT Operations team, providing technical development and support to the computing infrastructure used at the Institute. Prior to joining, June developed and supported electronic systems for medical research, wireless ISPs, petroleum supply chains, and a variety of other small businesses. In these areas, June honed skills with database administration, enterprise system integration, multiple programming languages, and operating in highly regulated and audited environments.
+Kelly primarily works on software to link individuals across historical U.S. census data for the Multi-generational Longitudinal Panel (MLP) project.  This includes developing software for linking that encompasses data cleaning, transformation, and machine learning pipelines, as well as performance analysis.  She currently works mainly with Python, Spark, and Scala. Her advice to all aspiring data wranglers is "Learn SQL!"
 
-When she’s not at work she enjoys playing with her kids, gardening, keeping backyard chickens, and woodworking.
+Away from the office, Kelly enjoys vegetable and flower gardening, vegetarian cooking, quilting, "slogging" (slow jogging), reading anything and everything, and spending time with her spouse. During tax season, she can be found volunteering as a VITA tax preparer.
 
-As a relatively new Minnesotan June is likely to take the last cookie on the plate, but is working to curb this behaviour.
+<a title="ORCID" href="https://orcid.org/0000-0002-3812-8910" target="\_blank"><img class="alignnone" src="{{ site.urlimg }}/ORCIDiD_icon24x24.gif" alt="ORCID" width="30" height="30" /></a>
 
 ***
 
