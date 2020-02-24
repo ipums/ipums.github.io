@@ -7,7 +7,7 @@ author: isrdi-it
 permalink: /working-mpc/career-opportunities/
 ---
 
-We are currently seeking a Software Developer to join our team. You can find details at [https://isrdi.umn.edu/employment](https://isrdi.umn.edu/employment). 
+We are currently seeking a Software Developer to join our team. You can find details at [https://isrdi.umn.edu/employment](https://isrdi.umn.edu/employment). **Note: As of morning Feb 24, 2020 it's not quite listed on our career page. Check back in a day or two! 
 
 ---
 
