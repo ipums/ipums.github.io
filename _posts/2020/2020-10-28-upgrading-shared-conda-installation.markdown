@@ -1,4 +1,3 @@
-
 ---
 author: kjthomps
 title: "Upgrading the Shared Conda Installation at ISRDI"
@@ -11,7 +10,6 @@ tags:
 - PackageManagement
 - DevOps
 ---
-
  
 ## Background
 
@@ -27,15 +25,11 @@ Updating to new conda versions has been nearly impossible in the past because `c
 
 To achieve this goal, we devised a way to install multiple versions of conda side-by-side so that we can symlink conda to the "current" version installation and do quality checking on new version installations ("QA" version) before changing the symlink to the newer version. We perform what is essentially an environment migration by exporting environment specs from the current conda installation and recreating them in the QA version. By directly invoking the python executables in the QA conda bin, we are able to test these environments before zero-down-time cutover to the new qa installation via a one-line command to change the conda symlink.
 
-  
 
 ## Directory organization
 
-  
-
 We install all conda installations under one folder:
-
-  
+ 
 
 ```
 
@@ -152,3 +146,4 @@ Finally, we change the `current` conda symlink to the `qa` version and remove th
 If Stackoverflow posts are any indication, we are far from the first work group to have `conda update conda` ruin our week with broken environments. We struggled to find much if anything written about managing a shared conda environment such as we have set up. Now that we have a path forward for updating our conda, we are even more convinced this is the right architecture for us. The shared environments ensure replicable and reproducible results with our software across users and/or data sets, and save enormous amounts of time in project onboarding and set-up because the environments are automatically the same across users.
 
 Are you using a shared conda installation at your institution? Please let us know because we'd love to compare notes!
+
