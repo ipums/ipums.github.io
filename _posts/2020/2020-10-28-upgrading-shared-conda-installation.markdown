@@ -23,74 +23,47 @@ It's clear from this description, especially the "environments on your local com
 
 Updating to new conda versions has been nearly impossible in the past because `conda update conda` has broken lots of things every time we've done version updates. We desperately wanted to update our conda however, as we were at a stage where the current conda version was no longer supported and because of unfixed bugs in these old versions of conda, many of our shared environments were not able to be updated. Outside of the perils of `conda update conda`, we also wanted a way to reduce cruft as we moved from version to version, so we wanted more of a "migration" than an "update" process to allow us some intentional housekeeping focus to remove some unused environments and package caches.
 
-To achieve this goal, we devised a way to install multiple versions of conda side-by-side so that we can symlink conda to the "current" version installation and do quality checking on new version installations ("QA" version) before changing the symlink to the newer version. We perform what is essentially an environment migration by exporting environment specs from the current conda installation and recreating them in the QA version. By directly invoking the python executables in the QA conda bin, we are able to test these environments before zero-down-time cutover to the new qa installation via a one-line command to change the conda symlink.
+To achieve this goal, we devised a way to install multiple installations of conda side-by-side so that we can symlink conda to the `current` version installation while doing quality checking on the new `qa` version installation. This allows a full qualification before changing the symlink to the newer version (and thus putting the new installation into production for all users). We perform what is essentially an environment migration by exporting environment specs from `current`  recreating them in the `qa`. By directly invoking the python executables in the `qa` conda bin, we are able to test these environments before a zero-down-time cutover to the new installation via a one-line command to point the `current` symlink to the new installation.
 
 
 ## Directory organization
 
 We install all conda installations under one folder:
- 
-
 ```
-
-/pkg/ipums/programming/
+/pkg/ipums/programming/:
 
 └─ conda/
-
-├─ current ⇒ v4.3 ← symlink to current conda version 
-
-├─ qa ⇒ v4.8 ← symlink to next conda version undergoing QA
-
 │
-
+├─ current ⇒ e.g. v4.3 ← symlink to current conda version 
+├─ qa ⇒ e.g. v4.8 ← symlink to next conda version undergoing QA
+│
 ├─ envs ⇒ current/envs ← symlink to folder with current environments
-
 │
-
 ├─ v4.3/ ← conda 4.3 root (base) environment
-
 │ ├─ bin/
-
 │ ├─ envs/ ← default location for conda 4.3 environments
-
 │ ├─ pkgs/ ← default location for conda 4.3 package cache
-
 │ └─ ...
-
 ├─ v4.8/ ← conda 4.8 root (base) environment
-
 │ ├─ bin/
-
 │ ├─ envs/ ← default location for conda 4.8 environments
-
 │ ├─ pkgs/ ← default location for conda 4.8 package cache
-
 │ └─ ...
-
-│
-
-├─ installers/ ← Miniconda3 installers for different conda versions & OSes;
-
-│ IPUMS Excel Toolkit's Install_on_Win.cmd script uses these
-
-├─ kernels/ ← for JupyterHub/JupyterLab
-
+├─ kernels/ ← for JupyterHub/JupyterLab, each points to environment-specific ipykernel
 ├─ mpc/ ← our custom conda channel for local packages
-
 └─ tools/ ← installation directory for the code in this repository
-
 ```
 The path /pkg/ipums/programming/conda/current is what all users get as the path to the shared conda environment, with that path's `bin/` folder being in all user's $PATH when logged in via a bash shell. This structure allows us to leave our production, or "`current`" conda intact while allowing us to test and qualify a new `qa` version in a separate installation. When we are ready to update to the `qa` version, we simply change the `current` symlink to point to this new version.
 
 ## Migration process
 
-To begin a migration to a new version, we first use a miniconda installer to install the new version in the directory as described above. Then we symlink `qa` to allow us to programmatically and manually access the `qa` environment in the following steps.
+To begin a migration to a new conda version, we first use a miniconda installer to install the new version in the directory as described above. Then we symlink `qa` to the new version directory to allow us to both programmatically and manually access the `qa` environment in the following steps.
 
 ### Getting information about the current conda install
 
-We then capture some information about the current conda install so we can get ready to reproduce it. We manually created an .ini file with a list of all current environments. This can be done by inventorying the current `envs/` directory or with `conda env list` in the current conda install. We communicate with all of the people responsible for the environment on Slack about whether or not they would like to have this environment in the new conda install. If so, we indicate this in the .ini file with ` = REPLICATE`. If not, we mark it as ` = export` because we would still like to export a YAML specification for it, in case we actually do need it in the future and want to recreate it later.
+We then capture some information about the current conda install so we can get ready to reproduce it. We manually created an .ini file with a list of all current environments. This can be done by inventorying the `current` directory `envs/` or with `conda env list` in the `current` conda install. We communicate with all of the people responsible for those environments on Slack about whether or not they would like to have this environment migrated into the `qa` conda installation. If so, we indicate this in the .ini file with ` = REPLICATE`. If not, we mark it as ` = export` to flag it for exporting YAML but not creating it. By doing this we have available specs to recreate any of these environments should the need arise.
 
-We need to take care to make sure that all environments currently used as kernels in our shared JupyterLab/Hub are replicated.
+Further, we need to take care to make sure that all environments currently used as kernels in our shared JupyterLab/Hub are replicated.
 
 Here is an example .ini file:
 ```
@@ -102,38 +75,34 @@ hlink = REPLICATE
 nhis_reformat = REPLICATE
 super_important_jupyter_kernel = REPLICATE
 
-# delete
+# do not migrate
 old_not_used = export
 ```
-
-  
-  
-
 ### Exporting YAML spec files for all environments
 
 We wrote a script to export one .yml file per environment in the .ini file to an `env_specs` directory in the conda directory structure. As stated above, we are exporting YAML specs for all existing environments, not just those we are migrating.
 
-The script uses the command `conda env export --name ENV_NAME --no-builds`. The `--no-builds` flag is important because many of the exact builds are no longer available in package repositories, and pretty much ever single environment build will fail with them in our situation. Because we were on version 4.3.22, and the `--no-builds` flag was broken in that minor version, we chanced a minor version update to 4.3.31 where this bug fix was applied so that we didn't need to do post-processing of the files on the command line (with tools such as sed, cut, grep, etc.) before recreating the environments.
+The script uses the command `conda env export --name ENV_NAME --no-builds`. The `--no-builds` flag is important because many of the exact builds are no longer available in package repositories, and pretty much ever single environment build will fail with them in our situation. Because we were on version 4.3.22, and the `--no-builds` flag was broken in that minor version, we chanced a minor in-place conda version update to 4.3.31 where this bug fix was applied so that we didn't need to do post-processing of the yaml files on the command line (with tools such as sed, cut, grep, etc.) before recreating the environments.
 
 ### Replicating current environments in the QA installation
 
-We wrote a second script to sequentially replicate the environments marked as ` = REPLICATE` in the .ini file in the QA conda installation. We observe the error output to the console as the script runs to see which envs fail. How we managed this during the first migration was to create a spreadsheet from the .ini file, and paste errors form the CLI output into the spreadsheet for manual remediation on an env-by-env basis. We hope future iterations automate this error capture.
+We wrote a second script to sequentially replicate the environments marked as ` = REPLICATE` in the .ini file in the `qa` conda installation. We observe the error output to the console as the script runs to see which envs fail. How we managed this during the first migration was to create a spreadsheet from the .ini file, and paste errors form the CLI output into the spreadsheet for manual remediation on an env-by-env basis. We hope future iterations automate this error capture.
 
 One thing to note is that we had to add special handling in the script for local `noarch` conda packages. We identified the list of noarch packages in our custom conda channel and saved these in a text file. If the script found any of these packages in the YAML spec for an environment, it would strip it from the YAML before replicating it, then run a subsequent process to conda install each noarch package once the initial environment was created. We are hoping to rebuild these noarch packages now that we have migrated to a newer conda version, so this should hopefully not be needed in future migrations/updates.
 
 ### Troubleshooting failed environments
 
-Out of the ~60 environments we migrated from 4.3 to 4.8.5, we 12 failures. Some common issues causing failures were:
+Out of the 60 environments we migrated from 4.3 to 4.8.5, 48 replicated into 4.8.5 successfully, while 12 had failures. Some common issues causing failures were:
 
--   Custom conda channel packages with really old versions that are no longer in the custom channel
+-   Custom conda channel packages with really old versions no longer housed in our custom channel
     
 -   Noarch packages listed in the pip installed package list often needed to be moved to the conda section of the .yml file. If the package had been installed with both conda and pip in the old environment, it needed to be removed from the list of pip installed packages in the .yml file.
     
--   Packages installed from git clones with pip needed to be removed from the .yml file and manually installed in the QA environment after the new env is recreated.
+-   Packages installed from git clones with pip needed to be removed from the .yml file and manually installed in the `qa` environment after the new env is recreated.
 
 ### Testing
 
-We ran tests in several of the QA environments once we had recreated them to make sure the environment seemed to be behaving as expected with the QA conda. We took extra care to make sure we tested the environments that initially failed and needed some manual intervention, especially because several of these support essential internal services (mesos cluster, JupyterLab, etc.)
+We ran tests in several of the `qa` environments once we had recreated them to make sure the environment seemed to be behaving as expected with the `qa` conda. We took extra care to make sure we tested the environments that initially failed and needed some manual intervention, especially because several of these support essential internal services (mesos cluster, JupyterLab, etc.)
 
 ## Wrapping up loose ends
 
