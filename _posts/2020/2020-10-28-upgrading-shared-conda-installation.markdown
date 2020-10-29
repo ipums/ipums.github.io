@@ -13,7 +13,7 @@ tags:
  
 ## Background
 
-The Python ecosystem offers many ways to manage Python and third-party libraries, pip + virtualenv being a very common solution. At ISRDI, we have a fairly specific need not met by most of these solutions: we develop and deploy a large amount of software, mostly command-line tools, for our researchers to process large-scale demographic data. These scripts reside on multi-user linux servers, and it's a requirement that they perform consistently and reproducibly for all team members. For this purpose, we've arrived at conda as being the solution that works best for our needs, as it has the ability to create named, first-class citizen Python environments in which dependencies can be managed by safe and controlled means. 
+The Python ecosystem offers many ways to manage Python and third-party libraries, pip + virtualenv being a very common solution. At ISRDI, we have a fairly specific need not met by most of these solutions: we develop and deploy a large amount of software, mostly command-line tools, for our researchers to process large-scale demographic data. These scripts reside on multi-user linux servers, and it's a requirement that they perform consistently and reproducibly for all team members. For this purpose, we've arrived at conda as being the solution that works best for our needs, as it has the ability to create named Python environments in which dependencies can be managed by safe and controlled means. 
 
 From the Conda website:
 
