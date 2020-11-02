@@ -46,28 +46,26 @@ By directly invoking the python executables in the `qa` conda bin, we are able t
 
 We install all conda installations under one folder:
 ```
-/pkg/ipums/programming/:
-
-└─ conda/
-│
-├─ current ⇒ e.g. v4.3 ← symlink to current conda version 
-├─ qa ⇒ e.g. v4.8 ← symlink to next conda version undergoing QA
-│
-├─ envs ⇒ current/envs ← symlink to folder with current environments
-│
-├─ v4.3/ ← conda 4.3 root (base) environment
-│ ├─ bin/
-│ ├─ envs/ ← default location for conda 4.3 environments
-│ ├─ pkgs/ ← default location for conda 4.3 package cache
-│ └─ ...
-├─ v4.8/ ← conda 4.8 root (base) environment
-│ ├─ bin/
-│ ├─ envs/ ← default location for conda 4.8 environments
-│ ├─ pkgs/ ← default location for conda 4.8 package cache
-│ └─ ...
-├─ kernels/ ← for JupyterHub/JupyterLab, each points to environment-specific ipykernel
-├─ mpc/ ← our custom conda channel for local packages
-└─ tools/ ← installation directory for the code in this repository
+/pkg/ipums/programming/
+  └─ conda/
+       ├─ current ⇒ v4.3  ← symlink to current conda version
+       ├─ qa      ⇒ v4.8  ← symlink to next conda version undergoing QA
+       │
+       ├─ envs    ⇒ current/envs  ← symlink to folder with current environments
+       │
+       ├─ v4.3/        ← conda 4.3 root (base) environment
+       │    ├─ bin/
+       │    ├─ envs/   ← default location for conda 4.3 environments
+       │    ├─ pkgs/   ← default location for conda 4.3 package cache
+       │    └─ ...
+       ├─ v4.8/        ← conda 4.8 root (base) environment
+       │    ├─ bin/
+       │    ├─ envs/   ← default location for conda 4.8 environments
+       │    ├─ pkgs/   ← default location for conda 4.8 package cache
+       │    └─ ...
+       ├─ kernels/     ← for JupyterHub/JupyterLab, each points to environment-specific ipykernel
+       ├─ mpc/         ← our custom conda channel for local packages
+       └─ tools/       ← installation directory for the code in this repository
 ```
 The path `/pkg/ipums/programming/conda/current` is what all users get as the path to the shared conda environment, with that path's `bin/` folder being in all user's $PATH when logged in via a bash shell.
 This structure allows us to leave our production, or "`current`" conda intact while allowing us to test and qualify a new `qa` version in a separate installation.
