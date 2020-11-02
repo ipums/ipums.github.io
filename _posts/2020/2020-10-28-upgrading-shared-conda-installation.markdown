@@ -122,10 +122,10 @@ We observe the error output to the console as the script runs to see which envs 
 How we managed this during the first migration was to create a spreadsheet from the .ini file, and paste errors form the CLI output into the spreadsheet for manual remediation on an env-by-env basis.
 We hope future iterations automate this error capture.
 
-One thing to note is that we had to add special handling in the script for local `noarch` conda packages.
+One thing to note is that we had to add special handling in the script for local legacy `noarch` conda packages.
 We identified the list of noarch packages in our custom conda channel and saved these in a text file.
 If the script found any of these packages in the YAML spec for an environment, it would strip it from the YAML before replicating it, then run a subsequent process to conda install each noarch package once the initial environment was created.
-We are hoping to rebuild these noarch packages now that we have migrated to a newer conda version to avoid this step in future migrations/updates.
+We will rebuild these noarch packages now that we have migrated to a newer conda version to avoid this step in future migrations/updates.
 
 ### Troubleshooting failed environments
 
