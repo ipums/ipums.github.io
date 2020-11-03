@@ -83,16 +83,6 @@ Outside of his work at ISRDI, Ben is an avid cyclist, golfer, and birdwatcher. H
 
 ***
 
-### Will Lane
-<a href="{{ site.urlimg }}/image-e1430756054622.png"><img class=" size-thumbnail wp-image-750 alignright" src="{{ site.urlimg }}/image-e1430756054622-150x150.png" alt="will_lane" width="150" height="150" /></a><br />
-I originally got into computers when my dad started a custom build to order computer company when I was eight years old. Shortly after, I began building and fixing computers for my family and some friends.
-
-In school I played the saxophone and studied jazz music and I eventually went to college to study jazz-performance. After a year or so I decided to keep music fun and switched my major to computer science, where I began to learn programming. I graduated a few years ago and I've worked for a few private-sector education companies, but I came to the MPC in pursuit of interesting problems and data that can be used in research to help solve some of our greatest problems.
-
-I am currently working on dropping a shiny new UI on our Terrapop product.
-
-***
-
 ### Willy Lee
 Willy Lee started web work while studying studio art at Carleton College. The web was something you could learn the entire body of knowledge in an afternoon at that time. Willy took this love of narrative and storytelling to the new medium and somehow stumbled upon a career. After a decade at the Minneapolis Institute of Arts doing all things web, Willy switched focus to application performance. As the IT Ops Manager at ISRDI, Willy and the team profile and monitor system performance and work with our programmers to find ways to deliver speed and reliability to our users.
 
