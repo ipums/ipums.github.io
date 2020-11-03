@@ -68,12 +68,11 @@ Lindberg identifies two key issues that drive people’s strong opinions of the 
 > There is basically no argument that the GPL is a valid and enforceable license.
 > There is, however, a lot of confusion about when and where the GPL applies.
 
-That’s the confusion that Fran recounted in the earlier post -- confusion that we spent a lot of time and effort struggling with.
+That’s the confusion recounted in our earlier post -- confusion that we spent a lot of time and effort struggling with.
 
 # “We Just Don’t Know”
 
-Fran observed that this confusion has been around for 3 decades.
-Lindberg also highlights the issue’s longevity:
+This confusion has been around for 3 decades. Lindberg highlights the issue’s longevity:
 
 > Nevertheless, there is a persistent issue that won’t go away -- whether linking programs together creates a derivative work.
 > If linking creates a derivative work, the GPL applies to the linked program; otherwise, the GPL doesn’t apply.
@@ -83,8 +82,7 @@ Lindberg also highlights the issue’s longevity:
 >
 > I won’t keep you in suspense; the short answer is that we don’t know.
 
-We still don’t.
-As Fran explained, because there’s no definitive answer, we used our best judgment to navigate through all the confusion and make a decision, so we could get on with other work.
+We still don’t. Because there’s no definitive answer, we used our best judgment to navigate through all the confusion and make a decision so we could get on with other work.
 
 # Linking = Derivative Work?
 
