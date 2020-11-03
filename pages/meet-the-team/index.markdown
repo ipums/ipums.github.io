@@ -94,7 +94,11 @@ In their free time, Willy is a cycling advocate, election judge, outdoorsman, ho
 
 ### Alex McWhinnie
 
-Bio coming soon!
+Alex McWhinnie started his career in Industrial design in Sydney, where he designed exciting objects such as a hinge, a pager, and a collection of spears. Shorlty thereafter, Alex transitioned to digital media, where he eventually found fullfillment in the budding field of user experience design. Alex spent 8 years working in Boston for MassArt, Suffolk University, and MIT, and joined the ISRDI team in 2015 as their lead user experience designer.
+
+Outside of work, Alex likes cycling, traveling, sailboat racing, rock climbing, making wine, and trying to grow figs in Minnesota. 
+
+<a title="LinkedIn" href="https://www.linkedin.com/in/alexmcwhinnie" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a> 
 
 ***
 
