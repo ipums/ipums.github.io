@@ -11,11 +11,13 @@ header:
    image_fullwidth: "header_science.png"
 widget-1:
   # leaving the title blank suppresses this hiring widget
-    title: We're Hiring! 
+    title:
     url: 'working-mpc/career-opportunities/'
     text: 'ISRDI is currently seeking a Software Developer'
 widget-2:
-    title: "ISRDI IT On Tour"
+  # leaving the title blank suppresses this hiring widget
+    title:
+  # title: "ISRDI IT On Tour"
     url: 'ontour/'
     text: 'Where We&#39;ll Be / Where We&#39;ve Been'
 widget-3:

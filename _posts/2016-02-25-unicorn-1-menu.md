@@ -137,7 +137,7 @@ For additional readability, blank lines and comment lines (those where the first
 
 The [VBA module][] to create a custom Excel menu from an array of strings with a menu definition is a little more than 100 lines of code.  This library module allows a menu to defined in a string literal.  As an example, here's VBA code to create the sample menu described in the module's comments:
 
-[VBA module]:  https://github.com/mnpopcenter/vba-libs/blob/master/menu_lib.bas
+[VBA module]:  https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/menu_lib.bas
 
 ``` vb
 Const MENU_DEFINITION = _
@@ -163,4 +163,6 @@ This approach works fine with menu definitions of modest length.  Given that our
 
 Another significant benefit is that we can now change the menu outside of Excel's VBA editor while working on the project's new Python code. Because the menu data is now contained in a defined, formatted text file instead of embedded in VBA code, it's also much (much!) easier to visually parse.
 
-Finally, and perhaps most importanly, by using the "_caption_ \| _action_" syntax for defining menu items, we've architected a model in which the action of the menu item is abstracted from the code that's executed, **_including whether that action calls VBA or Python code_**. This is a critical piece of building an infrastructure that allows for incremental replacement of VBA with Python, one macro at a time.  There is no need to re-engineer a massive VBA codebase all at once in Python. In other words, that technical debt hole we talked about being dug into at the start of the article? We just built the ladder. Stay tuned for future posts, where we will talk about climbing out.
+Finally, and perhaps most importantly, by using the "_caption_ \| _action_" syntax for defining menu items, we've architected a model in which the action of the menu item is abstracted from the code that's executed, **_including whether that action calls VBA or Python code_**. This is a critical piece of building an infrastructure that allows for incremental replacement of VBA with Python, one macro at a time.  There is no need to re-engineer a massive VBA codebase all at once in Python. In other words, that technical debt hole we talked about being dug into at the start of the article? We just built the ladder. Stay tuned for future posts, where we will talk about climbing out.
+
+_Update on 2020 Mar 6 -- Updated the link to our GitHub repository for its new name._

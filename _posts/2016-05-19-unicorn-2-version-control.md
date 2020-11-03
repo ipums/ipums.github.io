@@ -27,7 +27,7 @@ We're certainly not the first development team to face this challenge.  A [searc
 
 ### Development and Production Modes
 
-Our Excel add-in now runs in one of two modes: _development_ or _production_.  There are actually different copies of the add-in file, that correspond to these modes.  Our revised development process has a naming convention to distinguish between these copies, which are called _editions_.  This is illustrated with the sample add-in called “Simple Toolkit” in our [vba-libs project][]:
+Our Excel add-in now runs in one of two modes: _development_ or _production_.  There are actually different copies of the add-in file, that correspond to these modes.  Our revised development process has a naming convention to distinguish between these copies, which are called _editions_.  This is illustrated with the sample add-in called “Simple Toolkit” in our [excel-toolkit-framework project][]:
 
 | Toolkit Edition         | File Name                  | Menu Title
 | ----------------------- | -------------------------- | ----------
@@ -35,11 +35,11 @@ Our Excel add-in now runs in one of two modes: _development_ or _production_.  T
 | Production (_built_)    | `Simple Toolkit_PROD.xlam` | Simple Toolkit (prod)
 | Production (_installed_)| `Simple Toolkit.xlam`      | Simple Toolkit
 
-[vba-libs project]:  https://github.com/mnpopcenter/vba-libs
+[excel-toolkit-framework project]:  https://github.com/mnpopcenter/excel-toolkit-framework
 
 The Simple Toolkit's menu is based on the example menu definition in the comments of the [menu library module][] that we discussed in the [first post][].
 
-[menu library module]: https://github.com/mnpopcenter/vba-libs/blob/master/menu_lib.bas
+[menu library module]: https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/menu_lib.bas
 
 ![screenshot of Simple Toolkit menu]({{site.urlimg}}/Simple-Toolkit_menu.png)
 
@@ -60,22 +60,22 @@ The development edition of a toolkit contains only one VBA module -- this is wha
 
 ![Development edition in VBE with macros disabled]({{site.urlimg}}/Simple-Toolkit_bootstrap.png)
 
-The source code for that [bootstrap module][] is in our [vba-libs project][].  The module has just one short procedure `InitializeAddIn` that's called by the add-in's `Workbook_Open` event handler.  When any edition of the toolkit's add-in is opened with macros enabled, that subroutine initializes the add-in as follows:
+The source code for that [bootstrap module][] is in our [excel-toolkit-framework project][].  The module has just one short procedure `InitializeAddIn` that's called by the add-in's `Workbook_Open` event handler.  When any edition of the toolkit's add-in is opened with macros enabled, that subroutine initializes the add-in as follows:
 
 1.  Determine the mode from the add-in’s file name (if `DEV` in the name, then mode = Development; else mode = Production).
 2.  If mode = Development, then dynamically load the toolkit's other modules.  (_If mode = Production, then the modules are already in the production edition._).
 3.  Call the `Initialize` procedure in the [toolkit module][] which does the toolkit specific initialization (i.e., create its menu and any other necessary actions).
 
-[bootstrap module]: https://github.com/mnpopcenter/vba-libs/blob/master/bootstrap.bas
-[toolkit module]: https://github.com/mnpopcenter/vba-libs/blob/master/toolkit.bas
+[bootstrap module]: https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/bootstrap.bas
+[toolkit module]: https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/toolkit.bas
 
 The bootstrapping of the development edition in step 2 is where the bootstrap module imports all the other VBA modules into the add-in programmatically.  To accomplish this, the bootstrap module first imports these two modules:
 
 1.  the toolkit's corresponding [configuration module][], e.g., `Simple Toolkit_conf.bas`
 2.  the generic [loader module][]
 
-[configuration module]: https://github.com/mnpopcenter/vba-libs/blob/master/Simple Toolkit_conf.bas
-[loader module]: https://github.com/mnpopcenter/vba-libs/blob/master/loader.bas
+[configuration module]: https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/Simple Toolkit_conf.bas
+[loader module]: https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/loader.bas
 
 The configuraton module defines the constants for the toolkit's configuration settings (i.e., its title, menu title, version #, etc.).  One of those constants is a string with a list of VBA source files separated by vertical bars:
 
@@ -130,7 +130,7 @@ Const MENU_DEFINITION_STR = _
     & vbLf & "#dev>    Build Production version  |  BuildProductionVersion"
 ```
 
-[menu definition]: https://github.com/mnpopcenter/vba-libs/blob/master/menu_defn_in_code.bas
+[menu definition]: https://github.com/mnpopcenter/excel-toolkit-framework/blob/master/menu_defn_in_code.bas
 
 In Development mode, we scan the definition's lines and remove the special prefix `#dev>` from each line.  Stripping the prefix uncomments the lines, so the [menu library module][] processes them to enable the submenu.
 
@@ -178,7 +178,7 @@ When the production edition is built, the `(dev)` marker is removed from its Tit
 
 So our build process ensures that regardless of where a toolkit's add-in is copied or how it's renamed, we can always determine the edition and version of each copy.
 
-[change-file-props]: https://github.com/mnpopcenter/vba-libs/wiki/Changing-File-Properties
+[change-file-props]: https://github.com/mnpopcenter/excel-toolkit-framework/wiki/Changing-File-Properties
 [instructions]: http://www.cpearson.com/excel/createaddin.aspx
 
 
@@ -193,7 +193,9 @@ But what about Python? Wasn't the whole purpose of this journey to get from VBA-
 
 _Acknowledgements:  Ben Klaas contributed to this article._
 
-_Update on 2016 Sep 28 -- Replaced the link to Chip Pearson's [instructions][] with a link to [extended instructions][change-file-props] in the vba-libs wiki._
+_Update on 2016 Sep 28 -- Replaced the link to Chip Pearson's [instructions][] with a link to [extended instructions][change-file-props] in the excel-toolkit-framework wiki._
+
+_Update on 2020 Mar 6 -- Updated the links to our [excel-toolkit-framework project][] for the repository's new name._
 
 [^1]:  On Windows: `%APPDATA%\Microsoft\Add-Ins\`  On OS X: `~/Documents/Microsoft User Data/Excel/`
 
