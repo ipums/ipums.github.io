@@ -10,7 +10,9 @@ permalink: /meet-the-team/
 
 ### Li Dai
 
-Bio coming soon!
+Once upon a time, Li Dai was an auto trader at his hometown in China, then explored his entrepreneurship via a family business in high voltage electrical equipment industry. But none of these opportunities kept him from going back to what he really wants, a career path in IT.  A java developer position was his starting point, he then decided to pursue his master’s degree in Information Assurance and got exposed to the world of Containerization and DevOps. Shortly after, he joined ISRDI IT operations team and has been passionate in providing safe, reliable computing environment for our software developers and users.
+
+Aside from work, he still likes to share his enthusiasm in motoring with his friends, enjoys listening to music from Hifiberry, loves road trips and national parks, as well as being a good father, husband and son in his family.
 
 ***
 
