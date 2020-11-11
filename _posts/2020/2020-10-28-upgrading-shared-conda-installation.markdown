@@ -161,3 +161,7 @@ The shared environments ensure replicable and reproducible results with our soft
 
 Are you using a shared conda installation at your institution?
 Please let us know because we'd love to compare notes!
+
+## Acknowledgements
+
+Ben Klaas and Jimm Domingo edited drafts of this blog post and collaborated on the described project.
