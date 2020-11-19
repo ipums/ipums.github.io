@@ -13,10 +13,8 @@ tags:
  
 ## Background
 
-The Python ecosystem offers many ways to manage Python and third-party libraries, pip + virtualenv being a very common solution.
-At ISRDI, we have a fairly specific need not met by most of these solutions: we develop and deploy a large amount of software, mostly command-line tools, for our researchers to process large-scale demographic data.
-These scripts reside on multi-user linux servers, and it's a requirement that they perform consistently and reproducibly for all team members.
-For this purpose, we've arrived at conda as being the solution that works best for our needs, as it has the ability to create named Python environments in which dependencies can be managed by safe and controlled means. 
+The Python ecosystem offers a few ways to manage Python and third-party libraries.
+For both conda and pip + virtualenv, these solutions are designed for managing environments on an individual's local computer, not a shared work environment.
 
 From the Conda website:
 
@@ -26,12 +24,23 @@ Conda easily creates, saves, loads and switches between environments on your loc
 It was created for Python programs, but it can package and distribute software for any language.
 
 It's clear from this description, especially the "environments on your local computer" part, that the main focus of this technology is for local development.
+
+At ISRDI, we develop and deploy a large amount of software, mostly command-line tools, for our researchers to process large-scale demographic data.
+These scripts reside on multi-user linux servers, and it's a requirement that they perform consistently and reproducibly for all team members.
+For this purpose, we need shared, named Python environments in which dependencies can be managed for all users by safe and controlled means. 
+
+We've implemented conda as our solution for this need for multi-user shared environments.
+Conda has a few feature areas that are more user-friendly than the alternatives, making it a better fit for our particular situation:
+ - It provides a slightly cleaner solution than the pip/virtualenv/wheel for building binary, installable, portable packages for internal libraries.
+ - We are heavy users of our JupyterHub/Lab set-up, and the Jupyter ecosystem is built to work very nicely with named conda environments, particularly for managing notebook kernels amongst multiple users.
+ - Conda is language agnostic and can install non-python libraries. We have a few places where we've pulled non-Python (C++, R) packages into an environment.
+ 
 In our case, we both want conda to be a server-based solution and *serve as a shared installation in which named environments can be used by multiple users on-demand*.
 Everyone working on our production servers uses these shared conda environments when running Python scripts to do data work.
 We have a custom conda channel where we serve builds of our own internal Python libraries.
 We also use a number of these named environments as custom kernels for our shared JupyterHub/Lab installation (more on this to come in a future blog post!).
-This setup has been a viable and beneficial solution for years at ISRDI, but it has its challenges, most notably *upgrading conda itself*.
 
+This setup has been a viable and beneficial solution for years at ISRDI, but it has its challenges, most notably *upgrading conda itself*.
 Updating to new conda versions has been nearly impossible in the past because `conda update conda` has broken lots of things every time we've done version updates.
 We desperately wanted to update our conda however, as we were at a stage where the current conda version was no longer supported.
 Even more critically, [as a result of unfixed bugs in the version of conda we were using, many of our shared environments were not able to be updated](https://github.com/conda/conda-build/issues/3915).
@@ -108,7 +117,7 @@ We wrote a script to export one `.yml` file per environment in the .ini file to 
 As stated above, we are exporting YAML specs for all existing environments, not just those we are migrating.
 
 The script uses the command `conda env export --name ENV_NAME --no-builds`.
-The `--no-builds` flag is important because many of the exact builds[^1] are no longer available in package repositories, and pretty much ever single environment build will fail with them in our situation.
+The `--no-builds` flag is important because many of the exact builds[^1] are no longer available in package repositories, and pretty much every single environment build will fail with them in our situation.
 Because we were on version 4.3.22, and the `--no-builds` flag was broken in that minor version, we chanced a minor in-place conda version update to 4.3.31 where this bug fix was applied so that we didn't need to do post-processing of the yaml files on the command line (with tools such as sed, cut, grep, etc.) before recreating the environments.
 
 [^1]: to be clear, in the conda ecosystem build hashes specifically tag a *specific build* for a specific version.
