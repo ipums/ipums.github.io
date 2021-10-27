@@ -37,9 +37,9 @@ In his free time, he enjoys homebrewing, cooking, canoeing, and tinkering with h
 ### Fran Fabrizio
 <a href="{{ site.urlimg }}/Fabrizio_Headshot-e1420664595616.jpg"><img class=" size-thumbnail wp-image-432 alignright" src="{{ site.urlimg }}/Fabrizio_Headshot-e1420664595616-150x150.jpg" alt="Fabrizio_Headshot" width="150" height="150" /></a>Fran originally planned to become a garbage truck driver (coolest thing ever to this 4-year-old boy), but the gift of a PCjr when he was 8 sparked a hobby interest in programming, typing in BASIC programs from the back of Family Computing magazine. Years later, he would find himself in the right place (a science and tech high school) at the right time (the birth of the Web), which changed his life course completely and led him to a career in computer science and IT.
 
-After several years in private industry he moved to higher education where he has been ever since, splitting time between software development, system administration and management.  In 2011 he moved to his wife's native Minnesota and joined the MPC, and has served as IT Director since 2012.
+After several years in private industry he moved to higher education where he has been ever since, splitting time between software development, system administration and management.  In 2011 he moved to his wife's native Minnesota and joined what was then the Minnesota Population Center, and has served as IT Director since 2012.
 
-Outside of work, Fran is likely to be found making a horrible mess of the kitchen, cruising around on his bike, or hanging out watching cars and trucks with his son.
+Outside of work, Fran is likely to be found making a horrible mess of the kitchen, cruising around on his e-bike, or off the grid with his family in the camper.
 
 (Fran has also been <a title="IT Core Spotlight: Fran Fabrizio" href="/it-core-spotlight-fran-fabrizio/">Spotlighted</a>!)
 
