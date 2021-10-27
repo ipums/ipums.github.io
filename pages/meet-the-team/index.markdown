@@ -27,15 +27,6 @@ Currently he uses C++ 11, Java and Ruby professionally. For hobby projects Colin
 
 ***
 
-### Jimm Domingo
-<a href="{{ site.urlimg }}/domingo.jpg"><img class=" size-full wp-image-707 alignright" src="{{ site.urlimg }}/domingo.jpg" alt="domingo" width="150" height="150" /></a>Jimm has been hacking since... well, since Hector was a pup.  At least, back when hacking didn't mean cracking.  Long before this fad of connecting a series of tubes into an interweb...
-
-After working at a commercial database shop in California, Jimm moved into the ivory tower.  For the past couple decades, he's been developing research software at universities around the US (New Hampshire, Oregon, Wisconsin, New Mexico and Indiana).  And now in Minnesota after joining the MPC in 2015.
-
-Here at MPC, Jimm toils away in the Data Production group, helping improve the tools and infrastructure that researchers use in their data workflows (when he's not writing about himself in the third person).
-
-***
-
 ### Dan Elbert
 Dan has been writing software since 2005 when he started as a Microsoft developer for a small consulting company.  After 7 years of C#, Windows Forms, and IIS, he decided to make a switch and became a Ruby on Rails developer for the MPC.
 
@@ -69,19 +60,6 @@ My primary interest in web development is the interface design and how people us
 <a href="{{ site.urlimg }}/kevin-horne-cropped.jpg"><img class=" size-thumbnail wp-image-481 alignright" src="{{ site.urlimg }}/kevin-horne-cropped-150x150.jpg" alt="kevin-horne-cropped" width="150" height="150" /></a>Kevin joined the Minnesota Population Center in 2005. His work centers on delivering domestic aggregate and spatial data via www.nhgis.org. Having done some work on the web site itself, Kevin's primary focus is on organizing, building, and deploying data and metadata. His experience includes working extensively with Smalltalk, Ruby, and Python. Kevin also has a background with GIS, having earned his MGIS in 2008. His interest in both IT and geography play a key role in his day-to-day activities with NHGIS aggregate data.
 
 In his free time, Kevin teaches group fitness classes at the YWCA of Minneapolis.
-
-***
-
-### Ben Klaas
-<a href="{{ site.urlimg }}/ben-klaas-e1420575378509.jpg"><img class=" wp-image-421 size-thumbnail alignright" src="{{ site.urlimg }}/ben-klaas-e1420575378509-150x150.jpg" alt="ben-klaas" width="150" height="150" /></a>Ben began his career as an ecologist, studying pocket gophers on native grasslands. Data proved to be a second passion though, and he's been working in computing since the late 1990s on a wide variety of gadgets and gizmos: routers, satellite data, DSL hardware, streaming audio consumer electronics, phone and voicemail software, and now human population data.
-
-Ben works closely with demographic researchers at ISRDI on a variety of its products, particularly with IPUMS microdata. He's a Linux enthusiast and loves working in open source languages, and lately that means lots and lots of Python.
-
-Outside of his work at ISRDI, Ben is an avid cyclist, golfer, and birdwatcher. He is also the father to two lovely daughters. As of this writing, Ben has never been to outer space.
-
-(Ben has also been <a title="IT Core Spotlight: Ben Klaas" href="/it-core-spotlight-ben-klaas/">Spotlighted</a>!)
-
-<a title="LinkedIn" href="https://www.linkedin.com/in/bklaas" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a> <a title="Github" href="https://github.com/bklaas"><img class="alignnone wp-image-363" src="{{ site.urlimg }}/github30x30.png" alt="github" width="30" height="30" /></a>
 
 ***
 
@@ -121,17 +99,6 @@ When not planning work for the team or writing code, Marcus can frequently be ob
 Besides coding for IPUMS projects, he can be found hanging out with his friends, watching movies and documentaries, and going for a walk.
 
 <a title="LinkedIn" href="https://www.linkedin.com/in/jayandrapokharel" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a> <a title="Github" href="https://github.com/jayandra"><img class="alignnone wp-image-363" src="{{ site.urlimg }}/github30x30.png" alt="github" width="30" height="30" /></a>
-
-***
-
-### Kelly Thompson
-<img class="size-thumbnail alignright" src="{{ site.urlimg }}/Kelly-Thompson.jpg" alt="Kelly Thompson" width="150" height="150" />Kelly fell in love with all things data while completing a master's degree in Library and Information Science at the University of Iowa. Thanks to some great advice from a mentor, she began learning Python in 2012 to expand her skill set in working with messy legacy data.  Building on her 5+ years of experience as a Metadata Librarian in large academic libraries, Kelly is thrilled to have the opportunity to grow into a full-fledged software developer in her role as a Data Engineer at ISRDI.
-
-Kelly primarily works on software to link individuals across historical U.S. census data for the Multi-generational Longitudinal Panel (MLP) project.  This includes developing software for linking that encompasses data cleaning, transformation, and machine learning pipelines, as well as performance analysis.  She currently works mainly with Python, Spark, and Scala. Her advice to all aspiring data wranglers is "Learn SQL!"
-
-Away from the office, Kelly enjoys vegetable and flower gardening, vegetarian cooking, quilting, "slogging" (slow jogging), reading anything and everything, and spending time with her spouse. During tax season, she can be found volunteering as a VITA tax preparer.
-
-<a title="ORCID" href="https://orcid.org/0000-0002-3812-8910" target="\_blank"><img class="alignnone" src="{{ site.urlimg }}/ORCIDiD_icon24x24.gif" alt="ORCID" width="30" height="30" /></a>
 
 ***
 
