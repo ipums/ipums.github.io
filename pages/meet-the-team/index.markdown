@@ -103,15 +103,11 @@ Besides coding for IPUMS projects, he can be found hanging out with his friends,
 ***
 
 ### Jacob Wellington
-<img class=" wp-image-394 size-thumbnail alignright" src="{{ site.urlimg }}/jacob-wellington2-e1420058562302-150x150.jpg" alt="jacob-wellington" width="150" height="150" />A.K.A. "Jake", "Jakey", "The Jakester", and "Big Deal"
+<img class=" wp-image-394 size-thumbnail alignright" src="{{ site.urlimg }}/jacob-wellington2-e1420058562302-150x150.jpg" alt="jacob-wellington" width="150" height="150" />Jake is the manager of the IT Data Team. He joined ISRDI in 2014 on NHGIS as a web developer, but has slowly migrated his skillset into world of Big Data.
 
-Threat Level: Red
+Jake is a lifelong fan of the University of Minnesota, having obtained 3 degrees within its halls: B.A. in Theatre Arts, B.S. in Computer Science, and M.S. Data Science.
 
-Known Behaviors: The target is trained in both computer science and theatre arts, and should be considered highly dangerous. He delights in being on the front lines, using his versatile skill set to weasel his way into the heart of ultra-modern projects.
-
-Weapons of Choice: Ruby on Rails, EmberJS, Vim
-
-Known Hangouts: Como Park Zoo, Howard Conn Fine Arts Center, The Green Spoon
+In addition to this passion for programming, Jake enjoys music, theatre arts, video games, roller blading, and cross country skiing.
 
 ***
 
