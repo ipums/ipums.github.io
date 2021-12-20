@@ -56,6 +56,15 @@ My primary interest in web development is the interface design and how people us
 
 ***
 
+### Joe Grover
+Joe is a former historical mansion tour guide, PhD dropout, and two-time runner up to the Minnesota state speech competition for dramatic prose. Trained as a sociologist, Joe started with ISRDI as a researcher working with Current Population Survey (IPUMS CPS) and American Community Survey / Census (IPUMS USA) data, as well as working on the user support team before ultimately being transmogrified into a software developer. He also played approximately 9,520 hours worth of Tony Hawk's Pro Skater 2 on the Sega Dreamcast before retiring in 2006.
+
+At ISRDI Joe has worked with microdata researchers to develop data management software, optomize data processessing, and turning round holes into square holes (to better accomidate our round pegs... or wait... dang it!). This work has brought him into contact with Python, Ruby on Rails, Rust, Docker, Jenkins, and Perl.
+
+When they let him out of the basement, Joe enjoys biking around the Twin Cities without getting sweaty, forcing his coworkers to look at pictures of his children, and ranting (but only occasionally raving). 
+
+***
+
 ### Kevin Horne
 <a href="{{ site.urlimg }}/kevin-horne-cropped.jpg"><img class=" size-thumbnail wp-image-481 alignright" src="{{ site.urlimg }}/kevin-horne-cropped-150x150.jpg" alt="kevin-horne-cropped" width="150" height="150" /></a>Kevin joined the Minnesota Population Center in 2005. His work centers on delivering domestic aggregate and spatial data via www.nhgis.org. Having done some work on the web site itself, Kevin's primary focus is on organizing, building, and deploying data and metadata. His experience includes working extensively with Smalltalk, Ruby, and Python. Kevin also has a background with GIS, having earned his MGIS in 2008. His interest in both IT and geography play a key role in his day-to-day activities with NHGIS aggregate data.
 
