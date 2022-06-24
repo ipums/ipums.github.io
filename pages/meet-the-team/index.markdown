@@ -59,7 +59,7 @@ My primary interest in web development is the interface design and how people us
 ### Joe Grover
 Joe is a former historical mansion tour guide, PhD dropout, and two-time runner up to the Minnesota state speech competition for dramatic prose. Trained as a sociologist, Joe started with ISRDI as a researcher working with Current Population Survey (IPUMS CPS) and American Community Survey / Census (IPUMS USA) data, as well as working on the user support team before ultimately being transmogrified into a software developer. He also played approximately 9,520 hours worth of Tony Hawk's Pro Skater 2 on the Sega Dreamcast before retiring in 2006.
 
-At ISRDI Joe has worked with microdata researchers to develop data management software, optomize data processessing, and turning round holes into square holes (to better accomidate our round pegs... or wait... dang it!). This work has brought him into contact with Python, Ruby on Rails, Rust, Docker, Jenkins, and Perl.
+At ISRDI Joe has worked with microdata researchers to develop data management software, optimize data processing, and turning round holes into square holes (to better accomidate our round pegs... or wait... dang it!). This work has brought him into contact with Python, Ruby on Rails, Rust, Docker, Jenkins, and Perl.
 
 When they let him out of the basement, Joe enjoys biking around the Twin Cities without getting sweaty, forcing his coworkers to look at pictures of his children, and ranting (but only occasionally raving). 
 
