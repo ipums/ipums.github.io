@@ -1,6 +1,6 @@
 ---
 author: jakew
-title: Implementing The Fastest (Psuedo) Jaro-Winkler Algorithm in Rust 
+title: Implementing The Fastest (Pseudo) Jaro-Winkler Algorithm in Rust 
 teaser: Creating one of the fastest jaro winkler implementations available
 categories: Code
 tags:
