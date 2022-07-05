@@ -102,15 +102,6 @@ When not planning work for the team or writing code, Marcus can frequently be ob
 
 ***
 
-### Jayandra Pokharel
-<a href="{{ site.urlimg }}/jayandra.jpeg"><img class=" size-thumbnail wp-image-412 alignright" src="{{ site.urlimg }}/jayandra-150x150.jpeg" alt="jayandra" width="150" height="150" /></a>Jayandra is a Ruby On Rails developer and loves programming with Ruby. He joined the MPC in the summer of 2014 on the IPUMS product family team.
-
-Besides coding for IPUMS projects, he can be found hanging out with his friends, watching movies and documentaries, and going for a walk.
-
-<a title="LinkedIn" href="https://www.linkedin.com/in/jayandrapokharel" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a> <a title="Github" href="https://github.com/jayandra"><img class="alignnone wp-image-363" src="{{ site.urlimg }}/github30x30.png" alt="github" width="30" height="30" /></a>
-
-***
-
 ### Jacob Wellington
 <img class=" wp-image-394 size-thumbnail alignright" src="{{ site.urlimg }}/jacob-wellington2-e1420058562302-150x150.jpg" alt="jacob-wellington" width="150" height="150" />Jake is the manager of the IT Data Team. He joined ISRDI in 2014 on NHGIS as a web developer, but has slowly migrated his skillset into world of Big Data.
 
@@ -118,11 +109,3 @@ Jake is a lifelong fan of the University of Minnesota, having obtained 3 degrees
 
 In addition to this passion for programming, Jake enjoys music, theatre arts, video games, roller blading, and cross country skiing.
 
-***
-
-### Jim Young
-![Jim Young Luminary]({{ site.urlimg }}/jim-young-luminary.jpg){:.meetteam}
-
-Jim Young began programming with a class in high school in 1966.  He continued, earning a BS degree in Sociology and Computer Science from  the U of MN in 1973 and had a full time career as a software developer that ended with his retirement in 2014.  Looking for something fun to do in retirement, he joined MPC in 2015.
-
-When he isn't programming, he enjoys various outdoor activities (biking, x-c skiing, canoeing, hiking etc.), bread baking and traveling.  He also is a volunteer Luminarian for the City of Lakes Luminary Loppet.
