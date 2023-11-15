@@ -100,12 +100,4 @@ When not planning work for the team or writing code, Marcus can frequently be ob
 
 <a title="Twitter" href="https://twitter.com/marcusgpeterson" target="\_blank"><img class="alignnone wp-image-361" src="{{ site.urlimg }}/twitter30x30.png" alt="twitter" width="30" height="30" /></a>   <a title="LinkedIn" href="https://www.linkedin.com/in/marcuspeterson" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>
 
-***
-
-### Jacob Wellington
-<img class=" wp-image-394 size-thumbnail alignright" src="{{ site.urlimg }}/jacob-wellington2-e1420058562302-150x150.jpg" alt="jacob-wellington" width="150" height="150" />Jake is the manager of the IT Data Team. He joined ISRDI in 2014 on NHGIS as a web developer, but has slowly migrated his skillset into world of Big Data.
-
-Jake is a lifelong fan of the University of Minnesota, having obtained 3 degrees within its halls: B.A. in Theatre Arts, B.S. in Computer Science, and M.S. Data Science.
-
-In addition to this passion for programming, Jake enjoys music, theatre arts, video games, roller blading, and cross country skiing.
 
