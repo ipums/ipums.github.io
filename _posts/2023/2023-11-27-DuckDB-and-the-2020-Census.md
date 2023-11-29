@@ -110,6 +110,28 @@ Finally, we use this database to check data against the metadata the Census gave
 
 Having this database in DuckDB format is a great advantage to the checking phase as the checks can run in split seconds instead of hours. Querying for specific values in a single column or collecting stats on a few columns is extremely fast with DuckDB compared to row-oriented databases. When we make corrections, the updates typiclly run very fast as well.
 
+Here's a very basic example of a quality check query. This is launching the `DuckDB` cli tool and loading a database file (this is the 2020 DHC DB which is 44 GB,) and reading it off of shared storage. The server it's running on isn't particularly fast.
+```shellccd@gp1:/pkg/ipums/istads/ingest/census_2020/dhc/05_data/db$ time duckdb-71 new_cleaned_tmp.nhgis.data.db  -c "select count(*) as areas, region from cph_2020_DHCa group by region"                                                                                                                                                                     
+┌─────────┬─────────┐                                                                                                                                                       
+│  areas  │ REGION  │                                                                                                                                                       
+│  int64  │ varchar │                                                                                                                                                       
+├─────────┼─────────┤                                                                                                                                                       
+│ 4307349 │ 3       │                                                                                                                                                       
+│ 2221626 │ 4       │                                                                                                                                                       
+│ 3443783 │ 2       │                                                                                                                                                       
+│ 1547447 │ 1       │                                                                                                                                                       
+│   89424 │ 9       │                                                                                                                                                       
+│   51175 │         │                                                                                                                                                       
+└─────────┴─────────┘                                                                                                                                                       
+                                                                                                                                                                            
+real    0m2.626s                                                                                                                                                            
+user    0m2.241s                                                                                                                                                            
+sys     0m0.555s                                                                                                                                                            
+
+```
+
+This is on a 11,660,804 row, 3212 column table without indexing on the columns in the query.
+
 ## Exporting
 
 At this point we have three large dataset tables with column names contained in our NHGIS metadata. That means if you request variables SXYZ, ABC, from tables A1, A2 etc, the extract engine can easily form a query to select the right columns from the right dataset table by consulting the metadata which maps variable and Census tables to datasets.
