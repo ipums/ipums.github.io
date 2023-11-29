@@ -10,14 +10,14 @@ tags:
 
 ## Introduction
 
-Our NHGIS service takes public U.S. Census releases and makes them easy to use. Upon the recent 2020 full U.S. Census release last June, we discovered it didn't at all match our expected format -- something like the ACS format,  for which we were very prepared. Instead 2020 DHC (Demographic Household Census) was in the legacy 2010 format (mostly.) To quickly incorporate it into our <a href="nhgis.org"> NHGIS</a> system we had to improvise. 
+Our NHGIS service takes public U.S. Census releases and makes them easy to use. Upon the recent 2020 full U.S. Census release last June, we discovered it didn't at all match our expected format -- something like the ACS format,  for which we were very prepared. Instead 2020 DHC (Demographic Household Census) was in the legacy 2010 format (mostly.) To quickly incorporate it into our <a href="nhgis.ipums.org"> NHGIS</a> system we had to improvise. 
 
 What to do?  Unfortunately, we had abandoned development on a modern Rust and Python application to consume this 2010 format, believing it would never be produced again. (The ACS had been distributed in this format as well, when it got updated to a more modern arrangement, we dropped it in our "ingest" app.) Sadly, we couldn't simply reuse our process from 2010 either. In the end, <a href="duckdb.org"> DuckDB</a> was a key tool.
 
 
 ## Background
 
-We update the <a href="nhgis.org"> NHGIS </a> with new Census data tables every decade, and with American Community Survey data every year. The Census makes their results publically available in a reasonable format, and we download it and reshape it into what we need to match all our existing data (what we term an "ingest" of the data.) 
+We update the <a href="nhgis.ipums.org"> NHGIS </a> with new Census data tables every decade, and with American Community Survey data every year. The Census makes their results publically available in a reasonable format, and we download it and reshape it into what we need to match all our existing data (what we term an "ingest" of the data.) 
 
 The 2010 "ingest" and large ACS ingests  took considerable time. Many hours were spent literally reading and reshaping the data -- many days -- but as well time was needed for our experts to iteratively evaluate the data and the metadata needed to describe the data in our extract system. We had to consume the Census's metadata and transform it into our system which describes all aggregate Census data back to 1790. The process took several weeks.  
 
@@ -116,12 +116,134 @@ At this point we have three large dataset tables with column names contained in 
 
 Here's the database:
 ```shell
+ccd@gp1:/pkg/ipums/istads/ingest/census_2020/dhc/05_data/db$ duckdb-71 new_cleaned_tmp.nhgis.data.db                                                                        
+v0.7.1 b00b93f0b1                                                                                                                                                           
+Enter ".help" for usage hints.                                                                                                                                              
+D show tables;                                                                                                                                                              
+100% ▕████████████████████████████████████████████████████████████▏                                                                                                         
+┌───────────────┐                                                                                                                                                           
+│     name      │                                                                                                                                                           
+│    varchar    │                                                                                                                                                           
+├───────────────┤                                                                                                                                                           
+│ cph_2020_DHCa │                                                                                                                                                           
+│ cph_2020_DHCb │                                                                                                                                                           
+│ cph_2020_DHCc │                                                                                                                                                           
+│ geo           │                                                                                                                                                           
+└───────────────┘                                                                                                                                                           
+D
 ```
+We used `DuckDB` 0.7.1 for most of our work;  0.9.2 is available now and you should probably use that.
 
-And here's the shape of the data:
+Here's the shape of the data. We have three tables with loads of columns. Geographic columns are on the left and on the right.
 ```SQL
+D describe select * from cph_2020_DHCa limit 5;                                                                                                                             
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐                                                                                                       
+│ column_name │ column_type │  null   │   key   │ default │  extra  │                                                                                                       
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │                                                                                                       
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼─────────┤                                                                                                       
+│ FILEID      │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ STUSAB      │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ SUMLEV      │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ GEOVAR      │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ GEOCOMP     │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ CHARITER    │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ CIFSN       │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ LOGRECNO    │ INTEGER     │ YES     │         │         │         │                                                                                                       
+│ GEOID       │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ GEOCODE     │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ REGION      │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ DIVISION    │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ STATE       │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ STATENS     │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ COUNTY      │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│    ·        │    ·        │  ·      │    ·    │    ·    │    ·    │                                                                                                       
+│    ·        │    ·        │  ·      │    ·    │    ·    │    ·    │                                                                                                       
+│    ·        │    ·        │  ·      │    ·    │    ·    │    ·    │                                                                                                       
+│ GN_sd_sec   │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+│ GN_sd_uni   │ VARCHAR     │ YES     │         │         │         │                                                                                                       
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴─────────┤                                                                                                       
+│ 3212 rows (40 shown)                                    6 columns │                                                                                                       
+└───────────────────────────────────────────────────────────────────┘                                                                                                       
+D
+                                   
 ```
 
+```shell
+D describe cph_2020_DHCb;                                                                                                                                                   
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬───────┐                                                                                                         
+│ column_name │ column_type │  null   │   key   │ default │ extra │                                                                                                         
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ int32 │                                                                                                         
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼───────┤                                                                                                         
+│ GEOVAR      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ GEOCOMP     │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ CHARITER    │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ GEOID       │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ REGION      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│    ·        │    ·        │  ·      │    ·    │    ·    │   ·   │                                                                                                         
+│    ·        │    ·        │  ·      │    ·    │    ·    │   ·   │                                                                                                         
+│    ·        │    ·        │  ·      │    ·    │    ·    │   ·   │                                                                                                         
+│ PCT16_006   │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ PCT17B_021  │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ PCT18C_049  │ INTEGER     │ YES     │         │         │       │                                                                                                         
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴───────┤                                                                                                         
+│ 5767 rows (40 shown)                                  6 columns │                                                                                                         
+└─────────────────────────────────────────────────────────────────┘                                                                                                         
+D  
+```
+
+```shell
+D describe cph_2020_DHCc;                                                                                                                                                   
+┌─────────────┬─────────────┬─────────┬─────────┬─────────┬───────┐                                                                                                         
+│ column_name │ column_type │  null   │   key   │ default │ extra │                                                                                                         
+│   varchar   │   varchar   │ varchar │ varchar │ varchar │ int32 │                                                                                                         
+├─────────────┼─────────────┼─────────┼─────────┼─────────┼───────┤                                                                                                         
+│ STUSAB      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ SUMLEV      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ GEOVAR      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ CHARITER    │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ LOGRECNO    │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ REGION      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│    ·        │    ·        │  ·      │    ·    │    ·    │   ·   │                                                                                                         
+│    ·        │    ·        │  ·      │    ·    │    ·    │   ·   │                                                                                                         
+│    ·        │    ·        │  ·      │    ·    │    ·    │   ·   │                                                                                                         
+│ AITSCC      │ VARCHAR     │ YES     │         │         │       │                                                                                                         
+│ PCO1_016    │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ PCO2_011    │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ PCO4_004    │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ PCO4_008    │ INTEGER     │ YES     │         │         │       │                                                                                                         
+│ PCO6_038    │ INTEGER     │ YES     │         │         │       │                                                                                                         
+├─────────────┴─────────────┴─────────┴─────────┴─────────┴───────┤                                                                                                         
+│ 442 rows (40 shown)                                   6 columns │                                                                                                         
+└─────────────────────────────────────────────────────────────────┘                                                                                                         
+D  
+
+```
+The table row-counts:
+```shell
+D                                                                                                                                                                           
+D select count(*) from cph_2020_DHCa;                                                                                                                                       
+┌──────────────┐                                                                                                                                                            
+│ count_star() │                                                                                                                                                            
+│    int64     │                                                                                                                                                            
+├──────────────┤                                                                                                                                                            
+│     11660804 │                                                                                                                                                            
+└──────────────┘                                                                                                                                                            
+D select count(*) from cph_2020_DHCb;                                                                                                                                       
+┌──────────────┐                                                                                                                                                            
+│ count_star() │                                                                                                                                                            
+│    int64     │                                                                                                                                                            
+├──────────────┤                                                                                                                                                            
+│      2388853 │                                                                                                                                                            
+└──────────────┘                                                                                                                                                            
+D select count(*) from cph_2020_DHCc;                                                                                                                                       
+┌──────────────┐                                                                                                                                                            
+│ count_star() │                                                                                                                                                            
+│    int64     │                                                                                                                                                            
+├──────────────┤                                                                                                                                                            
+│        31722 │                                                                                                                                                            
+└──────────────┘                                                                                                                                                            
+D  
+```
 
 In principle we could serve our extract system with this database directly, or export each of these dataset tables as three big Parquet files and serve the extract system from those. However, our existing vast repository of NHGIS data has another more complex layout (still  Parquet) served by Spark. We'd have to convert all that to the new simpler format, then rewrite the extract engine.
 
