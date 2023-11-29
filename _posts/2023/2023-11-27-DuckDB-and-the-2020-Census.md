@@ -10,14 +10,14 @@ tags:
 
 ## Introduction
 
-Our NHGIS service takes public U.S. Census releases and makes them easy to use. Upon the recent 2020 full U.S. Census release last June, we discovered it didn't at all match our expected format -- something like the ACS format,  for which we were very prepared. Instead 2020 DHC (Demographic Household Census) was in the legacy 2010 format (mostly.) To quickly incorporate it into our <a href="nhgis.ipums.org"> NHGIS</a> system we had to improvise. 
+Our NHGIS service takes public U.S. Census releases and makes them easy to use. Upon the recent 2020 full U.S. Census release last June, we discovered it didn't at all match our expected format -- something like the ACS format,  for which we were very prepared. Instead 2020 DHC (Demographic Household Census) was in the legacy 2010 format (mostly.) To quickly incorporate it into our <a href="http://nhgis.ipums.org"> NHGIS</a> system we had to improvise. 
 
-What to do?  Unfortunately, we had abandoned development on a modern Rust and Python application to consume this 2010 format, believing it would never be produced again. (The ACS had been distributed in this format as well, when it got updated to a more modern arrangement, we dropped it in our "ingest" app.) Sadly, we couldn't simply reuse our process from 2010 either. In the end, <a href="duckdb.org"> DuckDB</a> was a key tool.
+What to do?  Unfortunately, we had abandoned development on a modern Rust and Python application to consume this 2010 format, believing it would never be produced again. (The ACS had been distributed in this format as well, when it got updated to a more modern arrangement, we dropped it in our "ingest" app.) Sadly, we couldn't simply reuse our process from 2010 either. In the end, <a href="https://duckdb.org"> DuckDB</a> was a key tool.
 
 
 ## Background
 
-We update the <a href="nhgis.ipums.org"> NHGIS </a> with new Census data tables every decade, and with American Community Survey data every year. The Census makes their results publically available in a reasonable format, and we download it and reshape it into what we need to match all our existing data (what we term an "ingest" of the data.) 
+We update the <a href="http://nhgis.ipums.org"> NHGIS </a> with new Census data tables every decade, and with American Community Survey data every year. The Census makes their results publically available in a reasonable format, and we download it and reshape it into what we need to match all our existing data (what we term an "ingest" of the data.) 
 
 The 2010 "ingest" and large ACS ingests  took considerable time. Many hours were spent literally reading and reshaping the data -- many days -- but as well time was needed for our experts to iteratively evaluate the data and the metadata needed to describe the data in our extract system. We had to consume the Census's metadata and transform it into our system which describes all aggregate Census data back to 1790. The process took several weeks.  
 
