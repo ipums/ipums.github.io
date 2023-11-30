@@ -10,17 +10,6 @@ tags:
 - NHGIS
 ---
 
-TODO
-done 0. Show main ingest steps and where data transformation fits.
-done 1. show file structure from Census download
-done 2. Make point that all NHGIS  datasets are composed of entire segments
-part 3. Show database state immediately after load
-done 4. Show sample SQL for transformation
-5. Clean up final database state table describes
-done 6. Export data iis also a geography harmonization step: We map the Census SUMLEV column value (which is unharmonized but fairly consistent) to NHGIS geography levels expressed in a directory  structure.
-done 7. Show a snippet of the export SQL
-
-
 ## Introduction
 
 Our IPUMS-NHGIS service takes public U.S. Census releases and makes them easy to use. The U.S. Census publishes statistics from every Census and the annual American Community Survey. IPUMS NHGIS makes this information easier to navigate: Users can request data on specific topics, from specific times and places. The stats are available for different geographic levels: States, counties, tracts and even city blocks (there are many more.) When you hear about Census stats for your state or county or city  it's probably available from NHGIS. In addition to making the information easier to find, NHGIS makes the data comparable across many decades so you can more easily look at change over time.
@@ -40,7 +29,7 @@ There are a few steps, all of which may be performed mostly automatically or mos
 
  Most of this article is concerned with step 3, the data transformation. 
  
- ## The Problem
+## The Problem
  
  Upon the recent 2020 full U.S. Census release last June, we discovered the public data didn't at all match our expected format -- something like the ACS format,  for which we were very prepared with a lot of automation. Instead 2020 DHC (Demographic Household Census) was in the legacy 2010 format (mostly.) To quickly incorporate it into our <a href="http://nhgis.ipums.org"> NHGIS</a> system we had to improvise.  `DuckDB` ended up as a valuable tool, letting us do our 2020 ingest in a completely different way from the 2010 ingest.
  
@@ -52,9 +41,9 @@ Some of this effort is irreducible:  The work is in finding quirks and mistakes 
 
 ## Understanding the Data Transformations from Census to NHGIS
 
-While learning about the 2010 workflow which handled a similar to 2020 data format, it dawned on me that the underlying transformations on the data tables looked like pretty straightforward operations in relational database terms. Our past system in 2010 employed a series of scripts to transform the data. But what they were doing was pretty much translatable to relational database terms.
+While learning about the 2010 workflow which handled a similar to 2020 data format, it seemed to me that the underlying transformations on the data tables looked like pretty straightforward operations in relational database terms. Our past system in 2010 employed a series of scripts to transform the data. But what they were doing was pretty much translatable to relational database terms.
 
-In the big picture, the data transformations go in the following order. Not all need to be done within a database, but could be in principle:
+In the big picture, steps in the data transformation stage of our "ingest"  go in the following order. Not all need to be done within a database, but could be in principle:
 * Concatenate / union  state "segment" files into one file / table per segment (I'll explain "segments" more shortly).  this may be simple enough to use `cat` to accomplish.
 * Join groups of segments into a smaller set of "datasets" This is essentially grouping groups of Census tables into broad topics.
 * Join dataset tables with a geography table
@@ -69,7 +58,8 @@ The decennial census data presents challenges the annual ACS does not: It has "b
 
 IN 2010, the obstacles to executing some of the queries would have been twofold: The simple version of the schema would have required many thousands of columns (not something databases available to us could support,) and  more raw memory than available to us in 2010. Well, we have servers with 256GB and even one TB now and dozens of cores! And solid-state storage. And very fast ethernet between servers. It's so much better.
 
-Another reason we hadn't used a database tool earlier was that our work style requires that we do a lot of import, transform, export workflows and having a database server as a bottleneck slows this down and prevents parallel workflows. We may want many versions of the same "database" set of data at once. These are things expensive commercial products can accomadate, but we use open source tools. So while the query execution is something we could have really used in the past, the client server model wasn't a great fit. `DuckDB` is a stand-alone tool and doesn't concern itself with running a server.
+Another reason we hadn't used a database tool earlier was that our work style requires that we do a lot of import, transform, export workflows and having a database server as a bottleneck slows this down and prevents parallel workflows. We may want many versions of the same "database" set of data at once. These are things expensive commercial products can accomadate, but we use open source tools. So while the query execution is something we could have really used in the past, the client server model wasn't a great fit. `DuckDB` is a stand-alone tool and doesn't concern itself with running a server. 
+
 
 ## A Closer Look at  the 2020 DHC NHGIS Data Ingest
 
@@ -103,21 +93,19 @@ We `gzip` all the state files to save space. These are pipe-delimited files and 
 
 Every state has the same number of segments. A segment is a set of records comprising many actual published Census tables from the Census.  
 
-NHGIS groups these Census tables into NHGIS "datasets (broadly similar topical or geographic tables.)"; In the 2020 DHC we create three datasets for NHGIS.Luckily our "datasets" didn't split segments -- all segments belonged to one and only one NHGIS dataset.  The task was to combine these segment files, essentially joining them. 
+NHGIS groups these Census tables into NHGIS "datasets (broadly similar topical or geographic tables.) NHGIS creates three datasets for the 2020 DHC. Luckily our "datasets" didn't split segments -- all segments belonged to one and only one NHGIS dataset.  The first task is to combine these segment files, essentially joining them into their "datasets."
+
+We must extract all the column headings from all the segment files and use them as the names for the columns when we join the segments into dataset tables. 
 
 All segment table files within a dataset have the same number of rows and each row represents the same geography within the dataset. Assuming they're sorted, it's a simple join that can actually be accomplished with the UNIX `paste` utility, a really neat low memory trick if you can pull it off.  (But you'll have to drop some redundant columns afterward.) Then we must concatenate the same dataset files from each state into one big table. 
 
-Or, you could have concatenated the segment files from each state first and then join them into dataset files afterward, which is what we did.
+Or, you could concatenate the segment files from each state first and then join them into dataset files afterward (which is what we did.) This could be done with `paste` or inside the database.
 
-We took these `cat` results for every state and loaded them into `DuckDB` and produced temporary "segment" tables.
-
-Along with the segment files, Census provides a "geos.csv" file with one row per every geographic location in the 2020 Census. This has columns for the geographies; for instance a county is in a state, so the state column has a value and the county has one as well. There are many more geographic levels. Names of places are in this geography table and keys to link to the segment file rows. At some point this geography information must be joined to the segmented data tables. The "geos.csv" table data has as many rows as the longest segment table does, and more than many. It's a simple inner join that's needed. We did this inside the database.
-
-Finally, we must extract all the column headings from all the segment files and use them as the names for the columns when we join the segments into dataset tables. 
+Along with the segment files, Census provides a "geos.csv" file with one row per every geographic location in the 2020 Census. This has columns for the geographies; for instance a county is in a state, so the state column has a value and the county has one as well. There are many more geographic levels.  Each dataset table will need to have this geography information -- a simple inner join is required.
 
 Once joined, we then need to enhance some of the geography information to provide our "GISJOIN" geographic linking keys and add "PUMA" values and some other updates and enhancements before the datasets are ready to use in NHGIS.
 
-To make the prepared datasets usable by the NHGIS public site, we have to export the datasets to CSV files in a particular structure matching the NHGIS universal geography scheme. 
+Finally, to make the prepared datasets usable by the NHGIS public site, we have to export the datasets to CSV files in a particular structure matching the NHGIS universal geography scheme. 
 
 So those are the sorts of things we needed to do. If we use a database tool there would be essentially two broad phases: Cleaning + loading, then transforming + enhancing. With luck the export is an afterthought.
 
@@ -131,8 +119,9 @@ Looking at `DuckDB`'s <a href="http://duckdb.org"> home page</a>:
 
 Seems like a perfect match. 
 
-
 ## Loading
+
+Now for how we actually used `DuckDB`.
 
 To initially load the DHC data into a database we first :
 * Make files to serve as the headers for the pipe-delimited segment files provided by Census 
@@ -182,7 +171,7 @@ We now have a database consisting of tables matching the concatenated segment fi
 
 ## Transforming
 
-This part is all pure SQL. However, we can invoke `DuckDB` as a command line tool against the working database file, much like `Sqlite`. So we can still accomplish many tasks with a generated shell script that includes the query we want to execute.
+This part is all pure SQL. However, we can invoke `DuckDB` as a command line tool against the working database file, much like `Sqlite`. So we can still accomplish many tasks with a generated shell script that includes the query we want to execute. We used a mix of shell scripts calling the `DuckDB` CLI tool and the Python library for DuckDB.
 
 Here is each transformation step with sample SQL
 
@@ -308,7 +297,7 @@ This is on a 11,660,804 row, 3212 column table without indexing on the columns i
 
 ## The finalized Database
 
-After transforming the database it looks slike this:
+After transforming the database it looks like this:
 
 
 ```shell
@@ -332,8 +321,8 @@ We used `DuckDB` 0.7.1 for most of our work;  0.9.2 is available now and you sho
 
 Here's the shape of the data. We have three tables with loads of columns. Geographic columns are on the left.
 
-```SQL
-D describe select * from cph_2020_DHCa limit 5;                                                                                                                             
+```sql
+D describe select * from cph_2020_DHCa;                                                                                                                             
 ┌─────────────┬─────────────┬─────────┬─────────┬─────────┬─────────┐                                                                                                       
 │ column_name │ column_type │  null   │   key   │ default │  extra  │                                                                                                       
 │   varchar   │   varchar   │ varchar │ varchar │ varchar │ varchar │                                                                                                       
@@ -367,7 +356,7 @@ D
 
 ```
 
-```shell
+```sql
 D describe cph_2020_DHCb;                                                                                                                                                   
 ┌─────────────┬─────────────┬─────────┬─────────┬─────────┬───────┐                                                                                                         
 │ column_name │ column_type │  null   │   key   │ default │ extra │                                                                                                         
@@ -404,7 +393,7 @@ D describe cph_2020_DHCb;
 D  
 ```
 
-```shell
+```sql
 D describe cph_2020_DHCc;                                                                                                                                                   
 ┌─────────────┬─────────────┬─────────┬─────────┬─────────┬───────┐                                                                                                         
 │ column_name │ column_type │  null   │   key   │ default │ extra │                                                                                                         
@@ -484,10 +473,11 @@ copy (select * from cph_2020_DHCa where geocomp='00' and sumlev = '010' and not 
 copy (select * from cph_2020_DHCa where geocomp='01' and sumlev = '010' and not (STUSAB = 'US' and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) order by STUSAB, LOGRECNO ) to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge01_file.csv' (HEADER, DELIMITER '|');
 
 ```
-There's one export for every geography and dataset (and "geocomp" which we don't need to get into.) This works but `DuckDB` has some trouble on the largest geographies. Since we're generating the queries in a Python script we can break the ones the largest result sets into chunks and call them separately. An even better solution is to pass the in-memory results of the queries to `Polars` to export to CSV. Here we used the Python `DuckDB` library along with Polars to help export data quickly.
+There's one export for every geography and dataset (and "geocomp" which we don't need to get into.) This works, but `DuckDB` has some trouble on the largest geographies. Since we're generating the queries in a Python script, we can break the largest result sets into chunks and call them separately. An even better solution is to pass the in-memory results of the queries to `Polars` to export to CSV. Here we used the Python `DuckDB` library along with Polars to help export data quickly.
 
 (This is simplified)
-```Python
+
+```python
 import duckdb
 import polars as pl
 
