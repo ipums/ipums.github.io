@@ -9,7 +9,7 @@ show_meta: false
 comments: false
 ---
 
-A partial list of industry events at which MPC IT staff have attended or presented.
+A partial list of industry events at which ISRDI IT staff have attended or presented.
 
 {% for event in site.data.ontour %}
 <div class="ontouritem">

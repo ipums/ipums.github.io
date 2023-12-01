@@ -14,4 +14,4 @@ This blog is really a collection of sub-blogs. Some of us like to blog about tea
 * [__DevCulture__]({{site.url}}/categories/devculture/) - Posts about work culture, our industry and community, and life as modern software developers.
 * [__Infrastructure__]({{site.url}}/categories/infrastructure/) - Posts that focus on the underpinnings of all this software - tools and processes that support of software development and data dissemination mission.
 * [__News__]({{site.url}}/categories/news/) - When our data makes headlines, we share it here. Also, news about the blog itself.
-* [__Team__]({{site.url}}/categories/team/) - Profiles and highlights of the fine folks behind the MPC's IT Core.
+* [__Team__]({{site.url}}/categories/team/) - Profiles and highlights of the fine folks behind ISRDI IT.

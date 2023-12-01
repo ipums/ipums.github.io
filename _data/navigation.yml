@@ -33,30 +33,30 @@
       url: "/categories/team/"
 
 - title: "About Us"
-  url: "/about/about-mpc-it/"
+  url: "/about/about-isrdi-it/"
   side: left
   dropdown:
   - title: "About ISRDI IT"
-    url: "/about/about-mpc-it/"
+    url: "/about/about-isrdi-it/"
   - title: "Meet the Team"
     url: "/meet-the-team/"
   - title: "About ISRDI and IPUMS"
-    url: "/about/about-ipums/"
+    url: "/about/about-isrdi-and-ipums/"
   - title: "Our Data Products"
     url: "/about/data-products/"
 
 - title: "Working @ ISRDI IT"
-  url: "/working-mpc/career-opportunities/"
+  url: "/working-isrdi/"
   side: left
   dropdown:
   - title: "Career Opportunities"
-    url: "/working-mpc/career-opportunities/"
+    url: "/working-isrdi/career-opportunities/"
   - title: "Benefits of Working Here"
-    url: "/working-mpc/benefits-of-working-at-the-mpc/"
+    url: "/working-isrdi/benefits-of-working-at-isrdi/"
   - title: "Our Workplace"
-    url: "/working-mpc/our-workplace/"
+    url: "/working-isrdi/our-workplace/"
   - title: "Twin Cities Life"
-    url: "/working-mpc/twin-cities-life/"
+    url: "/working-isrdi/twin-cities-life/"
 
 - title: "Search"
   url: "/search/"

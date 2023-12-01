@@ -2,7 +2,7 @@
 
 This is the ISRDI IT Blog repository.  This blog is managed using the Jekyll blogging platform and is published as a GitHub Pages site.  Github Pages is a web site creation tool that is integrated into Github.  It uses Jekyll under the hood to automatically rebuild a web site any time changes are committed to the master branch of a specially-named repository.  The site itself is available at <http://tech.popdata.org/>.
 
-The advantage to this approach over other blogging platforms (e.g. Wordpress) is that the resulting site is purely static - there is no PHP or database to worry about.  And since it's hosted at Github, there is no web hosting service to worry about, either.  It also allows the publishing pathway to be based on git, which is already familiar to MPC IT staff.
+The advantage to this approach over other blogging platforms (e.g. Wordpress) is that the resulting site is purely static - there is no PHP or database to worry about.  And since it's hosted at Github, there is no web hosting service to worry about, either.  It also allows the publishing pathway to be based on git, which is already familiar to ISRDI IT staff.
 
 The blog is managed like any other git/Github repository.  Blog editors manage the master branch (this is by convention; git/github won't prevent others from committing to master, but please do not).  Blog authors create new content on branches and then submit pull requests to master.  The author and editor will collaborate on the pull request, and once the post is ready the editor will merge it into the master branch, triggering a site rebuild to publish the new content.
 
