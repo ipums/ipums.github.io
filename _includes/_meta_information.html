@@ -1,13 +1,23 @@
 			<div id="page-meta" class="t30">
 				<p>
-					<!-- Look the author details up from the site config. -->
+				<!-- Output author details if some exist. -->
+				{% if page.authors %}
+				    Authored by 
+					{% for name in page.authors %}
+						{% assign author = site.data.authors[name] %}
+						{% if forloop.first %}
+						<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name" class="icon-edit"><a href="{{ author.uri }}" target="_blank"> {{ author.name }}</a></span>
+						{% elsif forloop.last %}
+						 and <span itemprop="name" class="pr20 icon-edit"><a href="{{ author.uri }}" target="_blank"> {{ author.name }}</a></span></span>
+						{% else %}
+						, <span itemprop="name" class="icon-edit"><a href="{{ author.uri }}" target="_blank"> {{ author.name }}</a></span>
+						{% endif %}
+					{% endfor %}
+				{% elsif page.author %}
 					{% assign author = site.data.authors[page.author] %}
-					<!-- Output author details if some exist. -->
-					{% if author %}
-					<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name" class="pr20 icon-edit"><a href="{{ author.uri }}" target="_blank"> {{ author.name }}</a></span>
-				</span>
+					<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name" class="pr20 icon-edit">Authored by <a href="{{ author.uri }}" target="_blank"> {{ author.name }}</a></span></span>
 				{% endif %}
-
+				<br />
 				{% if page.date %}
 				<time class="icon-calendar pr20" datetime="{{ page.date | date: "%Y-%m-%d" }}" itemprop="datePublished"> {{ page.date | date: "%Y-%m-%d" }}</time>
 				{% endif %}
