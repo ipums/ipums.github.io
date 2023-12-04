@@ -165,11 +165,14 @@ If we use a database tool there would be essentially two broad phases: cleaning 
 
 Looking at DuckDB's <a href="http://duckdb.org"> home page</a>:
 
-	When to use DuckDB 
-	• Processing and storing tabular datasets, e.g., from CSV or Parquet files
-	• Interactive data analysis, e.g., join & aggregate multiple large tables
-	• Concurrent large changes, to multiple large tables, e.g., appending rows, adding/removing/updating columns
-	• Large result set transfer to client
+>	When to use DuckDB 
+>	• Processing and storing tabular datasets, e.g., 
+>     from CSV or Parquet files
+>	• Interactive data analysis, e.g., join & aggregate
+>     multiple large tables
+>	• Concurrent large changes, to multiple large tables, 
+>     e.g., appending rows, adding/removing/updating columns
+>	• Large result set transfer to client
 
 In addition, DuckDB is a stand-alone tool and doesn't concern itself with running a server. 
 
@@ -196,16 +199,22 @@ to combine all of the states into one data file for the NHGIS dataset A.
 
 Then the loading process would simply be one database "create table from csv file" operation per dataset, no join needed. We considered doing this, but the database would need a robust CSV reader to support the large number of columns which might differ from the number of columns allowed in a internally created table. This turned out to be an issue on the version of DuckDB we used, so instead we loaded segments into temporary tables and joined in the DB. 
 
-So, instead, to initially load the DHC data into a database we first :
-* Make files to serve as the headers for the pipe-delimited segment files provided by USCB (e.g. `S44_heading.psv.gz`, created using metadata from USCB)
+So, instead, to initially load the DHC data into a database we first:
+* Make files to serve as the headers for the pipe-delimited segment files provided by USCB (e.g. `S44_heading.dhc.gz`, created using metadata from USCB)
 * Concatenate all the state files for each segment into consolidated files, one per segment: We simply use `cat` for this like we showed above, but create one file per segment so they are not too wide (looks like we do have something akin to a 255 column limit after all, at lesat until we get into the database!)
 * Ensure the input files use the correct character encoding (in our case they had to get encoded from Windows 1252 to UTF-8 to work with the rest of our workflow.)
 * In DuckDB, load those segment files in with "read_csv_auto()" -- there are similar functions in other database systems.
 
-The concatenation was like this:
+The concatenation was like this (yes, you can `cat` together `gzip`'ed files!):
 
 ```shell
-cat S44_heading.psv.gz /tmp/2020dhc_data/segmented_states/tx2020.dhc/tx000442020.dhc.gz /tmp/2020dhc_data/segmented_states/nc2020.dhc/nc000442020.dhc.gz /tmp/2020dhc_data/segmented_states/co2020.dhc/co000442020.dhc.gz /tmp/2020dhc_data/segmented_states/nv2020.dhc/nv000442020.dhc.gz ... /tmp/2020dhc_data/segmented_states/nv2020.dhc/segment_42.gz	
+cat S44_heading.dhc.gz \
+/tmp/2020dhc_data/segmented_states/tx2020.dhc/tx000442020.dhc.gz \
+/tmp/2020dhc_data/segmented_states/nc2020.dhc/nc000442020.dhc.gz \
+/tmp/2020dhc_data/segmented_states/co2020.dhc/co000442020.dhc.gz \
+/tmp/2020dhc_data/segmented_states/nv2020.dhc/nv000442020.dhc.gz \
+... 
+> /tmp/2020dhc_data/segmented_states/segment_S44.dhc.gz	
 ```
 for every state, on every segment file up to segment 44. We end up with one file per segment.
 
@@ -213,15 +222,15 @@ And here is a sample of the loading script:
 ```shell
 ccd@build:/tmp/2020dhc_data/work$ head 02_load_into_duckdb.sh                                                                                                                                                      
 duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table geo as select * from read_csv_auto('geou.psv', header=true, sep='|', sample_size=-1,all_varchar=1);alter table geo alter LOGRECNO type integer"                                                                                                                                                                                                  
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S01 as select * from read_csv_auto('segment_S01.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S02 as select * from read_csv_auto('segment_S02.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S03 as select * from read_csv_auto('segment_S03.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S04 as select * from read_csv_auto('segment_S04.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S05 as select * from read_csv_auto('segment_S05.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S06 as select * from read_csv_auto('segment_S06.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S07 as select * from read_csv_auto('segment_S07.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S08 as select * from read_csv_auto('segment_S08.psv.gz', header=true, sep='|')"                                               
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S09 as select * from read_csv_auto('segment_S09.psv.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S01 as select * from read_csv_auto('segment_S01.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S02 as select * from read_csv_auto('segment_S02.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S03 as select * from read_csv_auto('segment_S03.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S04 as select * from read_csv_auto('segment_S04.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S05 as select * from read_csv_auto('segment_S05.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S06 as select * from read_csv_auto('segment_S06.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S07 as select * from read_csv_auto('segment_S07.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S08 as select * from read_csv_auto('segment_S08.dhc.gz', header=true, sep='|')"                                               
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s "PRAGMA memory_limit='100GB';create table S09 as select * from read_csv_auto('segment_S09.dhc.gz', header=true, sep='|')"                                               
 ccd@build:/tmp/2020dhc_data/work$  
 
 ```
@@ -236,15 +245,26 @@ Here is each transformation step with sample SQL.
 
 * Join segment tables into dataset tables. As we mentioned above, NHGIS groups DHC data tables into three datasets. Our segment files happen to all be in the same order so that the join is simple. All segment tables in the same dataset have the exact same number of rows because we grouped segments based on the geography levels contained in the tables within. There are about 11 million geographic units and therefore rows in dataset "A", 2.5 million in dataset "B" and 38 thousand in dataset "C". The join runs fairly fast considering there are 3500 and 5700 columns in A and B respectively. The memory footprint is pretty large, however. 
 
-The joins were done like this:
+The joins were done like this (here `STUSAB` is the USCB code for the state):
 ```shell
-duckdb-71 new_cleaned_tmp.nhgis.data.db -s  "create index S16_idx on S16(S16STUSAB,S16LOGRECNO);create index S17_idx on S17(S17STUSAB,S17LOGRECNO);drop table if exists tmp_dataset_cph_2020_DHCc;PRAGMA force_index_join;create table tmp_dataset_cph_2020_DHCc as select * from S16 left join S17 on S16.S16STUSAB = S17.S17STUSAB and S16.S16LOGRECNO = S17.S17LOGRECNO"
+duckdb-71 new_cleaned_tmp.nhgis.data.db -s  "
+create index S16_idx on S16(S16STUSAB,S16LOGRECNO);
+create index S17_idx on S17(S17STUSAB,S17LOGRECNO);
+drop table if exists tmp_dataset_cph_2020_DHCc;
+PRAGMA force_index_join;
+create table tmp_dataset_cph_2020_DHCc as select * from S16 left join S17 on S16.S16STUSAB = S17.S17STUSAB and S16.S16LOGRECNO = S17.S17LOGRECNO;
+"
 ```
 This is for "Dataset C" only, the smallest one, which is comprised of only two segments. You see that we use the Logical Record Number to join across the two segments, to ensure that the joining rows represent the same geographic place. It's technically a left join but segments 16 and 17 should contain the same number of rows since they have tables at all of the same geographic summary levels.
 
 * Next we join the `geo` table, which is populated by the geographic header files, to each of the dataset tables; this can be an inner join using the state code (STUSAB) and Logical Record Number (LOGRECNO) as the key on both sides -- the temp dataset tables will have columns like s01_STUSAB, s01_LOGRECNO and so on, indicating their origin on different segments. The values all match. These joins take some time and is one place where a row-oriented DBMS may have performed better.
+  
 ```sql
-create table dataset_2020_DHCc as select * from geo inner join tmp_dataset_2020_DHCc on geo.STUSAB =tmp_dataset_2020_DHCc.S16STUSAB and geo.LOGRECNO = tmp_dataset_2020_DHCc.S16LOGRECNO
+create table dataset_2020_DHCc as 
+ select * from geo 
+  inner join tmp_dataset_2020_DHCc on 
+    geo.STUSAB = tmp_dataset_2020_DHCc.S16STUSAB and 
+    geo.LOGRECNO = tmp_dataset_2020_DHCc.S16LOGRECNO
 ```
 We have now created the final dataset tables, but they still need some `update`s.
 
@@ -252,7 +272,9 @@ We have now created the final dataset tables, but they still need some `update`s
 
 For example:
 ```sql
-delete from dataset_2020_DHCa where STUSAB = 'US' and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620');
+delete from dataset_2020_DHCa 
+  where STUSAB = 'US' 
+    and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620');
 ```
 This is slightly slower than it would be on a row-store DB.
 
