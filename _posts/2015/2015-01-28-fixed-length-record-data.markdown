@@ -217,4 +217,4 @@ And we have information on the layout, so we can make a layout structure:
 
 {% endhighlight %}
 
-In [part two of this post]({% post_url 2015-05-07-importing-fixed-length-data-using-ruby-part-two %}), I'll show how to import FLR data into a database using Active Record to help with validating data, and how to import multiple record types at once and set foreign keys between them.
+In [part two of this post]({% post_url /2015/2015-05-07-importing-fixed-length-data-using-ruby-part-two %}), I'll show how to import FLR data into a database using Active Record to help with validating data, and how to import multiple record types at once and set foreign keys between them.

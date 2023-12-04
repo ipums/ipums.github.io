@@ -12,7 +12,7 @@ date_gmt: '2015-05-07 05:08:41 -0500'
 categories: Code Infrastructure
 tags: []
 ---
-<em>Read [part one]({% post_url 2015-01-28-fixed-length-record-data %}) first.</em>
+<em>Read [part one]({% post_url /2015/2015-01-28-fixed-length-record-data %}) first.</em>
 
 Last time, I discussed the Fixed Length Record (FLR) format and showed how to use the 'hflr' Ruby gem to read in hierarchical data in FLR format and produce Ruby structs. In this post I'll demonstrate how to combine 'hflr' with a simple importer class to load a database with the FLR data. Then I'll show you how to get some real-world FLR data to import. Finally, I'll discuss specific issues that come up when importing this data, and explore the IPUMS microdata just a bit.
 
