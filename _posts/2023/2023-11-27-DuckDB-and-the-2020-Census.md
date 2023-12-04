@@ -579,25 +579,25 @@ You might think that we are now done, and could serve our extract system with th
 So, we need to export from DuckDB into one summary level per file: we will use DuckDB `copy()` to export to CSV files in a hierarchical structure by geography. 
 
 The export queries look like this (the details aren't terribly important; the key idea is that we need to export large amounts of data to CSV using DuckDB):
-```sql
--- Export data to files for each sumlev-geocomp combination for each dataset.;
-copy (select * from cph_2020_DHCa 
-        where geocomp='00' 
-          and sumlev = '010' 
-          and not (STUSAB = 'US') 
-          and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) 
-          order by STUSAB, LOGRECNO ) 
-          to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge00_file.csv' (HEADER, DELIMITER '|');
 
-copy (select * from cph_2020_DHCa 
-        where geocomp='01' 
-        and sumlev = '010' 
-        and not (STUSAB = 'US') 
-        and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) 
-        order by STUSAB, LOGRECNO ) 
-        to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge01_file.csv' (HEADER, DELIMITER '|');
+```sql
+copy (
+	select * from cph_2020_DHCa 
+	where geocomp='00' and sumlev = '040' and 
+		not (STUSAB = 'US' and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) 
+	order by STUSAB, LOGRECNO ) 
+	to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/state_040/ge00_file.csv' (HEADER, DELIMITER '|');
+
+
+copy (
+	select * from cph_2020_DHCa 
+	where geocomp='00' and sumlev = '050' 
+		and not (STUSAB = 'US' and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) 
+	order by STUSAB, LOGRECNO ) 
+	to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/county_050/ge00_file.csv' (HEADER, DELIMITER '|');
 
 ```
+
 
 There's one export for every geography and dataset (and "geocomp" which we don't need to get into.) This works, but DuckDB has some trouble on the largest geographies. Since we're generating the queries in a Python script, we can break the largest result sets into chunks and call them separately. An even better solution is to pass the in-memory results of the queries to Polars to export to CSV. Here we used the Python DuckDB library along with `polars` to help export data quickly.
 
