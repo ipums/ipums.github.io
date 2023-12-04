@@ -25,14 +25,26 @@ format: blog-index
               <p class="subheadline"><span class="subheader">{{ post.categories | join: ' &middot; ' }}</span>{% if post.subheadline %}{{ post.subheadline }}{% endif %}</p>
             {% endunless %}
             <h3><a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
-      			{% if post.author %}
-              <p>
-                {% assign author = site.data.authors[post.author] %}
-      			    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                  <span itemprop="name" class="pr20">by <a href="{{ author.url }}" target="_blank">{{ author.name }}</a> &middot; {{ post.date | date: "%B %-d, %Y"}}</span>
-                </span>
-              </p>
-      			{% endif %}
+            {% if post.authors %} 
+            <p>
+            {% for name in post.authors %}
+                {% assign author = site.data.authors[name] %}
+                {% if forloop.first %}
+                by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name"><a href="{{ author.url }}" target="_blank">{{ author.name }}</a></span>
+                {% elsif forloop.last %}
+                 and <span itemprop="name" class="pr20"><a href="{{ author.url }}" target="_blank"> {{ author.name }}</a> &middot; {{ post.date | date: "%B %-d, %Y"}}</span></span>
+                {% else %}
+                , <span itemprop="name"><a href="{{ author.url }}" target="_blank"> {{ author.name }}</a></span>
+                {% endif %}
+            {% endfor %}
+            </p>
+        {% elsif post.author %}
+            <p>
+            {% assign author = site.data.authors[post.author] %}
+            <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name" class="pr20">by <a href="{{ author.url }}" target="_blank"> {{ author.name }}</a> &middot; {{ post.date | date: "%B %-d, %Y"}}</span></span>
+            </p>
+        {% endif %}	
+            
             <p>
                 {% if post.meta_description %}{{ post.meta_description | strip_html | escape }}{% else post.teaser %}{{ post.teaser | strip_html | escape }}{% endif %}<br />
                 <a href="{{ site.url }}{{ site.baseurl }}{{ post.url }}" title="Read {{ post.title | escape_once }}"><strong>{{ site.data.language.read_more }}</strong></a>
