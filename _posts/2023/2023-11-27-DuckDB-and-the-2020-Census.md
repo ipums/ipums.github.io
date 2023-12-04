@@ -303,63 +303,77 @@ This is very fast because of DuckDB's column store.
 
 ```sql
 -- Create and update all GISJOIN rows for each dataset;
-alter table cph_2020_DHCa add column GISJOIN varchar;
+alter table cph_2020_DHCa 
+  add column GISJOIN varchar;
 ;
-UPDATE cph_2020_DHCa SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', US), 1)) WHERE SUMLEV = '010';
+UPDATE cph_2020_DHCa 
+  SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', US), 1)) 
+  WHERE SUMLEV = '010';
 ;
-UPDATE cph_2020_DHCa SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', REGION), 1)) WHERE SUMLEV = '020';
+UPDATE cph_2020_DHCa 
+  SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', REGION), 1)) 
+  WHERE SUMLEV = '020';
 ;
-UPDATE cph_2020_DHCa SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', DIVISION), 1)) WHERE SUMLEV = '030';
+UPDATE cph_2020_DHCa 
+  SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', DIVISION), 1)) 
+  WHERE SUMLEV = '030';
 ;
-UPDATE cph_2020_DHCa SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', STATE), 2), '0') WHERE SUMLEV = '040';
+UPDATE cph_2020_DHCa 
+  SET GISJOIN = CONCAT('G', RIGHT(CONCAT('00000', STATE), 2), '0') 
+  WHERE SUMLEV = '040';
 ,....
 ```
 and so on for every geographic level.
 
-* Add and compute the GN_GISJOIN columns on each dataset. Again, very fast.
+* Add and compute the GN_GISJOIN columns on each dataset.  Adding the columns is trivial.
 
 ```sql
-alter table cph_2020_DHCa add column if not exists nation_gn_gisjoin varchar;
-alter table cph_2020_DHCa add column if not exists region_gn_gisjoin varchar;
-alter table cph_2020_DHCa add column if not exists division_gn_gisjoin varchar;
-alter table cph_2020_DHCa add column if not exists state_gn_gisjoin varchar;
-alter table cph_2020_DHCa add column if not exists county_gn_gisjoin varchar;
-alter table cph_2020_DHCa add column if not exists cty_sub_gn_gisjoin varchar;
-alter table cph_2020_DHCa add column if not exists place_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists nation_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists region_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists division_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists state_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists county_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists cty_sub_gn_gisjoin varchar;
+alter table cph_2020_DHCa 
+  add column if not exists place_gn_gisjoin varchar;
 
 ```
 and so on, for all geographies on every dataset table. This is very fast.
 
 The updates look like this:
 ```sql
-UPDATE cph_2020_DHCa SET county_gn_gisjoin   = CONCAT('G', RIGHT(CONCAT('00000', STATE), 2), '0', RIGHT(CONCAT('00000', COUNTY), 3), '0') WHERE SUMLEV IN ('310', '311', '312', '313', '314', '315', '316', '320', '321', '322', '323', '324', '332', '333', '341');
+UPDATE cph_2020_DHCa 
+  SET county_gn_gisjoin = CONCAT('G', RIGHT(CONCAT('00000', STATE), 2), '0', RIGHT(CONCAT('00000', COUNTY), 3), '0') 
+  WHERE SUMLEV IN ('310', '311', '312', '313', '314', '315', '316', '320', '321', '322', '323', '324', '332', '333', '341');
 ```
 These occur for every geography on each dataset. These are also fast.
 
 * Add and compute the PUMA columns. These are "Public Use Microdata Area" values useful for matching geography to microdata published only with PUMA identifiers for geographic location. The update runs quickly and is easy to iterate on.
 
 ```sql
-create table puma_x_tract as  select * from read_csv_auto(layouts/pumas.csv, header=true); ;
+create table puma_x_tract as
+  select * from read_csv_auto('layouts/pumas.csv', header=true);
 
-    
-        UPDATE cph_2020_DHCa
-        SET puma = puma_x_tract.PUMA5CE
-        from puma_x_tract
-        where cph_2020_DHCa.STATE = puma_x_tract.STATEFP AND 
-            cph_2020_DHCa.COUNTY = puma_x_tract.COUNTYFP AND 
-            cph_2020_DHCa.TRACT = puma_x_tract.TRACTCE 
-            and cph_2020_DHCa.SUMLEV IN ('080', '085', '090', '091', '140', '144', '150', '154', '158', '511', '631', '636');
+UPDATE cph_2020_DHCa
+  SET puma = puma_x_tract.PUMA5CE FROM puma_x_tract
+    where cph_2020_DHCa.STATE = puma_x_tract.STATEFP AND 
+      cph_2020_DHCa.COUNTY = puma_x_tract.COUNTYFP AND 
+      cph_2020_DHCa.TRACT = puma_x_tract.TRACTCE AND 
+      cph_2020_DHCa.SUMLEV IN ('080', '085', '090', '091', '140', '144', '150', '154', '158', '511', '631', '636');
     ;
 
-
-        UPDATE cph_2020_DHCb 
-        set puma = puma_x_tract.PUMA5CE
-        from puma_x_tract
-        where  cph_2020_DHCb.STATE = puma_x_tract.STATEFP AND 
-            cph_2020_DHCb.COUNTY = puma_x_tract.COUNTYFP AND 
-            cph_2020_DHCb.TRACT = puma_x_tract.TRACTCE  and 
-            cph_2020_DHCb.SUMLEV IN ('080', '085', '140', '144', '158', '511', '631', '636');
-    
+UPDATE cph_2020_DHCb 
+  SET puma = puma_x_tract.PUMA5CE FROM puma_x_tract
+  WHERE cph_2020_DHCb.STATE = puma_x_tract.STATEFP AND 
+    cph_2020_DHCb.COUNTY = puma_x_tract.COUNTYFP AND 
+    cph_2020_DHCb.TRACT = puma_x_tract.TRACTCE  AND 
+    cph_2020_DHCb.SUMLEV IN ('080', '085', '140', '144', '158', '511', '631', '636'); 
 ```
 
 Adding this sort of geographic information to each record is extremely valuable, and in the past has also been extremely time consuming and error prone. I can't overstate how useful DuckDB has been in allowing us to accelerate this phase of ingest and iterate over the data until we get it right.
@@ -372,7 +386,9 @@ Having this database in DuckDB format is a great advantage to the checking phase
 
 Here's a very basic example of a quality check query. This is launching the DuckDB cli tool and loading a database file (this is the 2020 DHC DB which is 44 GB) and reading it off of shared storage. The server it's running on isn't particularly fast.
 ```shell
-ccd@gp1:/pkg/ipums/istads/ingest/census_2020/dhc/05_data/db$ time duckdb-71 new_cleaned_tmp.nhgis.data.db  -c "select count(*) as areas, region from cph_2020_DHCa group by region"                                                                                                                                                                     
+ccd@gp1:/pkg/ipums/istads/ingest/census_2020/dhc/05_data/db$ time duckdb-71 new_cleaned_tmp.nhgis.data.db -c "
+select count(*) as areas, region from cph_2020_DHCa group by region
+"                                                                                                                                                                     
 ┌─────────┬─────────┐                                                                                                                                                       
 │  areas  │ REGION  │                                                                                                                                                       
 │  int64  │ varchar │                                                                                                                                                       
@@ -565,10 +581,24 @@ So, we need to export from DuckDB into one summary level per file: we will use D
 The export queries look like this (the details aren't terribly important; the key idea is that we need to export large amounts of data to CSV using DuckDB):
 ```sql
 -- Export data to files for each sumlev-geocomp combination for each dataset.;
-copy (select * from cph_2020_DHCa where geocomp='00' and sumlev = '010' and not (STUSAB = 'US' and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) order by STUSAB, LOGRECNO ) to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge00_file.csv' (HEADER, DELIMITER '|');
-copy (select * from cph_2020_DHCa where geocomp='01' and sumlev = '010' and not (STUSAB = 'US' and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) order by STUSAB, LOGRECNO ) to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge01_file.csv' (HEADER, DELIMITER '|');
+copy (select * from cph_2020_DHCa 
+        where geocomp='00' 
+          and sumlev = '010' 
+          and not (STUSAB = 'US') 
+          and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) 
+          order by STUSAB, LOGRECNO ) 
+          to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge00_file.csv' (HEADER, DELIMITER '|');
+
+copy (select * from cph_2020_DHCa 
+        where geocomp='01' 
+        and sumlev = '010' 
+        and not (STUSAB = 'US') 
+        and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620')) 
+        order by STUSAB, LOGRECNO ) 
+        to '/tmp/2020dhc_data/work/export_data/cph_2020_dhca/2020/nation_010/ge01_file.csv' (HEADER, DELIMITER '|');
 
 ```
+
 There's one export for every geography and dataset (and "geocomp" which we don't need to get into.) This works, but DuckDB has some trouble on the largest geographies. Since we're generating the queries in a Python script, we can break the largest result sets into chunks and call them separately. An even better solution is to pass the in-memory results of the queries to Polars to export to CSV. Here we used the Python DuckDB library along with `polars` to help export data quickly.
 
 (This is simplified)
@@ -632,4 +662,6 @@ In a decade from now it may be that any database engine can execute our SQL wher
 
 ## Conclusion
 
-When the 2020 DHC census data was released in a legacy format, we really had to improvise to figure out an efficient way to ingest it into NHGIS. Thanks to advances in computing technology and database software, it's now feasible to load entire NHGIS datasets into a database for processing. Our choice of DuckDB as the particular database engine brought additional benefits of a stand-alone/embeddable database, a column-store backend, strong import/export support for Parquet and CSV, and an easily versionable and deployable database artifact. This project has created a more efficient, accessible, and sustainable process for performing NHGIS data ingest, which will benefit future IT and research staff and allows us to refocus efforts to the parts of the process which intrinsically require more of our attention. DuckDB has been a great tool to add to our toolbox, and we're looking forward to seeing where else we can apply it within our workflows. 
+When the 2020 DHC census data was released in a legacy format, we really had to improvise to figure out an efficient way to ingest it into NHGIS. Thanks to advances in computing technology and database software, it's now feasible to load entire NHGIS datasets into a database for processing. Our choice of DuckDB as the particular database engine brought additional benefits of a stand-alone/embeddable database, a column-store backend, strong import/export support for Parquet and CSV, and an easily versionable and deployable database artifact. DuckDB has been a great tool to add to our toolbox, and we're looking forward to seeing where else we can apply it within our workflows. 
+
+Hopefully, this post also shed a bit of light onto the intricacies of this ingest process and the effort required to create IPUMS datasets, even as this post left out and glossed over several of the nuances and complexities of the full 2020 DCS ingest. This project has created a more efficient, accessible, and sustainable process for performing NHGIS data ingest, which will benefit future IT and research staff and allows us to refocus efforts to the parts of the process which intrinsically require more of our attention.
