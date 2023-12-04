@@ -6,7 +6,7 @@ authors:
 author: ccd
 title: Ingesting the 2020 U.S. Census with DuckDB
 teaser: DuckDB made it possible for us to reshape the U.S. Census with pure SQL and a sprinkling of classic UNIX utilities.
-categories: Code
+categories: Code Data
 tags:
 - DuckDB
 - NHGIS
