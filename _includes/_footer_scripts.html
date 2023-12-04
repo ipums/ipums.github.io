@@ -29,6 +29,16 @@ $('audio,video').mediaelementplayer();
   ga('send', 'pageview');
 
 </script>
+
+<!-- Google tag (gtag.js) added by Fran 12/2023 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga4_tracking_id }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ site.ga4_tracking_id }}');
+</script>
 {% endif %}
 
 
