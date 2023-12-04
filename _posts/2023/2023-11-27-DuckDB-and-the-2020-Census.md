@@ -270,13 +270,26 @@ We have now created the final dataset tables, but they still need some `update`s
 
 * Drop redundant columns such as the segment variants of LOGRECNO and STUSAB; drop the temporary dataset tables and segment tables
 
-For example:
+For example on dataset C:
+
 ```sql
-delete from dataset_2020_DHCa 
-  where STUSAB = 'US' 
-    and SUMLEV in ('040', '050', '060', '070', '155', '160', '170', '172', '230', '500', '610', '620');
+drop table S16;
+drop table S17;
+
+drop table tmp_cph_2020_DHCc;
+
+alter table cph_2020_DHCc drop S16FILEID;
+alter table cph_2020_DHCc drop S16STUSAB;
+alter table cph_2020_DHCc drop S16CHARITER;
+alter table cph_2020_DHCc drop S16CIFSN;
+alter table cph_2020_DHCc drop S16LOGRECNO;
+alter table cph_2020_DHCc drop S17FILEID;
+alter table cph_2020_DHCc drop S17STUSAB;
+alter table cph_2020_DHCc drop S17CHARITER;
+alter table cph_2020_DHCc drop S17CIFSN;
+alter table cph_2020_DHCc drop S17LOGRECNO;
 ```
-This is slightly slower than it would be on a row-store DB.
+This is fast.
 
 * We also do little bits of housekeeping, like adding a `US` convenience column
 ```sql
