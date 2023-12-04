@@ -17,7 +17,10 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
 
     ```
     ---
-    author: <your x500 here>
+    author: <your U username here e.g. 'fran' or 'ccd'>
+    authors:
+      - ccd
+      - fran
     title: This is the Title of My Post
     teaser: This is a short teaser about my post.  I'm going to talk about cool things!
     categories: Code Data
@@ -26,7 +29,7 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
     - CSV
     ---
     ```
-    Categories can be one or more of [Code Data DevCulture Infrastructure News Team]. Tags are optional and can be omitted.
+    If there are multiple authers use `authors` and put the primary author first, otherwise use `author`. You shouldn't use both (did so here for example) but if you do `authors` takes precedence. Categories can be one or more of [Code Data DevCulture Infrastructure News Team]. Tags are optional and can be omitted.
 5. Add your markdown-formatted blog content below the front matter.
 6. (First time only) Run `bundle install` _OR_ (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages. It may also be necessary to run `gem install bundler` before running the `bundle install`. If you run into permissions errors with installing gems, consider running ruby out of a [virtual environment](https://rvm.io), and running everything out of that.
 7. Run `bundle exec jekyll serve --config _config.yml,_config_dev.yml`
