@@ -648,7 +648,7 @@ In addition to persisting data in DuckDB native format, it can treat external CS
 
 In contrast, while we could have done most tasks with Sqlite (after rebuilding Sqlite with a higher max column value,) a number of steps would have been much slower and we wouldn't get the excellent CSV and Parquet import/export. Extracting data from the final database would have been a lot slower too.
 
-#### Why not Spark?
+### Why not Spark?
 
 Spark would also work, but at least in past versions, SparkSQL doesn't perform well on datasets wider than one thousand columns or so. That's actually one reason we developed a complicated format for our exported data that the Spark-driven extract engine reads.
 
