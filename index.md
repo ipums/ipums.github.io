@@ -11,9 +11,9 @@ header:
    #image_fullwidth: "header_science.png"
 widget-1:
   # leaving the title blank suppresses this hiring widget
-    title:
+    title: We're Hiring!
     url: 'working-isrdi/career-opportunities/'
-    text: 'ISRDI is currently seeking a Software Developer'
+    text: 'ISRDI is currently seeking a Data Team Manager'
 widget-2:
   # leaving the title blank suppresses this widget
     title: "About ISRDI IT"

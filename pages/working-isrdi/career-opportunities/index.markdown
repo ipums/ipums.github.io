@@ -7,11 +7,11 @@ author: isrdi-it
 permalink: /working-isrdi/career-opportunities/
 ---
 
-We currently don't have any openings at ISRDI IT. Check back soon!
+We're currently hiring for our [Data Team Manager position](https://hr.myu.umn.edu/jobs/ext/358945). This is a great opportunity to manage a mid-sized team of developers and be in a role which is a dynamic mix of people, project and product management!
+
+_Note: UMN employees, use the [internal job link](https://hr.myu.umn.edu/jobs/int/358945) instead._
 
 ---
-
-If you're interested in learning more about how we evaluate developer candidates, you can read [Our IT Hiring Process: How and Why]({{site.url}}/our-it-hiring-process-how-and-why/).
 
 Don't see the right job listed here?  We're always on the lookout for
 talented folks to add to our team. If you and ISRDI might be perfect for each
