@@ -18,6 +18,17 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
     ```
     ---
     author: <your U username here e.g. 'fran' or 'ccd'>
+    title: This is the Title of My Post
+    teaser: This is a short teaser about my post.  I'm going to talk about cool things!
+    categories: Code Data
+    tags:
+    - Ruby
+    - CSV
+    ---
+    ```
+    If there are multiple authors use `authors` instead of `author` and put the primary author first:
+
+   ```
     authors:
       - ccd
       - fran
@@ -27,18 +38,18 @@ The blog is managed like any other git/Github repository.  Blog editors manage t
     tags:
     - Ruby
     - CSV
-    ---
-    ```
-    If there are multiple authers use `authors` and put the primary author first, otherwise use `author`. You shouldn't use both (did so here for example) but if you do `authors` takes precedence. Categories can be one or more of [Code Data DevCulture Infrastructure News Team]. Tags are optional and can be omitted.
-5. Add your markdown-formatted blog content below the front matter.
-6. (First time only) Run `bundle install` _OR_ (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages. It may also be necessary to run `gem install bundler` before running the `bundle install`. If you run into permissions errors with installing gems, consider running ruby out of a [virtual environment](https://rvm.io), and running everything out of that.
-7. Run `bundle exec jekyll serve --config _config.yml,_config_dev.yml`
-8. Open http://127.0.0.1:4000/ and check your work.
-9. Iterate.  The local server will reflect changes automatically by detecting when files change.
-10. When done, do `git add . && git commit -a && git push`
-11. Submit a pull request back to the master branch.
-12. Each pull request to master requires a reviewer (this is a GitHub feature now). You can ask someone else to review your post, and they can mark it as reviewed from GitHub.
-13. The blog editors (Fran; others) will do the merge to master, which triggers publishing on the live site.
+   ```
+   
+   Categories can be one or more of [Code Data DevCulture Infrastructure News Team]. Tags are optional and can be omitted.
+6. Add your markdown-formatted blog content below the front matter.
+7. (First time only) Run `bundle install` _OR_ (Every so often) Run `bundle update` if you haven't in a while, to make sure your jekyll environment matches what's out on GitHub Pages. It may also be necessary to run `gem install bundler` before running the `bundle install`. If you run into permissions errors with installing gems, consider running ruby out of a [virtual environment](https://rvm.io), and running everything out of that.
+8. Run `bundle exec jekyll serve --config _config.yml,_config_dev.yml`
+9. Open http://127.0.0.1:4000/ and check your work.
+10. Iterate.  The local server will reflect changes automatically by detecting when files change.
+11. When done, do `git add . && git commit -a && git push`
+12. Submit a pull request back to the master branch.
+13. Each pull request to master requires a reviewer (this is a GitHub feature now). You can ask someone else to review your post, and they can mark it as reviewed from GitHub.
+14. The blog editors (Fran; others) will do the merge to master, which triggers publishing on the live site.
 
 You really ought to read the rest of these instructions, though.
 
