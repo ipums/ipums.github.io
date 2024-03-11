@@ -18,7 +18,7 @@ widget-2:
   # leaving the title blank suppresses this widget
     title: "About ISRDI IT"
     url: 'about/about-isrdi-it/'
-    text: 'ISRDI IT are the <a href="/about/meet-the-team/" title="people">people</a> who create and maintain the technology behind ISRDI and IPUMS and were <a href="/info/">motivated to write this blog</a>. We invite you to <a href="/about/about-isrdi-it/" title ="learn more">learn more</a> about one of the leading technology groups in the social sciences.'
+    text: 'ISRDI IT are the <a href="/meet-the-team/" title="people">people</a> who create and maintain the technology behind ISRDI and IPUMS and were <a href="/info/">motivated to write this blog</a>. We invite you to <a href="/about/about-isrdi-it/" title ="learn more">learn more</a> about one of the leading technology groups in the social sciences.'
 widget-3:
     title: "About ISRDI"
     url: 'about/about-isrdi-and-ipums/'
