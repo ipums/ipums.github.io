@@ -84,6 +84,12 @@ As a part of ISRDI's product team, Phaedrus has more recently been stretching be
 
 ***
 
+### Natalie
+_Data Team Manager_
+
+<img class=" wp-image-388 size-thumbnail alignright" src="{{ site.urlimg }}/natalie.jpeg" alt="Natalie" width="150" height="150" />Natalie’s career in tech started at the Mall of America Apple Store. Though she continues to provide her parents with world class customer service for their Apple products, she has since left the mall to lead people and projects in IT organizations, at a SaaS company, and for federal government agencies. She joined ISRDI in 2024 as the data team manager. Outside of work, Natalie prefers to be as far away from computer screens as possible, ideally reading novels or sports journalism, birdwatching, or playing tennis.
+
+<a title="LinkedIn" href="https://www.linkedin.com/in/natalie-prittinen" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a>
 
 ### Colin
 _Data Engineer 4_
