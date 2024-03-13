@@ -148,7 +148,7 @@ Outside of work, she enjoys baking (no brownie points for guessing that!), cooki
 ***
 
 ### Willy
-_Ops Team Manager, Data Team Interim Manager_
+_Ops Team Manager_
 
 Willy started web work while studying studio art at Carleton College. The web was something you could learn the entire body of knowledge in an afternoon at that time. Willy took this love of narrative and storytelling to the new medium and somehow stumbled upon a career. After a decade at the Minneapolis Institute of Arts doing all things web, Willy switched focus to application performance. As the IT Ops Manager at ISRDI, Willy and the team profile and monitor system performance and work with our programmers to find ways to deliver speed and reliability to our users.
 
