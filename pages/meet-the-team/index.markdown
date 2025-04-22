@@ -35,15 +35,6 @@ Alex started his career in Industrial Design in Sydney, where he designed exciti
 
 <a title="LinkedIn" href="https://www.linkedin.com/in/alexmcwhinnie" target="\_blank"><img class="alignnone wp-image-362" src="{{ site.urlimg }}/linkedin30x30.png" alt="linkedin" width="30" height="30" /></a> 
 
-### Canin
-_Developer 1_
-
-<img class=" wp-image-395 size-thumbnail alignright" src="{{ site.urlimg }}/canin.jpg" alt="Canin" width="150" height="150" />Canin began coding during the GeoCities and Angelfire era; though it was not until much later, while working at a local pub, that he was able to hone his skill enough to be marketable.
-
-At ISRDI, working for the product team, Canin helps manage the Drupal ecosystem, while gaining familiarity with the remaining suite of applications and frameworks used by the Institute. He proudly helped lead the [IPUMS Document Collection](documents.ipums.org) project from concept to product; and often finds himself scratching surfaces only to find sinkholes beneath, a computational splunker-er of sorts, if you will.
-
-A curious purveyor of whimsical phrases, outside of the Institute Canin continues his scholastic pursuits, along with a few musical interests, and the occasional foray into the culinary arts; along with maintaining a penchant for dancing.
-
 ### Casey
 _Developer 2_
 
